@@ -28,14 +28,15 @@ class UserController {
     }
   };
 
-  // this api will removed and replace by sync data from mgt-student
-  static createUser = async (req: Request, res: Response) => {
+  static migrateUser = async (req: Request, res: Response) => {
     try {
-      const result = await this.service.createUser(res, req.body);
+      const data = req.body || [];
+      const result = await this.service.migrateData(res, data);
       if (!res.headersSent) {
-        new ResponseController(res, result, userMsg.create);
+        new ResponseController(res, result, userMsg.syncData.success);
       }
     } catch (error) {
+      console.log('error', error);
       new CommonException(res, 500, serverError);
     }
   };

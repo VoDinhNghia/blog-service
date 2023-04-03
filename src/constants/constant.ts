@@ -7,3 +7,5 @@ export enum EuserRole {
   ACCOUNTANT = 'ACCOUNTANT',
   STAFF = 'STAFF',
 }
+
+export const keyAccessBackend = 'blog-service-access-backend_@mgt-student';
