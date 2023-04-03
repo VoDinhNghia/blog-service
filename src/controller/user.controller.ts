@@ -1,56 +1,54 @@
-import { Request, Response } from 'express'
-import { validate } from 'class-validator'
+import { Request, Response } from 'express';
+import { validate } from 'class-validator';
 
-import { User } from '../entity/user.entity'
-import { AppDataSource } from '../data-source'
-import { serverError, userMsg } from '../constants/constants.message-response'
+import { User } from '../entities/user.entity';
+import { AppDataSource } from '../data-source';
+import { serverError, userMsg } from '../constants/constants.message-response';
+import { ResponseController } from '../utils/utils.response';
+import { CommonException } from '../exceptions/exceptions.common-error';
 
 class UserController {
   static listAll = async (req: Request, res: Response) => {
-    const userRepository = AppDataSource.getRepository(User)
+    const userRepository = AppDataSource.getRepository(User);
     const users = await userRepository.find({
       select: ['id', 'email', 'role'],
-    })
-    res
-      .status(200)
-      .send({ statusCode: 200, data: users, message: userMsg.getAll })
-  }
+    });
+    new ResponseController(res, users, userMsg.getAll);
+  };
 
   static getUserById = async (req: Request, res: Response) => {
-    const id: string = req.params.id
-    const userRepository = AppDataSource.getRepository(User)
-    let user
+    const id: string = req.params.id;
+    const userRepository = AppDataSource.getRepository(User);
+    let user: User;
     try {
-      user = await userRepository.findOneBy({ id })
+      user = await userRepository.findOneBy({ id });
     } catch (error) {
-      res.status(404).send({ statusCode: 404, message: userMsg.notFound })
+      new CommonException(res, 404, userMsg.notFound);
     }
-    res
-      .status(200)
-      .send({ statusCode: 200, data: user, message: userMsg.getById })
-  }
+    new ResponseController(res, user, userMsg.getById);
+  };
 
-  static newUser = async (req: Request, res: Response) => {
+  static createUser = async (req: Request, res: Response) => {
     try {
-      const userRepository = AppDataSource.getRepository(User)
-      const { email } = req.body
-      let user = new User()
-      user = { ...req.body }
-      const errors = await validate(user)
+      const userRepository = AppDataSource.getRepository(User);
+      const { email } = req.body;
+      let user = new User();
+      user = { ...req.body };
+      const errors = await validate(user);
       if (errors.length > 0) {
-        res.status(400).send(errors)
+        new CommonException(res, 400, errors);
       }
-      const existedEmail = await userRepository.findOneBy({ email })
+      const existedEmail = await userRepository.findOneBy({ email });
       if (!existedEmail) {
-        res.status(409).send({ statusCode: 409, message: userMsg.existedEmail })
+        new CommonException(res, 409, userMsg.existedEmail);
       }
-      user.hashPassword()
-      await userRepository.save(user)
-      res.status(201).send({ statusCode: 201, message: userMsg.create })
+      user.hashPassword();
+      const result = await userRepository.save(user);
+      new ResponseController(res, result, userMsg.create);
     } catch (error) {
-      res.status(500).send({ statusCode: 500, message: serverError })
+      new CommonException(res, 500, serverError);
     }
-  }
+  };
 }
 
-export default UserController
+export default UserController;

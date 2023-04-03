@@ -19,7 +19,12 @@ module.exports = {
     rules: {
       'prettier/prettier': ['error', {
         'endOfLine': 'auto',
+        "singleQuote": true,
+      },
+      {
+        "usePrettierrc": false,
       }],
+      "semi": ["error", "always"],
       'class-methods-use-this': 'error',
       'consistent-return': 'error',
       'func-names': 'error',
