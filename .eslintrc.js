@@ -26,7 +26,7 @@ module.exports = {
       }],
       "semi": ["error", "always"],
       'class-methods-use-this': 'off',
-      'consistent-return': 'error',
+      'consistent-return': 'off',
       'func-names': 'error',
       'max-len': ['error', { 'code': 250, 'ignoreTemplateLiterals': true }],
       'newline-per-chained-call': 'off',

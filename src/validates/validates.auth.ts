@@ -10,8 +10,7 @@ export const validBodyLogin = (
   try {
     const { email, password } = req.body;
     if (!(email && password)) {
-      new CommonException(res, 400, authMsg.badRequest);
-      return;
+      return new CommonException(res, 400, authMsg.badRequest);
     }
     next();
   } catch {}

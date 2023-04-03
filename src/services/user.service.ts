@@ -21,7 +21,8 @@ export class UserService {
     const userRepository = AppDataSource.getRepository(User);
     const existedEmail = await userRepository.findOneBy({ email });
     if (existedEmail) {
-      new CommonException(res, 409, userMsg.existedEmail); // check code again
+      new CommonException(res, 409, userMsg.existedEmail);
+      return;
     }
     const result = await userRepository.save(user);
     return result;
@@ -32,6 +33,7 @@ export class UserService {
     const user = await userRepository.findOneBy({ id });
     if (!user) {
       new CommonException(res, 404, userMsg.notFound);
+      return;
     }
     return user;
   }

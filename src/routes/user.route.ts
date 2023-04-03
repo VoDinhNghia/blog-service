@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { checkJwt } from '../middlewares/check.jwt';
 import { checkRole } from '../middlewares/check.role';
-import UserController from '../controller/user.controller';
+import UserController from '../controllers/user.controller';
 import { EuserRole } from '../constants/constant';
-import { validBodyUser } from '../validates/validates.user';
+import { validBody } from '../validates/validates.user';
 
 const router = Router();
 
@@ -15,6 +15,6 @@ router.get(
   UserController.getUserById
 );
 
-router.post('/', [validBodyUser], UserController.createUser);
+router.post('/', [validBody], UserController.createUser);
 
 export default router;
