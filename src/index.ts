@@ -6,6 +6,8 @@ import * as cors from 'cors';
 import routes from './routes';
 import helmet from 'helmet';
 import * as dotenv from 'dotenv';
+// import * as cron from 'node-cron';
+// import { SyncUserService } from './cronjobs/sync.user';
 
 AppDataSource.initialize()
   .then(() => {
@@ -17,6 +19,9 @@ AppDataSource.initialize()
     app.use('/', routes);
     dotenv.config();
     const port = process.env.PORT;
+    // cron.schedule('* * * * * *', () => {
+    //   new SyncUserService().syncUserFromBackend();
+    // });
     app.listen(port, () => {
       console.log(`Server started on port ${port}`);
     });

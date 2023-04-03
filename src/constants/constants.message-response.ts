@@ -17,4 +17,9 @@ export const userMsg = {
     lengthPassword: 'Length of password must >= 6',
     role: 'Role invalid',
   },
+  syncData: {
+    validKey: 'Not permission access service',
+    success: 'Migrate data success',
+    notPermission: 'Please use function sync data',
+  },
 };

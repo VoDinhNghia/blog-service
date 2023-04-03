@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Length, IsNotEmpty } from 'class-validator';
+import { Length, IsNotEmpty, IsString, IsEmail } from 'class-validator';
 import { cryptoPassWord } from '../constants/constants.cryto';
 
 @Entity('users')
@@ -14,16 +14,51 @@ export class User {
   id: string;
 
   @Column({ unique: true })
+  @IsEmail()
   @Length(4, 50)
   email: string;
 
   @Column()
+  @IsNotEmpty()
+  @IsString()
   @Length(4, 100)
   password: string;
 
   @Column()
   @IsNotEmpty()
   role: string;
+
+  @Column()
+  @IsNotEmpty()
+  @IsString()
+  status: string;
+
+  @Column({ nullable: true })
+  firstName?: string;
+
+  @Column({ nullable: true })
+  lastName?: string;
+
+  @Column({ nullable: true })
+  middleName?: string;
+
+  @Column()
+  userId?: string;
+
+  @Column()
+  code?: string;
+
+  @Column()
+  profileId?: string;
+
+  @Column({ default: false })
+  isDeleted?: boolean;
+
+  @Column({ nullable: true })
+  avatar?: string;
+
+  @Column({ nullable: true })
+  mobile?: string;
 
   @Column()
   @CreateDateColumn()
