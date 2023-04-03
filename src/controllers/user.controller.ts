@@ -28,6 +28,7 @@ class UserController {
     }
   };
 
+  // this api will removed and replace by sync data from mgt-student
   static createUser = async (req: Request, res: Response) => {
     try {
       const result = await this.service.createUser(res, req.body);
@@ -35,7 +36,6 @@ class UserController {
         new ResponseController(res, result, userMsg.create);
       }
     } catch (error) {
-      console.log(error);
       new CommonException(res, 500, serverError);
     }
   };

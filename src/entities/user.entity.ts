@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Length, IsNotEmpty } from 'class-validator';
+import { cryptoPassWord } from '../constants/constants.cryto';
 
 @Entity('users')
 export class User {
@@ -31,4 +32,16 @@ export class User {
   @Column()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  hashPassword() {
+    this.password = cryptoPassWord(this.password);
+  }
+
+  checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
+    const pass = cryptoPassWord(unencryptedPassword);
+    if (pass === this.password) {
+      return true;
+    }
+    return false;
+  }
 }

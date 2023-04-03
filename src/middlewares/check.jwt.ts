@@ -4,18 +4,22 @@ import { config, expireToken } from '../config/config';
 import { UnAuthorizedException } from '../exceptions/exceptions.unauthorized';
 
 export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
-  const token = <string>req.headers['auth'];
+  const token = req.headers['authorization'];
   let jwtPayload;
   try {
-    jwtPayload = jwt.verify(token, config.jwtSecret);
+    jwtPayload = jwt.verify(token.split(' ')[1], config.JWT_PRIVATE_KEY, {
+      algorithms: ['HS512'],
+    });
     res.locals.jwtPayload = jwtPayload;
     const { userId, username } = jwtPayload;
-    const newToken = jwt.sign({ userId, username }, config.jwtSecret, {
+    const newToken = jwt.sign({ userId, username }, config.JWT_PRIVATE_KEY, {
+      algorithm: 'HS512',
       expiresIn: expireToken,
     });
     res.setHeader('token', newToken);
     next();
-  } catch {
+  } catch (error) {
+    console.log(error);
     return new UnAuthorizedException(res);
   }
 };
