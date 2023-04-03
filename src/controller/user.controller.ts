@@ -1,49 +1,34 @@
 import { Request, Response } from 'express';
-import { validate } from 'class-validator';
-
-import { User } from '../entities/user.entity';
-import { AppDataSource } from '../data-source';
 import { serverError, userMsg } from '../constants/constants.message-response';
 import { ResponseController } from '../utils/utils.response';
 import { CommonException } from '../exceptions/exceptions.common-error';
+import { UserService } from '../services/user.service';
 
 class UserController {
+  static service = new UserService();
+
   static listAll = async (req: Request, res: Response) => {
-    const userRepository = AppDataSource.getRepository(User);
-    const users = await userRepository.find({
-      select: ['id', 'email', 'role'],
-    });
-    new ResponseController(res, users, userMsg.getAll);
+    try {
+      const users = await this.service.findAllUsers();
+      new ResponseController(res, users, userMsg.getAll);
+    } catch (error) {
+      new CommonException(res, 500, serverError);
+    }
   };
 
   static getUserById = async (req: Request, res: Response) => {
-    const id: string = req.params.id;
-    const userRepository = AppDataSource.getRepository(User);
-    let user: User;
     try {
-      user = await userRepository.findOneBy({ id });
+      const id: string = req.params.id;
+      const user = await this.service.findUserById(res, id);
+      new ResponseController(res, user, userMsg.getById);
     } catch (error) {
-      new CommonException(res, 404, userMsg.notFound);
+      new CommonException(res, 500, serverError);
     }
-    new ResponseController(res, user, userMsg.getById);
   };
 
   static createUser = async (req: Request, res: Response) => {
     try {
-      const userRepository = AppDataSource.getRepository(User);
-      const { email } = req.body;
-      let user = new User();
-      user = { ...req.body };
-      const errors = await validate(user);
-      if (errors.length > 0) {
-        new CommonException(res, 400, errors);
-      }
-      const existedEmail = await userRepository.findOneBy({ email });
-      if (!existedEmail) {
-        new CommonException(res, 409, userMsg.existedEmail);
-      }
-      user.hashPassword();
-      const result = await userRepository.save(user);
+      const result = await this.service.createUser(res, req.body);
       new ResponseController(res, result, userMsg.create);
     } catch (error) {
       new CommonException(res, 500, serverError);

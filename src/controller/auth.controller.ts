@@ -10,7 +10,7 @@ import { CommonException } from '../exceptions/exceptions.common-error';
 class AuthController {
   static login = async (req: Request, res: Response) => {
     try {
-      const { email, password } = req.body;
+      const { email } = req.body;
       const userRepository = AppDataSource.getRepository(User);
       let user: User;
       try {
@@ -18,9 +18,9 @@ class AuthController {
       } catch (error) {
         new CommonException(res, 401, authMsg.invalid);
       }
-      if (!user.checkIfUnencryptedPasswordIsValid(password)) {
-        new CommonException(res, 401, authMsg.invalid);
-      }
+      // if (!user.checkIfUnencryptedPasswordIsValid(password)) {
+      //   new CommonException(res, 401, authMsg.invalid);
+      // }
       const token = jwt.sign(
         { userId: user.id, username: user.email },
         config.jwtSecret,

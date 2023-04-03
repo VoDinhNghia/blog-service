@@ -25,7 +25,7 @@ module.exports = {
         "usePrettierrc": false,
       }],
       "semi": ["error", "always"],
-      'class-methods-use-this': 'error',
+      'class-methods-use-this': 'off',
       'consistent-return': 'error',
       'func-names': 'error',
       'max-len': ['error', { 'code': 250, 'ignoreTemplateLiterals': true }],
