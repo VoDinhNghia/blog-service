@@ -11,9 +11,9 @@ export const checkRole = (roles: Array<string>) => {
     try {
       user = await userRepository.findOneOrFail(id);
     } catch (id) {
-      new UnAuthorizedException(res);
+      return new UnAuthorizedException(res);
     }
     if (roles.includes(user.role)) next();
-    else new UnAuthorizedException(res);
+    else return new UnAuthorizedException(res);
   };
 };

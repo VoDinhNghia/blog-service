@@ -20,7 +20,9 @@ class UserController {
     try {
       const id: string = req.params.id;
       const user = await this.service.findUserById(res, id);
-      new ResponseController(res, user, userMsg.getById);
+      if (!res.headersSent) {
+        new ResponseController(res, user, userMsg.getById);
+      }
     } catch (error) {
       new CommonException(res, 500, serverError);
     }
@@ -29,8 +31,11 @@ class UserController {
   static createUser = async (req: Request, res: Response) => {
     try {
       const result = await this.service.createUser(res, req.body);
-      new ResponseController(res, result, userMsg.create);
+      if (!res.headersSent) {
+        new ResponseController(res, result, userMsg.create);
+      }
     } catch (error) {
+      console.log(error);
       new CommonException(res, 500, serverError);
     }
   };
