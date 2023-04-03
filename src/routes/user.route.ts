@@ -3,14 +3,11 @@ import { checkJwt } from '../middlewares/check.jwt';
 import { checkRole } from '../middlewares/check.role';
 import UserController from '../controller/user.controller';
 import { EuserRole } from '../constants/constant';
+import { validBodyUser } from '../validates/validates.user';
 
 const router = Router();
 
-router.get(
-  '/',
-  [checkJwt, checkRole([EuserRole.ADMIN])],
-  UserController.listAll
-);
+router.get('/', UserController.listAll);
 
 router.get(
   '/:id',
@@ -18,6 +15,6 @@ router.get(
   UserController.getUserById
 );
 
-router.post('/', UserController.createUser);
+router.post('/', [validBodyUser], UserController.createUser);
 
 export default router;

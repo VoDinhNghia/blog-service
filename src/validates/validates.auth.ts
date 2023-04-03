@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { authMsg } from '../constants/constants.message-response';
-// import { validate } from 'class-validator';
 
 export const validBodyLogin = (
   req: Request,
