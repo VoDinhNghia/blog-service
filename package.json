@@ -1,8 +1,16 @@
 {
-   "name": "jwt-express-typeorm",
+   "name": "blog-service",
    "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
+   "description": "blog-service project",
    "type": "commonjs",
+   "scripts": {
+      "start": "ts-node src/index.ts",
+      "watch": "nodemon src/index.ts",
+      "typeorm": "typeorm-ts-node-commonjs",
+      "build": "tsc",
+      "lint": "eslint src/**/*.ts",
+      "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
+   },
    "devDependencies": {
       "@types/cors": "^2.8.13",
       "@types/express": "^4.17.17",
@@ -44,12 +52,5 @@
       "ts-node-dev": "^2.0.0",
       "tsoa": "^5.1.1",
       "typeorm": "0.3.12"
-   },
-   "scripts": {
-      "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs",
-      "build": "tsc",
-      "lint": "eslint src/**/*.ts",
-      "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
    }
 }
