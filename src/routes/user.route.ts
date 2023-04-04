@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { checkJwt } from '../middlewares/check.jwt';
-import { checkRole } from '../middlewares/check.role';
+import { checkJwt } from '../middlewares/verify.jwt';
+import { checkRole } from '../middlewares/verify.role-access-api';
 import UserController from '../controllers/user.controller';
 import { EuserRole } from '../constants/constant';
 import { validKeyAccess } from '../validates/validates.user';

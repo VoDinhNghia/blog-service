@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { config, expireToken } from '../config/config';
+import { config, expireToken } from '../configs/config';
 import { UnAuthorizedException } from '../exceptions/exceptions.unauthorized';
 
 export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
