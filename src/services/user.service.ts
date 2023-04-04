@@ -6,7 +6,7 @@ import { Response } from 'express';
 import { IuserMigrate } from '../interfaces/user.interface';
 import { selectUser } from '../utils/utils.select-fields';
 export class UserService {
-  private selectOption: unknown = selectUser;
+  private selectOption: string[] | unknown = selectUser;
   private userRepository = AppDataSource.getRepository(User);
 
   async findAllUsers(): Promise<User[]> {
