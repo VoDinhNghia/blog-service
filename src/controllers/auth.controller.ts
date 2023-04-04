@@ -12,12 +12,7 @@ class AuthController {
     try {
       const { email, password } = req.body;
       const userRepository = AppDataSource.getRepository(User);
-      let user: User;
-      try {
-        user = await userRepository.findOneOrFail({ where: { email } });
-      } catch (error) {
-        new CommonException(res, 401, authMsg.invalid);
-      }
+      const user = await userRepository.findOne({ where: { email } });
       if (!user.checkIfUnencryptedPasswordIsValid(password)) {
         return new CommonException(res, 401, authMsg.invalid);
       }
@@ -26,7 +21,11 @@ class AuthController {
         config.JWT_PRIVATE_KEY,
         { algorithm: 'HS512', expiresIn: expireToken }
       );
-      new ResponseController(res, { accessToken: token }, authMsg.login);
+      new ResponseController(
+        res,
+        { ...user, accessToken: token },
+        authMsg.login
+      );
     } catch (error) {
       new CommonException(res, 500, serverError);
     }

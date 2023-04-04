@@ -7,7 +7,7 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers['authorization'];
   let jwtPayload;
   try {
-    jwtPayload = jwt.verify(token.split(' ')[1], config.JWT_PRIVATE_KEY, {
+    jwtPayload = jwt.verify(token?.split(' ')[1], config.JWT_PRIVATE_KEY, {
       algorithms: ['HS512'],
     });
     res.locals.jwtPayload = jwtPayload;

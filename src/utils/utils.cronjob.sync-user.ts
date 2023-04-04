@@ -10,7 +10,6 @@ export class CronJobService {
   async syncUserFromBackend() {
     const userRepository = AppDataSource.getRepository(User);
     const url = `${process.env.MGT_STUDENT}/api/sync-service/users`;
-    console.log('url', url);
     const users: IuserMigrate[] = await new Http().get(url, keyAccessBackend);
     if (!users) {
       console.log('Call BE failed!');
