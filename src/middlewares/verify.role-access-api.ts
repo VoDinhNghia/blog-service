@@ -7,13 +7,10 @@ export const checkRole = (roles: Array<string>) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const id = res.locals.jwtPayload.userId;
     const userRepository = AppDataSource.getRepository(User);
-    let user: User;
-    try {
-      user = await userRepository.findOneOrFail({ where: { id } });
-    } catch {
+    const user: User = await userRepository.findOne({ where: { id } });
+    if (!roles.includes(user?.role)) {
       return new UnAuthorizedException(res);
     }
-    if (roles.includes(user.role)) next();
-    else return new UnAuthorizedException(res);
+    next();
   };
 };
