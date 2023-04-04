@@ -8,13 +8,13 @@ import helmet from 'helmet';
 import * as dotenv from 'dotenv';
 import * as cron from 'node-cron';
 import { CronJobService } from './utils/utils.cronjob.sync-user';
-import { whiteLists } from './configs/configs.cors.white-list';
+import { options } from './configs/configs.cors.white-list';
 dotenv.config();
 
 AppDataSource.initialize()
   .then(() => {
     const app = express();
-    app.use(cors({ origin: whiteLists }));
+    app.use(cors(options));
     app.use(express.json());
     app.use(express.static('public'));
     app.use(express.static(__dirname + '/public'));
