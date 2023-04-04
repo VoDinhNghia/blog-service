@@ -4,9 +4,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 import { Length, IsNotEmpty, IsString, IsEmail } from 'class-validator';
 import { cryptoPassWord } from '../constants/constants.cryto';
+import { Posts } from './post.entity';
 
 @Entity('users')
 export class User {
@@ -67,6 +69,9 @@ export class User {
   @Column()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Posts, (post) => post.user)
+  posts?: Posts[];
 
   hashPassword() {
     this.password = cryptoPassWord(this.password);
