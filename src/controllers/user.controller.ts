@@ -35,8 +35,7 @@ class UserController {
       if (!res.headersSent) {
         new ResponseController(res, result, userMsg.syncData.success);
       }
-    } catch (error) {
-      console.log('error', error);
+    } catch {
       new CommonException(res, 500, serverError);
     }
   };

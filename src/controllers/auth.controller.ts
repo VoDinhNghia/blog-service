@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { User } from '../entities/user.entity';
-import { config, expireToken } from '../config/config';
+import { config, expireToken } from '../configs/config';
 import { AppDataSource } from '../data-source';
 import { authMsg, serverError } from '../constants/constants.message-response';
 import { ResponseController } from '../utils/utils.response';

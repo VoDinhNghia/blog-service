@@ -1,4 +1,4 @@
-export class SyncUserService {
+export class CronJobService {
   syncUserFromBackend() {
     console.log('sync data');
   }
