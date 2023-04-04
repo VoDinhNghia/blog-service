@@ -19,7 +19,6 @@ export const checkJwt = (req: Request, res: Response, next: NextFunction) => {
     res.setHeader('token', newToken);
     next();
   } catch (error) {
-    console.log(error);
     return new UnAuthorizedException(res);
   }
 };

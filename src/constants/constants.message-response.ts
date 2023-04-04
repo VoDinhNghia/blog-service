@@ -23,3 +23,13 @@ export const userMsg = {
     notPermission: 'Please use function sync data',
   },
 };
+
+export const postMsg = {
+  create: 'Create post success',
+  update: 'Update post success',
+  getById: 'Get post by id success',
+  getAll: 'get all post success',
+  validate: {
+    fields: 'title, content, type must provided',
+  },
+};

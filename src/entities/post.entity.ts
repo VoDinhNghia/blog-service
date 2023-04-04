@@ -31,7 +31,6 @@ export class Posts extends EntityBasic {
   privateMode?: boolean;
 
   @OneToMany(() => Attachments, (attachment) => attachment.post, {
-    nullable: false,
     cascade: ['soft-remove', 'recover'],
   })
   attachments?: Attachments[];
