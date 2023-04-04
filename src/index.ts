@@ -22,7 +22,7 @@ AppDataSource.initialize()
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use('/', routes);
-    cron.schedule('0 20 * * * *', () => {
+    cron.schedule('0 0 4,12,18,23 * * *', () => {
       void new CronJobService().syncUserFromBackend();
     });
     const port = process.env.PORT;
