@@ -11,7 +11,8 @@ export class Http {
         },
       });
       return (await results.toPromise())?.data?.data;
-    } catch {
+    } catch (error) {
+      console.log(error);
       return null;
     }
   }
