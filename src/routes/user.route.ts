@@ -7,11 +7,15 @@ import { validKeyAccess } from '../validates/validates.user';
 
 const router = Router();
 
-router.get('/', UserController.listAll);
+router.get(
+  '/',
+  [checkJwt, checkRole([EuserRole.ADMIN, EuserRole.SUPPER_ADMIN])],
+  UserController.listAll
+);
 
 router.get(
   '/:id',
-  [checkJwt, checkRole([EuserRole.ADMIN])],
+  [checkJwt, checkRole([EuserRole.ADMIN, EuserRole.SUPPER_ADMIN])],
   UserController.getUserById
 );
 

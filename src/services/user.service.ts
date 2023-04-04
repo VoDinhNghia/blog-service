@@ -3,35 +3,21 @@ import { AppDataSource } from '../data-source';
 import { User } from '../entities/user.entity';
 import { userMsg } from '../constants/constants.message-response';
 import { Response } from 'express';
-import { IcreateUser, IuserMigrate } from '../interfaces/user.interface';
+import { IuserMigrate } from '../interfaces/user.interface';
+import { selectUser } from '../utils/utils.select-fields';
 export class UserService {
+  private selectOption: unknown = selectUser;
+  private userRepository = AppDataSource.getRepository(User);
+
   async findAllUsers(): Promise<User[]> {
-    const userRepository = AppDataSource.getRepository(User);
-    const users = await userRepository.find({
-      select: ['id', 'email', 'role'],
+    const users = await this.userRepository.find({
+      select: this.selectOption,
     });
     return users;
   }
 
-  async createUser(res: Response, body: IcreateUser): Promise<User | object> {
-    const { email, password, role } = body;
-    const user = new User();
-    user.email = email;
-    user.password = password;
-    user.role = role;
-    const userRepository = AppDataSource.getRepository(User);
-    const existedEmail = await userRepository.findOneBy({ email });
-    if (existedEmail) {
-      return new CommonException(res, 409, userMsg.existedEmail);
-    }
-    user.hashPassword();
-    const result = await userRepository.save(user);
-    return result;
-  }
-
   async migrateData(res: Response, data = []): Promise<User[] | object> {
-    const userRepository = AppDataSource.getRepository(User);
-    const checkDataInTable = await userRepository.find();
+    const checkDataInTable = await this.userRepository.find();
     if (checkDataInTable.length > 0) {
       return new CommonException(res, 403, userMsg.syncData.notPermission);
     }
@@ -53,13 +39,15 @@ export class UserService {
       };
       return dto;
     });
-    const results = await userRepository.save(userDto);
+    const results = await this.userRepository.save(userDto);
     return results;
   }
 
   async findUserById(res: Response, id: string): Promise<User | object> {
-    const userRepository = AppDataSource.getRepository(User);
-    const user = await userRepository.findOneBy({ id });
+    const user = await this.userRepository.findOne({
+      where: { id },
+      select: this.selectOption,
+    });
     if (!user) {
       return new CommonException(res, 404, userMsg.notFound);
     }

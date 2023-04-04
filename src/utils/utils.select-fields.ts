@@ -1,0 +1,15 @@
+export const selectUser = [
+  'id',
+  'email',
+  'role',
+  'status',
+  'firstName',
+  'lastName',
+  'middleName',
+  'userId',
+  'code',
+  'profileId',
+  'isDeleted',
+  'avatar',
+  'mobile',
+];
