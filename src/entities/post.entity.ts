@@ -3,6 +3,8 @@ import { EntityBasic } from './base.entity';
 import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 import { Attachments } from './attachment.entity';
 import { User } from './user.entity';
+import { Likes } from './like.entity';
+import { Shares } from './share.entity';
 
 @Entity('posts')
 export class Posts extends EntityBasic {
@@ -37,4 +39,14 @@ export class Posts extends EntityBasic {
 
   @ManyToOne(() => User, (user) => user.posts)
   user?: User;
+
+  @OneToMany(() => Likes, (like) => like.post, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  likes?: Likes[];
+
+  @OneToMany(() => Shares, (share) => share.post, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  shares?: Shares[];
 }

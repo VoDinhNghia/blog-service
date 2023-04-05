@@ -5,10 +5,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToMany,
 } from 'typeorm';
 import { Length, IsNotEmpty, IsString, IsEmail } from 'class-validator';
 import { cryptoPassWord } from '../constants/constants.cryto';
 import { Posts } from './post.entity';
+import { Likes } from './like.entity';
+import { Shares } from './share.entity';
 
 @Entity('users')
 export class User {
@@ -70,8 +73,20 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Posts, (post) => post.user)
+  @OneToMany(() => Posts, (post) => post.user, {
+    cascade: ['soft-remove', 'recover'],
+  })
   posts?: Posts[];
+
+  @OneToMany(() => Likes, (like) => like.user, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  likes?: Likes[];
+
+  @ManyToMany(() => Shares, (share) => share.users, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  shares?: Shares[];
 
   hashPassword() {
     this.password = cryptoPassWord(this.password);
