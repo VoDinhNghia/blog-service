@@ -37,6 +37,18 @@ export const postMsg = {
   },
 };
 
+export const likeMsg = {
+  create: 'Create like success',
+  delete: 'Delete like success',
+  notFound: 'like not found',
+};
+
+export const shareMsg = {
+  create: 'Share post success',
+  delete: 'Delete share success',
+  notFound: 'Share not found',
+};
+
 export const qureryPagination = {
   validField: 'Page and limit must provided',
   validType: 'limit or page must is number',

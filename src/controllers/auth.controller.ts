@@ -7,7 +7,7 @@ import { authMsg, serverError } from '../constants/constants.message-response';
 import { ResponseController } from '../utils/utils.response';
 import { CommonException } from '../exceptions/exceptions.common-error';
 
-class AuthController {
+export default class AuthController {
   static login = async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
@@ -31,4 +31,3 @@ class AuthController {
     }
   };
 }
-export default AuthController;
