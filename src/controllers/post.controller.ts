@@ -7,12 +7,13 @@ import { ResponseController } from '../utils/utils.response';
 export default class PostController {
   static service = new PostService();
 
-  static createPost = (req: Request, res: Response) => {
+  static createPost = async (req: Request, res: Response) => {
     try {
-      const { body } = req;
-      console.log('req', req.files);
+      const { body, files } = req;
+      const id = res.locals.jwtPayload.userId;
+      const result = await this.service.createPost(body, files, id);
       if (!res.headersSent) {
-        new ResponseController(res, body, postMsg.create);
+        new ResponseController(res, result, postMsg.create);
       }
     } catch (error) {
       new CommonException(res, 500, serverError);

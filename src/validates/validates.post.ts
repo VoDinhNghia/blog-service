@@ -9,7 +9,6 @@ export const validBodyPost = (
 ) => {
   try {
     const { title, content, type } = req.body;
-    console.log(req.body);
     if (!title || !content || !type) {
       return new CommonException(res, 400, postMsg.validate.fields);
     }
