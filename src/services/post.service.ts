@@ -1,4 +1,9 @@
-import { IcreatePost, Iattchment } from '../interfaces/post.interface';
+import {
+  IcreatePost,
+  Iattchment,
+  IqueryPost,
+} from '../interfaces/post.interface';
+import { Like } from 'typeorm';
 import { AppDataSource } from '../data-source';
 import { Posts } from '../entities/post.entity';
 import { Attachments } from '../entities/attachment.entity';
@@ -29,5 +34,28 @@ export class PostService {
     const attachments = await this.attachmentRepository.save(attachmentDto);
     post.attachments = attachments;
     return post;
+  }
+
+  async findAllPosts(
+    queryDto: IqueryPost
+  ): Promise<{ results: Posts[]; total: number }> {
+    const { limit, page, userId, searchKey } = queryDto;
+    const query: IqueryPost = {};
+    if (userId) {
+      query.userId = userId;
+    }
+    if (searchKey) {
+      query.title = Like(`%${searchKey}%`);
+    }
+    const results = await this.postRepository.find({
+      where: query,
+      skip: limit && page ? Number(limit) * (Number(page) - 1) : null,
+      take: limit ? Number(limit) : null,
+      relations: {
+        attachments: true,
+      },
+    });
+    const total = await this.postRepository.count();
+    return { results, total };
   }
 }

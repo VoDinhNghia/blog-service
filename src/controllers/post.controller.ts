@@ -19,4 +19,16 @@ export default class PostController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static getAllPosts = async (req: Request, res: Response) => {
+    try {
+      const { query } = req;
+      const results = await this.service.findAllPosts(query);
+      if (!res.headersSent) {
+        new ResponseController(res, results, postMsg.getAll);
+      }
+    } catch {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }
