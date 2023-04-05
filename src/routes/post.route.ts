@@ -12,5 +12,11 @@ router.post(
 );
 
 router.get('/', [checkJwt], PostController.getAllPosts);
+router.get('/:id', [checkJwt], PostController.getPostById);
+router.put(
+  '/:id',
+  [uploadImage.array('imageFile', 10), checkJwt],
+  PostController.updatePost
+);
 
 export default router;

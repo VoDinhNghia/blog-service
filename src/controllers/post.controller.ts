@@ -31,4 +31,31 @@ export default class PostController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static getPostById = async (req: Request, res: Response) => {
+    try {
+      const id: string = req.params.id;
+      const result = await this.service.findById(id);
+      if (!result) {
+        new CommonException(res, 404, postMsg.notFound);
+      } else {
+        new ResponseController(res, result, postMsg.getById);
+      }
+    } catch {
+      new CommonException(res, 500, serverError);
+    }
+  };
+
+  static updatePost = async (req: Request, res: Response) => {
+    try {
+      const { params, body, files } = req;
+      const postId = params.id;
+      const result = await this.service.updatePost(res, postId, body, files);
+      if (!res.headersSent) {
+        new ResponseController(res, result, postMsg.getById);
+      }
+    } catch {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }

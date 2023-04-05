@@ -29,6 +29,8 @@ export const postMsg = {
   update: 'Update post success',
   getById: 'Get post by id success',
   getAll: 'get all post success',
+  notFound: 'Post not found',
+  notPermission: 'Your are permission to update this post',
   validate: {
     fields: 'title, content, type must provided',
   },

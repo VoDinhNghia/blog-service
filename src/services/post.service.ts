@@ -6,9 +6,12 @@ import {
 import { Like } from 'typeorm';
 import { AppDataSource } from '../data-source';
 import { Posts } from '../entities/post.entity';
+import { Response } from 'express';
 import { Attachments } from '../entities/attachment.entity';
 import * as dotenv from 'dotenv';
 import { IfileUploadType } from '../interfaces/file-upload.interface';
+import { CommonException } from '../exceptions/exceptions.common-error';
+import { postMsg } from '../constants/constants.message-response';
 dotenv.config();
 
 export class PostService {
@@ -22,15 +25,7 @@ export class PostService {
   ): Promise<Posts> {
     const createPostDto = { ...body, userId };
     const post = await this.postRepository.save(createPostDto);
-    const attachmentDto: Iattchment[] = fileImages.map(
-      (item: IfileUploadType) => {
-        return {
-          url: `${process.env.URL_IMAGE_UPLOAD}/${item.filename}`,
-          originalname: item?.originalname,
-          postId: post.id,
-        };
-      }
-    );
+    const attachmentDto: Iattchment[] = this.attachmentDto(fileImages, post.id);
     const attachments = await this.attachmentRepository.save(attachmentDto);
     post.attachments = attachments;
     return post;
@@ -57,5 +52,46 @@ export class PostService {
     });
     const total = await this.postRepository.count();
     return { results, total };
+  }
+
+  async findById(id: string) {
+    const result = await this.postRepository.findOne({
+      where: { id },
+      relations: {
+        attachments: true,
+      },
+    });
+    return result;
+  }
+
+  async updatePost(
+    res: Response,
+    postId: string,
+    body: IcreatePost,
+    fileImages
+  ): Promise<Posts | object> {
+    const userId = res.locals.jwtPayload.userId;
+    const findPost = await this.postRepository.findOne({
+      where: { id: postId, userId },
+    });
+    if (!findPost) {
+      return new CommonException(res, 403, postMsg.notPermission);
+    }
+    await this.postRepository.update(postId, body);
+    const attachmentDto: Iattchment[] = this.attachmentDto(fileImages, postId);
+    await this.attachmentRepository.save(attachmentDto);
+    const result = await this.findById(postId);
+    return result;
+  }
+
+  attachmentDto(fileImages: IfileUploadType[], postId: string) {
+    const dto: Iattchment[] = fileImages.map((item: IfileUploadType) => {
+      return {
+        url: `${process.env.URL_IMAGE_UPLOAD}/${item.filename}`,
+        originalname: item?.originalname,
+        postId,
+      };
+    });
+    return dto;
   }
 }
