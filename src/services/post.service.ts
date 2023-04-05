@@ -71,10 +71,8 @@ export class PostService {
     fileImages
   ): Promise<Posts | object> {
     const userId = res.locals.jwtPayload.userId;
-    const findPost = await this.postRepository.findOne({
-      where: { id: postId, userId },
-    });
-    if (!findPost) {
+    const post = await this.findById(postId);
+    if (String(post.userId) !== String(userId)) {
       return new CommonException(res, 403, postMsg.notPermission);
     }
     await this.postRepository.update(postId, body);
@@ -82,6 +80,15 @@ export class PostService {
     await this.attachmentRepository.save(attachmentDto);
     const result = await this.findById(postId);
     return result;
+  }
+
+  async deletePost(res: Response, id: string): Promise<void | object> {
+    const userId: string = res.locals.jwtPayload.userId;
+    const post = await this.findById(id);
+    if (String(post.userId) !== String(userId)) {
+      return new CommonException(res, 403, postMsg.notPermission);
+    }
+    await this.postRepository.softRemove(post);
   }
 
   attachmentDto(fileImages: IfileUploadType[], postId: string) {

@@ -58,4 +58,16 @@ export default class PostController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static deletePost = async (req: Request, res: Response) => {
+    try {
+      const id: string = req.params.id;
+      await this.service.deletePost(res, id);
+      if (!res.headersSent) {
+        new ResponseController(res, true, postMsg.delete);
+      }
+    } catch {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }
