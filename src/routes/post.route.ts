@@ -19,4 +19,6 @@ router.put(
   PostController.updatePost
 );
 
+router.delete('/:id', [checkJwt], PostController.deletePost);
+
 export default router;

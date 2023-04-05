@@ -27,6 +27,7 @@ export const userMsg = {
 export const postMsg = {
   create: 'Create post success',
   update: 'Update post success',
+  delete: 'Delete post success',
   getById: 'Get post by id success',
   getAll: 'get all post success',
   notFound: 'Post not found',
