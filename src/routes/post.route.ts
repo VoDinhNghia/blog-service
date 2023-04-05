@@ -11,4 +11,6 @@ router.post(
   PostController.createPost
 );
 
+router.get('/', [checkJwt], PostController.getAllPosts);
+
 export default router;

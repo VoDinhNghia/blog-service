@@ -33,3 +33,8 @@ export const postMsg = {
     fields: 'title, content, type must provided',
   },
 };
+
+export const qureryPagination = {
+  validField: 'Page and limit must provided',
+  validType: 'limit or page must is number',
+};
