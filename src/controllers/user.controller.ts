@@ -4,7 +4,7 @@ import { ResponseController } from '../utils/utils.response';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { UserService } from '../services/user.service';
 
-class UserController {
+export default class UserController {
   static service = new UserService();
 
   static listAll = async (req: Request, res: Response) => {
@@ -40,5 +40,3 @@ class UserController {
     }
   };
 }
-
-export default UserController;
