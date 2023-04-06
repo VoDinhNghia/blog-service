@@ -39,8 +39,11 @@ export const postMsg = {
 
 export const likeMsg = {
   create: 'Create like success',
-  delete: 'Delete like success',
+  delete: 'Remove like success',
   notFound: 'like not found',
+  validate: {
+    type: 'type must is POST or SHARE',
+  },
 };
 
 export const shareMsg = {
