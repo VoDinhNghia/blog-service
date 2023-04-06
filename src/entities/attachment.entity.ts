@@ -17,7 +17,7 @@ export class Attachments extends EntityBasic {
 
   @IsString()
   @IsNotEmpty()
-  @Column()
+  @Column({ select: false })
   postId?: string;
 
   @ManyToOne(() => Posts, (post) => post.attachments)

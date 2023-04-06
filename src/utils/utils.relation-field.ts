@@ -1,1 +1,7 @@
-export const postRelation = ['attachments', 'likes', 'shares', 'likes.user'];
+export const postRelation = [
+  'attachments',
+  'user',
+  'likes',
+  'shares',
+  'likes.user',
+];

@@ -13,3 +13,13 @@ export const selectUser = [
   'avatar',
   'mobile',
 ];
+
+export const selectPost = [
+  'id',
+  'title',
+  'content',
+  'type',
+  'createdAt',
+  'privateMode',
+  'updatedAt',
+];
