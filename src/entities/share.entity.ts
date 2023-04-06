@@ -30,5 +30,5 @@ export class Shares extends EntityBasic {
   post?: Posts;
 
   @ManyToOne(() => User, (user) => user.shares)
-  user?: User[];
+  user?: User;
 }

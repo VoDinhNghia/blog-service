@@ -6,16 +6,15 @@ import { Attachments } from './entities/attachment.entity';
 import { Comments } from './entities/comment.entity';
 import { Conversations } from './entities/conversation.entity';
 import { Follows } from './entities/follow.entity';
-import { Lables } from './entities/lable.entity';
+import { Labels } from './entities/label.entity';
 import { Likes } from './entities/like.entity';
 import { Messages } from './entities/message.entity';
 import { Posts } from './entities/post.entity';
 import { Shares } from './entities/share.entity';
-import { StudyDiscussions } from './entities/study-discussion.entity';
+import { StudyGroupMembers } from './entities/study-group-member.entity';
 import { StudyGroups } from './entities/study-group.entity';
 import { StudyProblems } from './entities/study-problem.entity';
 import { StudySolutions } from './entities/study-solution.entity';
-import { StudySpaces } from './entities/study-space.entity';
 import { StudyTopics } from './entities/study-topic.entity';
 dotenv.config();
 
@@ -34,16 +33,15 @@ export const AppDataSource = new DataSource({
     Comments,
     Conversations,
     Follows,
-    Lables,
+    Labels,
     Likes,
     Messages,
     Posts,
     Shares,
-    StudyDiscussions,
+    StudyGroupMembers,
     StudyGroups,
     StudyProblems,
     StudySolutions,
-    StudySpaces,
     StudyTopics,
   ],
   migrations: [],

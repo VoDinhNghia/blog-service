@@ -5,6 +5,7 @@ import { Attachments } from './attachment.entity';
 import { User } from './user.entity';
 import { Likes } from './like.entity';
 import { Shares } from './share.entity';
+import { Comments } from './comment.entity';
 
 @Entity('posts')
 export class Posts extends EntityBasic {
@@ -49,4 +50,9 @@ export class Posts extends EntityBasic {
     cascade: ['soft-remove', 'recover'],
   })
   shares?: Shares[];
+
+  @OneToMany(() => Comments, (comment) => comment.post, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  comments?: Comments[];
 }
