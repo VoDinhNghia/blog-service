@@ -2,7 +2,6 @@ export const serverError = 'Server error';
 export const authMsg = {
   login: 'Login success',
   invalid: 'Email or password incorect',
-  badRequest: 'Email and password must provided',
 };
 
 export const userMsg = {
@@ -41,9 +40,6 @@ export const likeMsg = {
   create: 'Create like success',
   delete: 'Remove like success',
   notFound: 'like not found',
-  validate: {
-    type: 'type must is POST or SHARE',
-  },
 };
 
 export const shareMsg = {

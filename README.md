@@ -1,4 +1,5 @@
-# Awesome Project Build with TypeORM
+# Project Build with TypeORM, Nodejs, Mysql, Typerscript
+
 ### Environment
 ```
 - nodejs
@@ -14,6 +15,7 @@
 - https://levelup.gitconnected.com/datasource-in-typeorm-a-new-way-to-connect-to-your-database-cdc6622f9bbc
 - https://gist.github.com/silver-xu/1dcceaa14c4f0253d9637d4811948437
 - https://blog.logrocket.com/linting-typescript-eslint-prettier/
+- https://github.com/jayeshchoudhary/express-validator-example
 ```
 
 Steps to run this project:
