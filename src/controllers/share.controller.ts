@@ -7,16 +7,16 @@ import { ShareService } from '../services/share.service';
 export default class ShareController {
   static service = new ShareService();
 
-  static createShare(req: Request, res: Response) {
+  static createShare = (req: Request, res: Response) => {
     try {
       const { body } = req;
       new ResponseController(res, body, shareMsg.create);
     } catch {
       new CommonException(res, 500, serverError);
     }
-  }
+  };
 
-  static removeShare(req: Request, res: Response) {
+  static removeShare = (req: Request, res: Response) => {
     try {
       const { id } = req.params;
       if (!res.headersSent) {
@@ -25,5 +25,5 @@ export default class ShareController {
     } catch {
       new CommonException(res, 500, serverError);
     }
-  }
+  };
 }

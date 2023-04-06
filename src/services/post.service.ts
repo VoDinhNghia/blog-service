@@ -12,6 +12,7 @@ import * as dotenv from 'dotenv';
 import { IfileUploadType } from '../interfaces/file-upload.interface';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { postMsg } from '../constants/constants.message-response';
+import { postRelation } from '../utils/utils.relation-field';
 dotenv.config();
 
 export class PostService {
@@ -46,9 +47,7 @@ export class PostService {
       where: query,
       skip: limit && page ? Number(limit) * (Number(page) - 1) : null,
       take: limit ? Number(limit) : null,
-      relations: {
-        attachments: true,
-      },
+      relations: postRelation,
     });
     const total = await this.postRepository.count();
     return { results, total };
@@ -57,9 +56,7 @@ export class PostService {
   async findById(id: string) {
     const result = await this.postRepository.findOne({
       where: { id },
-      relations: {
-        attachments: true,
-      },
+      relations: postRelation,
     });
     return result;
   }

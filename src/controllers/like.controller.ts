@@ -7,23 +7,15 @@ import { LikeService } from '../services/like.service';
 export default class LikeController {
   static service = new LikeService();
 
-  static createLike(req: Request, res: Response) {
+  static createLike = async (req: Request, res: Response) => {
     try {
       const { body } = req;
-      new ResponseController(res, body, likeMsg.create);
-    } catch {
-      new CommonException(res, 500, serverError);
-    }
-  }
-
-  static removeLike(req: Request, res: Response) {
-    try {
-      const { id } = req.params;
+      const result = await this.service.createLike(res, body);
       if (!res.headersSent) {
-        new ResponseController(res, id, likeMsg.delete);
+        new ResponseController(res, result, likeMsg.create);
       }
     } catch {
       new CommonException(res, 500, serverError);
     }
-  }
+  };
 }
