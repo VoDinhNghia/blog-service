@@ -1,13 +1,19 @@
 import { Router } from 'express';
 import PostController from '../controllers/post.controller';
-import { validBodyPost } from '../validates/validates.post';
 import { checkJwt } from '../middlewares/verify.jwt';
 import { uploadImage } from '../controllers/upload.controller';
+import { ResponseValidBody } from '../validates/validates.common-route';
+import { BodyPost } from '../validates/validates.body-route';
 
 const router = Router();
 router.post(
   '/',
-  [uploadImage.array('imageFile', 10), validBodyPost, checkJwt],
+  [
+    uploadImage.array('imageFile', 10),
+    ...BodyPost,
+    ResponseValidBody,
+    checkJwt,
+  ],
   PostController.createPost
 );
 

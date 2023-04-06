@@ -1,9 +1,14 @@
 import { Router } from 'express';
 import { checkJwt } from '../middlewares/verify.jwt';
 import LikeController from '../controllers/like.controller';
-import { validBodyLike } from '../validates/validates.like';
+import { BodyLike } from '../validates/validates.body-route';
+import { ResponseValidBody } from '../validates/validates.common-route';
 
 const router = Router();
-router.post('/', [validBodyLike, checkJwt], LikeController.createLike);
+router.post(
+  '/',
+  [...BodyLike, ResponseValidBody, checkJwt],
+  LikeController.createLike
+);
 
 export default router;
