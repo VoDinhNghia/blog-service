@@ -9,6 +9,7 @@ import * as dotenv from 'dotenv';
 import * as cron from 'node-cron';
 import { CronJobService } from './utils/utils.cronjob.sync-user';
 import { options } from './configs/configs.cors.white-list';
+import { limitRequestConfig } from './configs/configs.rate-limit-request';
 dotenv.config();
 
 AppDataSource.initialize()
@@ -21,6 +22,7 @@ AppDataSource.initialize()
     app.use(helmet());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(limitRequestConfig);
     app.use('/', routes);
     cron.schedule('0 0 4,12,18,23 * * *', () => {
       void new CronJobService().syncUserFromBackend();
