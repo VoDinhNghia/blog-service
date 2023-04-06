@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { EntityBasic } from './base.entity';
 import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 import { Likes } from './like.entity';
@@ -29,6 +29,6 @@ export class Shares extends EntityBasic {
   @ManyToOne(() => Posts, (post) => post.shares)
   post?: Posts;
 
-  @ManyToMany(() => User, (user) => user.shares)
-  users?: User[];
+  @ManyToOne(() => User, (user) => user.shares)
+  user?: User[];
 }

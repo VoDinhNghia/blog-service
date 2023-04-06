@@ -1,10 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  ManyToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Length, IsNotEmpty, IsString, IsEmail } from 'class-validator';
 import { cryptoPassWord } from '../constants/constants.cryto';
 import { Posts } from './post.entity';
@@ -79,7 +73,7 @@ export class User {
   })
   likes?: Likes[];
 
-  @ManyToMany(() => Shares, (share) => share.users, {
+  @OneToMany(() => Shares, (share) => share.user, {
     cascade: ['soft-remove', 'recover'],
   })
   shares?: Shares[];
