@@ -2,8 +2,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
   OneToMany,
   ManyToMany,
 } from 'typeorm';
@@ -18,22 +16,22 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, select: false })
   @IsEmail()
   @Length(4, 50)
   email: string;
 
-  @Column()
+  @Column({ select: false })
   @IsNotEmpty()
   @IsString()
   @Length(4, 100)
   password: string;
 
-  @Column()
+  @Column({ select: false }) // when want to response this field then add this field into select in find or findOne ...
   @IsNotEmpty()
   role: string;
 
-  @Column()
+  @Column({ select: false })
   @IsNotEmpty()
   @IsString()
   status: string;
@@ -47,30 +45,28 @@ export class User {
   @Column({ nullable: true })
   middleName?: string;
 
-  @Column()
+  @Column({ select: false })
   userId?: string;
 
-  @Column()
+  @Column({ select: false })
   code?: string;
 
-  @Column()
+  @Column({ select: false })
   profileId?: string;
 
-  @Column({ default: false })
+  @Column({ default: false, select: false })
   isDeleted?: boolean;
 
   @Column({ nullable: true })
   avatar?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, select: false })
   mobile?: string;
 
-  @Column()
-  @CreateDateColumn()
+  @Column({ type: 'datetime', default: () => 'NOW()', select: false })
   createdAt: Date;
 
-  @Column()
-  @UpdateDateColumn()
+  @Column({ type: 'datetime', default: () => 'NOW()', select: false })
   updatedAt: Date;
 
   @OneToMany(() => Posts, (post) => post.user, {

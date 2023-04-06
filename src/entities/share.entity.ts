@@ -9,12 +9,12 @@ import { User } from './user.entity';
 export class Shares extends EntityBasic {
   @IsString()
   @IsNotEmpty()
-  @Column()
+  @Column({ select: false })
   userId?: string;
 
   @IsString()
   @IsNotEmpty()
-  @Column()
+  @Column({ select: false })
   postId?: string;
 
   @IsBoolean()

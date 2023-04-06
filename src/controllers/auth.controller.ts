@@ -6,13 +6,18 @@ import { AppDataSource } from '../data-source';
 import { authMsg, serverError } from '../constants/constants.message-response';
 import { ResponseController } from '../utils/utils.response';
 import { CommonException } from '../exceptions/exceptions.common-error';
+import { selectUser } from '../utils/utils.select-fields';
 
 export default class AuthController {
+  static selectFields: string[] | unknown = [...selectUser, 'password'];
   static login = async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
       const userRepository = AppDataSource.getRepository(User);
-      const user = await userRepository.findOne({ where: { email } });
+      const user = await userRepository.findOne({
+        where: { email },
+        select: this.selectFields,
+      });
       if (!user.checkIfUnencryptedPasswordIsValid(password)) {
         return new CommonException(res, 401, authMsg.invalid);
       }

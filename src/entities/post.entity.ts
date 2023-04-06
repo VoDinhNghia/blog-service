@@ -20,7 +20,7 @@ export class Posts extends EntityBasic {
 
   @IsString()
   @IsNotEmpty()
-  @Column({ nullable: false })
+  @Column({ nullable: false, select: false })
   userId?: string;
 
   @IsString()
