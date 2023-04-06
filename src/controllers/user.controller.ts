@@ -7,9 +7,10 @@ import { UserService } from '../services/user.service';
 export default class UserController {
   static service = new UserService();
 
-  static listAll = async (req: Request, res: Response) => {
+  static getAllUsers = async (req: Request, res: Response) => {
     try {
-      const users = await this.service.findAllUsers();
+      const { query } = req;
+      const users = await this.service.findAllUsers(query);
       new ResponseController(res, users, userMsg.getAll);
     } catch (error) {
       new CommonException(res, 500, serverError);

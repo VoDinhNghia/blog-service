@@ -44,3 +44,16 @@ export const BodyPost = [
     .isBoolean()
     .withMessage('privateMode should be true or false'),
 ];
+
+export const BodyShare = [
+  body('postId')
+    .exists()
+    .withMessage('postId is required')
+    .isString()
+    .withMessage('postId should be string'),
+  body('privateMode')
+    .exists()
+    .withMessage('privateMode is required')
+    .isBoolean()
+    .withMessage('privateMode should be true or false'),
+];

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { IqueryPagination } from './pagination.interface';
+
 export interface Iusers {
   id?: string;
   email?: string;
@@ -29,4 +32,9 @@ export interface IuserMigrate {
     avatar?: string;
     mobile?: string;
   };
+}
+
+export interface IqueryUser extends IqueryPagination {
+  userId?: string;
+  firstName?: string | any;
 }

@@ -4,13 +4,20 @@ import { checkRole } from '../middlewares/verify.role-access-api';
 import UserController from '../controllers/user.controller';
 import { EuserRole } from '../constants/constant';
 import { validKeyAccess } from '../validates/validates.user';
+import { ResultValidate } from '../validates/validates.result-valid';
+import { QueryUser } from '../validates/validates.query-route';
 
 const router = Router();
 
 router.get(
   '/',
-  [checkJwt, checkRole([EuserRole.ADMIN, EuserRole.SUPPER_ADMIN])],
-  UserController.listAll
+  [
+    ...QueryUser,
+    ResultValidate,
+    checkJwt,
+    checkRole([EuserRole.ADMIN, EuserRole.SUPPER_ADMIN]),
+  ],
+  UserController.getAllUsers
 );
 
 router.get(
