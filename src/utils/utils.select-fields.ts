@@ -23,3 +23,5 @@ export const selectPost = [
   'privateMode',
   'updatedAt',
 ];
+
+export const selectSharePost = ['id', 'createdAt', 'privateMode', 'updatedAt'];

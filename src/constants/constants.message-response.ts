@@ -49,7 +49,10 @@ export const likeMsg = {
 export const shareMsg = {
   create: 'Share post success',
   delete: 'Delete share success',
+  getById: 'Get share post by id success',
+  getAllShare: 'List share post of user',
   notFound: 'Share not found',
+  existedSharePost: 'This share post existed already',
 };
 
 export const qureryPagination = {
