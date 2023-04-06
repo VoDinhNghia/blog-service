@@ -4,6 +4,13 @@ import { cryptoPassWord } from '../constants/constants.cryto';
 import { Posts } from './post.entity';
 import { Likes } from './like.entity';
 import { Shares } from './share.entity';
+import { Follows } from './follow.entity';
+import { Comments } from './comment.entity';
+import { StudyTopics } from './study-topic.entity';
+import { StudyProblems } from './study-problem.entity';
+import { StudySolutions } from './study-solution.entity';
+import { StudyGroups } from './study-group.entity';
+import { StudyGroupMembers } from './study-group-member.entity';
 
 @Entity('users')
 export class User {
@@ -77,6 +84,46 @@ export class User {
     cascade: ['soft-remove', 'recover'],
   })
   shares?: Shares[];
+
+  @OneToMany(() => Follows, (follow) => follow.userFollow, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  follow?: Follows[];
+
+  @OneToMany(() => Follows, (follow) => follow.userFollowed, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  followed?: Follows[];
+
+  @OneToMany(() => Comments, (comment) => comment.user, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  comments?: Comments[];
+
+  @OneToMany(() => StudyTopics, (topic) => topic.createBy, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  studyTopics?: StudyTopics[];
+
+  @OneToMany(() => StudyProblems, (problem) => problem.createBy, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  studyProblems?: StudyProblems[];
+
+  @OneToMany(() => StudySolutions, (solution) => solution.createBy, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  studySolutions?: StudyProblems[];
+
+  @OneToMany(() => StudyGroups, (group) => group.createBy, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  group?: StudyGroups[];
+
+  @OneToMany(() => StudyGroupMembers, (groupMember) => groupMember.member, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  members?: StudyGroupMembers[];
 
   hashPassword() {
     this.password = cryptoPassWord(this.password);
