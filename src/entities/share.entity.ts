@@ -21,9 +21,7 @@ export class Shares extends EntityBasic {
   @Column({ default: false })
   privateMode?: boolean;
 
-  @OneToMany(() => Likes, (like) => like.share, {
-    cascade: ['soft-remove', 'recover'],
-  })
+  @OneToMany(() => Likes, (like) => like.share)
   likes?: Likes[];
 
   @ManyToOne(() => Posts, (post) => post.shares)

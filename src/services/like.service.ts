@@ -32,14 +32,15 @@ export class LikeService {
         return new CommonException(res, 404, shareMsg.notFound);
       }
       createDto = { shareId, type, userId };
+    } else {
+      const postInfo = await this.postRepository.findOne({
+        where: { id: postId, userId },
+      });
+      if (!postInfo) {
+        return new CommonException(res, 404, postMsg.notFound);
+      }
+      createDto = { postId, type, userId };
     }
-    const postInfo = await this.postRepository.findOne({
-      where: { id: postId, userId },
-    });
-    if (!postInfo) {
-      return new CommonException(res, 404, postMsg.notFound);
-    }
-    createDto = { postId, type, userId };
     const checkLike = await this.likeRepository.findOne({
       where: createDto,
     });

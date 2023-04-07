@@ -30,7 +30,7 @@ export const postMsg = {
   getById: 'Get post by id success',
   getAll: 'get all post success',
   notFound: 'Post not found',
-  notPermission: 'Your are permission to update this post',
+  notPermission: 'Your are permission to update or delete this post',
   validate: {
     fields: 'title, content, type must provided',
   },
@@ -49,6 +49,7 @@ export const shareMsg = {
   getAllShare: 'List share post of user',
   notFound: 'Share not found',
   existedSharePost: 'This share post existed already',
+  notPermission: 'Your are permission to delete or update this share',
 };
 
 export const qureryPagination = {

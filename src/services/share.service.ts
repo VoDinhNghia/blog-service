@@ -48,4 +48,19 @@ export class ShareService {
     }
     return result;
   }
+
+  async deleteShare(
+    res: Response,
+    id: string,
+    userId: string
+  ): Promise<void | object> {
+    const result: IsharePost = await this.shareRepository.findOne({
+      where: { id },
+      select: ['userId'],
+    });
+    if (result.userId !== userId) {
+      return new CommonException(res, 403, shareMsg.notPermission);
+    }
+    await this.shareRepository.delete(id);
+  }
 }
