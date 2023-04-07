@@ -10,8 +10,8 @@ export default class PostController {
   static createPost = async (req: Request, res: Response) => {
     try {
       const { body, files } = req;
-      const id = res.locals.jwtPayload.userId;
-      const result = await this.service.createPost(body, files, id);
+      const userId = req['user'].id;
+      const result = await this.service.createPost(body, files, userId);
       if (!res.headersSent) {
         new ResponseController(res, result, postMsg.create);
       }
@@ -49,8 +49,15 @@ export default class PostController {
   static updatePost = async (req: Request, res: Response) => {
     try {
       const { params, body, files } = req;
+      const userId = req['user'].id;
       const postId = params.id;
-      const result = await this.service.updatePost(res, postId, body, files);
+      const result = await this.service.updatePost(
+        res,
+        postId,
+        body,
+        files,
+        userId
+      );
       if (!res.headersSent) {
         new ResponseController(res, result, postMsg.getById);
       }
@@ -61,8 +68,9 @@ export default class PostController {
 
   static deletePost = async (req: Request, res: Response) => {
     try {
+      const userId = req['user'].id;
       const id: string = req.params.id;
-      await this.service.deletePost(res, id);
+      await this.service.deletePost(res, id, userId);
       if (!res.headersSent) {
         new ResponseController(res, true, postMsg.delete);
       }

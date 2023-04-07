@@ -10,7 +10,8 @@ export default class LikeController {
   static createLike = async (req: Request, res: Response) => {
     try {
       const { body } = req;
-      const result = await this.service.createLike(res, body);
+      const userId = req['user'].id;
+      const result = await this.service.createLike(res, body, userId);
       if (!res.headersSent) {
         new ResponseController(res, result, likeMsg.create);
       }

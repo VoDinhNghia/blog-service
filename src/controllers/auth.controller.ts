@@ -21,11 +21,17 @@ export default class AuthController {
       if (!user.checkIfUnencryptedPasswordIsValid(password)) {
         return new CommonException(res, 401, authMsg.invalid);
       }
-      const token = jwt.sign(
-        { userId: user.id, username: user.email },
-        config.JWT_PRIVATE_KEY,
-        { algorithm: 'HS512', expiresIn: expireToken }
-      );
+      const payload = {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+        userId: user.userId,
+        profileId: user.profileId,
+      };
+      const token = jwt.sign(payload, config.JWT_PRIVATE_KEY, {
+        algorithm: 'HS512',
+        expiresIn: expireToken,
+      });
       new ResponseController(
         res,
         { ...user, accessToken: token },

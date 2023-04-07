@@ -14,9 +14,12 @@ export class ShareService {
   private selectFields: string[] | unknown = selectSharePost;
   private relationFields: string[] = shareRelations;
 
-  async createShare(res: Response, body: IsharePost): Promise<Shares | object> {
+  async createShare(
+    res: Response,
+    body: IsharePost,
+    userId: string
+  ): Promise<Shares | object> {
     const { postId, privateMode } = body;
-    const userId = res.locals.jwtPayload.userId;
     const post = await this.postRepository.findOne({
       where: { id: postId, userId },
     });

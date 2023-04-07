@@ -17,7 +17,7 @@ export const BodyLogin = [
 export const BodyLike = [
   body('type')
     .isIn(Object.values(ElikeType))
-    .withMessage('type should be POST or SHARE'),
+    .withMessage(`type should be one of [${Object.values(ElikeType)}]`),
   body('postId').optional().isString().withMessage('postId should be string'),
   body('shareId').optional().isString().withMessage('shareId should be string'),
 ];

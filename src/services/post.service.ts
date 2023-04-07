@@ -69,9 +69,9 @@ export class PostService {
     res: Response,
     postId: string,
     body: IcreatePost,
-    fileImages
+    fileImages,
+    userId: string
   ): Promise<Posts | object> {
-    const userId = res.locals.jwtPayload.userId;
     const post = await this.findById(postId);
     if (String(post.userId) !== String(userId)) {
       return new CommonException(res, 403, postMsg.notPermission);
@@ -83,8 +83,11 @@ export class PostService {
     return result;
   }
 
-  async deletePost(res: Response, id: string): Promise<void | object> {
-    const userId: string = res.locals.jwtPayload.userId;
+  async deletePost(
+    res: Response,
+    id: string,
+    userId: string
+  ): Promise<void | object> {
     const post = await this.findById(id);
     if (String(post.userId) !== String(userId)) {
       return new CommonException(res, 403, postMsg.notPermission);

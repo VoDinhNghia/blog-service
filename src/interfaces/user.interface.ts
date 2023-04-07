@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { IqueryPagination } from './pagination.interface';
 
-export interface Iusers {
+export interface IuserLogin {
   id?: string;
   email?: string;
-  password?: string;
   role?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+  userId?: string;
+  profileId?: string;
 }
 
 export interface IcreateUser {

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { checkJwt } from '../middlewares/verify.jwt';
+import { VerifyToken } from '../middlewares/verify.jwt';
 import ShareController from '../controllers/share.controller';
 import { BodyShare } from '../validates/validates.body-route';
 import { ResultValidate } from '../validates/validates.result-valid';
@@ -7,10 +7,10 @@ import { ResultValidate } from '../validates/validates.result-valid';
 const router = Router();
 router.post(
   '/',
-  [...BodyShare, ResultValidate, checkJwt],
+  [...BodyShare, ResultValidate, VerifyToken],
   ShareController.createShare
 );
-router.delete('/:id', [checkJwt], ShareController.removeShare);
-router.get('/:id', [checkJwt], ShareController.getById);
+router.delete('/:id', [VerifyToken], ShareController.removeShare);
+router.get('/:id', [VerifyToken], ShareController.getById);
 
 export default router;
