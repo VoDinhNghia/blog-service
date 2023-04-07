@@ -3,7 +3,7 @@ import {
   Iattchment,
   IqueryPost,
 } from '../interfaces/post.interface';
-import { Like } from 'typeorm';
+import { Equal, Like } from 'typeorm';
 import { AppDataSource } from '../data-source';
 import { Posts } from '../entities/post.entity';
 import { Response } from 'express';
@@ -58,7 +58,7 @@ export class PostService {
 
   async findById(id: string) {
     const result = await this.postRepository.findOne({
-      where: { id },
+      where: { id: Equal(id) },
       relations: postRelation,
       select: this.selectFields,
     });
