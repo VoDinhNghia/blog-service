@@ -57,3 +57,11 @@ export const BodyShare = [
     .isBoolean()
     .withMessage('privateMode should be true or false'),
 ];
+
+export const BodyUpdateShare = [
+  body('privateMode')
+    .exists()
+    .withMessage('privateMode is required')
+    .isBoolean()
+    .withMessage('privateMode should be true or false'),
+];

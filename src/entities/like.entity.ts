@@ -32,6 +32,8 @@ export class Likes extends EntityBasic {
   @ManyToOne(() => Posts, (post) => post.likes)
   post?: Posts;
 
-  @ManyToOne(() => Shares, (share) => share.likes)
+  @ManyToOne(() => Shares, (share) => share.likes, {
+    onDelete: 'CASCADE',
+  })
   share?: Shares;
 }

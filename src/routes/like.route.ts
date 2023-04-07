@@ -5,6 +5,7 @@ import { BodyLike } from '../validates/validates.body-route';
 import { ResultValidate } from '../validates/validates.result-valid';
 
 const router = Router();
+
 router.post(
   '/',
   [...BodyLike, ResultValidate, VerifyToken],

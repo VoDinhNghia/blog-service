@@ -20,9 +20,11 @@ export default class ShareController {
     }
   };
 
-  static removeShare = (req: Request, res: Response) => {
+  static removeShare = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
+      const userId = req['user'].id;
+      await this.service.deleteShare(res, id, userId);
       if (!res.headersSent) {
         new ResponseController(res, id, shareMsg.delete);
       }
@@ -38,8 +40,30 @@ export default class ShareController {
       if (!res.headersSent) {
         new ResponseController(res, result, shareMsg.getById);
       }
-    } catch (error) {
-      console.log(error);
+    } catch {
+      new CommonException(res, 500, serverError);
+    }
+  };
+
+  static getAllShareOfUser = (req: Request, res: Response) => {
+    try {
+      const { query } = req;
+      if (!res.headersSent) {
+        new ResponseController(res, query, shareMsg.getAllShare);
+      }
+    } catch {
+      new CommonException(res, 500, serverError);
+    }
+  };
+
+  static updateModeShare = (req: Request, res: Response) => {
+    try {
+      const { body } = req;
+      const id = req.params.is;
+      if (!res.headersSent) {
+        new ResponseController(res, { body, id }, shareMsg.getAllShare);
+      }
+    } catch {
       new CommonException(res, 500, serverError);
     }
   };

@@ -7,6 +7,7 @@ import { BodyPost } from '../validates/validates.body-route';
 import { QueryPost } from '../validates/validates.query-route';
 
 const router = Router();
+
 router.post(
   '/',
   [
@@ -24,6 +25,7 @@ router.get(
   PostController.getAllPosts
 );
 router.get('/:id', [VerifyToken], PostController.getPostById);
+
 router.put(
   '/:id',
   [uploadImage.array('imageFile', 10), VerifyToken],
