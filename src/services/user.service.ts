@@ -6,7 +6,7 @@ import { Response } from 'express';
 import { IqueryUser, IuserMigrate } from '../interfaces/user.interface';
 import { selectUser } from '../utils/utils.select-fields';
 import { IqueryPagination } from '../interfaces/pagination.interface';
-import { Like } from 'typeorm';
+import { Equal, Like } from 'typeorm';
 export class UserService {
   private selectOption: string[] | unknown = selectUser;
   private userRepository = AppDataSource.getRepository(User);
@@ -58,7 +58,7 @@ export class UserService {
 
   async findUserById(res: Response, id: string): Promise<User | object> {
     const user = await this.userRepository.findOne({
-      where: { id },
+      where: { id: Equal(id) },
       select: this.selectOption,
     });
     if (!user) {

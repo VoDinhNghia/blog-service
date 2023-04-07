@@ -56,14 +56,17 @@ export default class ShareController {
     }
   };
 
-  static updateModeShare = (req: Request, res: Response) => {
+  static updateModeShare = async (req: Request, res: Response) => {
     try {
       const { body } = req;
-      const id = req.params.is;
+      const id = req.params.id;
+      const userId = req['user'].id;
+      const result = await this.service.updateMode(res, id, body, userId);
       if (!res.headersSent) {
-        new ResponseController(res, { body, id }, shareMsg.getAllShare);
+        new ResponseController(res, result, shareMsg.getAllShare);
       }
-    } catch {
+    } catch (error) {
+      console.log(error);
       new CommonException(res, 500, serverError);
     }
   };

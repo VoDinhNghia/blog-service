@@ -7,6 +7,7 @@ import { CommonException } from '../exceptions/exceptions.common-error';
 import { postMsg, shareMsg } from '../constants/constants.message-response';
 import { selectSharePost } from '../utils/utils.select-fields';
 import { shareRelations } from '../utils/utils.relation-field';
+import { Equal } from 'typeorm';
 
 export class ShareService {
   private shareRepository = AppDataSource.getRepository(Shares);
@@ -21,7 +22,7 @@ export class ShareService {
   ): Promise<Shares | object> {
     const { postId, privateMode } = body;
     const post = await this.postRepository.findOne({
-      where: { id: postId, userId },
+      where: { id: Equal(postId), userId },
     });
     if (!post) {
       return new CommonException(res, 404, postMsg.notFound);
@@ -39,7 +40,7 @@ export class ShareService {
 
   async findShareById(res: Response, id: string): Promise<Shares | object> {
     const result = await this.shareRepository.findOne({
-      where: { id },
+      where: { id: Equal(id) },
       relations: this.relationFields,
       select: this.selectFields,
     });
@@ -55,12 +56,30 @@ export class ShareService {
     userId: string
   ): Promise<void | object> {
     const result: IsharePost = await this.shareRepository.findOne({
-      where: { id },
+      where: { id: Equal(id) },
       select: ['userId'],
     });
     if (result.userId !== userId) {
       return new CommonException(res, 403, shareMsg.notPermission);
     }
     await this.shareRepository.delete(id);
+  }
+
+  async updateMode(
+    res: Response,
+    shareId: string,
+    body: IsharePost,
+    userId: string
+  ): Promise<Shares | object> {
+    const share: IsharePost = await this.shareRepository.findOne({
+      where: { id: shareId },
+      select: ['userId'],
+    });
+    if (share?.userId !== userId) {
+      return new CommonException(res, 403, shareMsg.notPermission);
+    }
+    await this.shareRepository.update(shareId, body);
+    const result = await this.findShareById(res, shareId);
+    return result;
   }
 }
