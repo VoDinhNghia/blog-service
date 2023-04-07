@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import PostController from '../controllers/post.controller';
-import { checkJwt } from '../middlewares/verify.jwt';
+import { VerifyToken } from '../middlewares/verify.jwt';
 import { uploadImage } from '../controllers/upload.controller';
 import { ResultValidate } from '../validates/validates.result-valid';
 import { BodyPost } from '../validates/validates.body-route';
@@ -9,22 +9,27 @@ import { QueryPost } from '../validates/validates.query-route';
 const router = Router();
 router.post(
   '/',
-  [uploadImage.array('imageFile', 10), ...BodyPost, ResultValidate, checkJwt],
+  [
+    uploadImage.array('imageFile', 10),
+    ...BodyPost,
+    ResultValidate,
+    VerifyToken,
+  ],
   PostController.createPost
 );
 
 router.get(
   '/',
-  [...QueryPost, ResultValidate, checkJwt],
+  [...QueryPost, ResultValidate, VerifyToken],
   PostController.getAllPosts
 );
-router.get('/:id', [checkJwt], PostController.getPostById);
+router.get('/:id', [VerifyToken], PostController.getPostById);
 router.put(
   '/:id',
-  [uploadImage.array('imageFile', 10), checkJwt],
+  [uploadImage.array('imageFile', 10), VerifyToken],
   PostController.updatePost
 );
 
-router.delete('/:id', [checkJwt], PostController.deletePost);
+router.delete('/:id', [VerifyToken], PostController.deletePost);
 
 export default router;

@@ -19,10 +19,10 @@ export class LikeService {
 
   async createLike(
     res: Response,
-    body: IlikePost
+    body: IlikePost,
+    userId: string
   ): Promise<Likes | object | string> {
     const { type, postId, shareId } = body;
-    const userId = res.locals.jwtPayload.userId;
     let createDto = {};
     if (type === ElikeType.SHARE) {
       const shareInfo = await this.shareRepository.findOne({

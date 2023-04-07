@@ -10,7 +10,8 @@ export default class ShareController {
   static createShare = async (req: Request, res: Response) => {
     try {
       const { body } = req;
-      const result = await this.service.createShare(res, body);
+      const userId = req['user'].id;
+      const result = await this.service.createShare(res, body, userId);
       if (!res.headersSent) {
         new ResponseController(res, result, shareMsg.create);
       }

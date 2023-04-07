@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { checkJwt } from '../middlewares/verify.jwt';
-import { checkRole } from '../middlewares/verify.role-access-api';
+import { VerifyToken } from '../middlewares/verify.jwt';
+import { CheckRoleAccess } from '../middlewares/verify.role-access-api';
 import UserController from '../controllers/user.controller';
 import { EuserRole } from '../constants/constant';
 import { validKeyAccess } from '../validates/validates.user';
@@ -14,15 +14,15 @@ router.get(
   [
     ...QueryUser,
     ResultValidate,
-    checkJwt,
-    checkRole([EuserRole.ADMIN, EuserRole.SUPPER_ADMIN]),
+    VerifyToken,
+    CheckRoleAccess([EuserRole.ADMIN, EuserRole.SUPPER_ADMIN]),
   ],
   UserController.getAllUsers
 );
 
 router.get(
   '/:id',
-  [checkJwt, checkRole([EuserRole.ADMIN, EuserRole.SUPPER_ADMIN])],
+  [VerifyToken, CheckRoleAccess([EuserRole.ADMIN, EuserRole.SUPPER_ADMIN])],
   UserController.getUserById
 );
 
