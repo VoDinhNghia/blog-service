@@ -71,4 +71,5 @@ export const groupMsg = {
   getAll: 'Get all group success',
   notFound: 'Group not found',
   notPermission: 'Your are permission to delete or update this group',
+  addMembers: 'Add more members success',
 };
