@@ -115,7 +115,7 @@ export class User {
   })
   studySolutions?: StudyProblems[];
 
-  @OneToMany(() => StudyGroups, (group) => group.createBy, {
+  @OneToMany(() => StudyGroups, (group) => group.createdBy, {
     cascade: ['soft-remove', 'recover'],
   })
   group?: StudyGroups[];

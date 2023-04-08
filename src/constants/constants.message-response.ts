@@ -62,3 +62,11 @@ export const followMsg = {
   delete: 'Cancle Follow success',
   getAllFollow: 'Get all follow success',
 };
+
+export const groupMsg = {
+  create: 'Create group success',
+  update: 'Update group success',
+  delete: 'Delete group success',
+  getById: 'Get group by id success',
+  getAll: 'Get all group success',
+};

@@ -38,7 +38,7 @@ export class PostService {
     queryDto: IqueryPost
   ): Promise<{ results: Posts[]; total: number }> {
     const { limit, page, userId, searchKey } = queryDto;
-    const query: IqueryPost = {};
+    const query: IqueryPost = { privateMode: false };
     if (userId) {
       query.userId = userId;
     }

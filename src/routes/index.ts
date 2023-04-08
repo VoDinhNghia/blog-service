@@ -5,6 +5,7 @@ import post from './post.route';
 import like from './like.route';
 import share from './share.route';
 import follow from './follow.route';
+import group from './group.route';
 
 const routes = Router();
 
@@ -14,5 +15,6 @@ routes.use('/api/post', post);
 routes.use('/api/like', like);
 routes.use('/api/share', share);
 routes.use('/api/follow', follow);
+routes.use('/api/group', group);
 
 export default routes;

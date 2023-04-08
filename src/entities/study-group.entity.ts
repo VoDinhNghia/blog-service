@@ -22,10 +22,10 @@ export class StudyGroups extends EntityBasic {
 
   @IsString()
   @Column({ select: false })
-  createById?: string;
+  createdById?: string;
 
   @ManyToOne(() => User, (user) => user.group)
-  createBy?: User;
+  createdBy?: User;
 
   @OneToMany(() => StudyTopics, (topic) => topic.group)
   topics?: StudyTopics[];
