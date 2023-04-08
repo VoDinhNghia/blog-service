@@ -7,6 +7,7 @@ import { authMsg, serverError } from '../constants/constants.message-response';
 import { ResponseController } from '../utils/utils.response';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { selectUser } from '../utils/utils.select-fields';
+import { Equal } from 'typeorm';
 
 export default class AuthController {
   static selectFields: string[] | unknown = [...selectUser, 'password'];
@@ -15,10 +16,10 @@ export default class AuthController {
       const { email, password } = req.body;
       const userRepository = AppDataSource.getRepository(User);
       const user = await userRepository.findOne({
-        where: { email },
+        where: { email: Equal(email) },
         select: this.selectFields,
       });
-      if (!user.checkIfUnencryptedPasswordIsValid(password)) {
+      if (!user?.checkIfUnencryptedPasswordIsValid(password)) {
         return new CommonException(res, 401, authMsg.invalid);
       }
       const payload = {
@@ -38,6 +39,7 @@ export default class AuthController {
         authMsg.login
       );
     } catch (error) {
+      console.log(error);
       new CommonException(res, 500, serverError);
     }
   };
