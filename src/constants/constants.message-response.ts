@@ -56,3 +56,9 @@ export const qureryPagination = {
   validField: 'Page and limit must provided',
   validType: 'limit or page must is number',
 };
+
+export const followMsg = {
+  create: 'Follow success',
+  delete: 'Cancle Follow success',
+  getAllFollow: 'Get all follow success',
+};

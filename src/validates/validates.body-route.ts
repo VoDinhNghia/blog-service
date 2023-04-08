@@ -65,3 +65,11 @@ export const BodyUpdateShare = [
     .isBoolean()
     .withMessage('privateMode should be true or false'),
 ];
+
+export const BodyFollow = [
+  body('userFollowedId')
+    .exists()
+    .withMessage('userFollowedId is required')
+    .isString()
+    .withMessage('userFollowedId should be string'),
+];
