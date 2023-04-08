@@ -26,3 +26,11 @@ export const QueryFollow = [
     .isIn(Object.values(EqueryFollowType))
     .withMessage(`type should be one of [${Object.values(EqueryFollowType)}]`),
 ];
+
+export const QueryGroup = [
+  ...QueryPagination,
+  query('privateMode')
+    .optional()
+    .isBoolean()
+    .withMessage('privateMode should be true or false'),
+];

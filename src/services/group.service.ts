@@ -18,6 +18,7 @@ export class GroupService {
   private groupRepository = AppDataSource.getRepository(StudyGroups);
   private memberRepository = AppDataSource.getRepository(StudyGroupMembers);
   private selectFields: string[] | unknown = selectGroup;
+  private selectUpdate: string[] | unknown = ['id', 'createdById'];
 
   async createGroup(body: Igroup, userId: string): Promise<StudyGroups> {
     const { name, description, privateMode, members = [] } = body;
@@ -49,6 +50,7 @@ export class GroupService {
       where: {
         id: groupId,
       },
+      select: this.selectUpdate,
     });
     if (!group) {
       return new CommonException(res, 404, groupMsg.notFound);
@@ -64,13 +66,13 @@ export class GroupService {
   async deleteGroup(
     res: Response,
     groupId: string,
-    body: IupdateGroup,
     userId: string
   ): Promise<void | object> {
     const group = await this.groupRepository.findOne({
       where: {
         id: groupId,
       },
+      select: this.selectUpdate,
     });
     if (!group) {
       return new CommonException(res, 404, groupMsg.notFound);
@@ -84,6 +86,7 @@ export class GroupService {
   async addAndUpdateNewMembers(groupId: string, members = []): Promise<void> {
     const memberGroup = await this.memberRepository.find({
       where: { groupId: Equal(groupId) },
+      select: ['id', 'memberId', 'groupId'],
     });
     const newMemberDto = [];
     for (const member of members) {

@@ -27,9 +27,13 @@ export class StudyGroups extends EntityBasic {
   @ManyToOne(() => User, (user) => user.group)
   createdBy?: User;
 
-  @OneToMany(() => StudyTopics, (topic) => topic.group)
+  @OneToMany(() => StudyTopics, (topic) => topic.group, {
+    cascade: ['soft-remove', 'recover'],
+  })
   topics?: StudyTopics[];
 
-  @OneToMany(() => StudyGroupMembers, (groupMember) => groupMember.group)
+  @OneToMany(() => StudyGroupMembers, (groupMember) => groupMember.group, {
+    cascade: ['soft-remove', 'recover'],
+  })
   members?: StudyGroupMembers[];
 }

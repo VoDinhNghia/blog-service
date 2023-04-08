@@ -96,3 +96,23 @@ export const BodyGroup = [
     .isArray()
     .withMessage('members should be array'),
 ];
+
+export const BodyUpdateGroup = [
+  body('name').optional().isString().withMessage('name should be string'),
+  body('description')
+    .optional()
+    .isString()
+    .withMessage('description should be string'),
+  body('privateMode')
+    .optional()
+    .isBoolean()
+    .withMessage('privateMode should be true or false'),
+];
+
+export const BodyUpdateGroupMember = [
+  body('members')
+    .exists()
+    .withMessage('members is required')
+    .isArray()
+    .withMessage('members should be array'),
+];
