@@ -34,8 +34,7 @@ export default class FollowController {
       if (!res.headersSent) {
         new ResponseController(res, results, followMsg.getAllFollow);
       }
-    } catch (error) {
-      console.log(error);
+    } catch {
       new CommonException(res, 500, serverError);
     }
   };

@@ -42,6 +42,9 @@ export class FollowService {
       skip: limit && page ? Number(limit) * (Number(page) - 1) : null,
       take: limit ? Number(limit) : null,
       relations: followRelations,
+      order: {
+        createdAt: 'DESC',
+      },
       select: this.selectFields,
     });
     const total = await this.followRepository.findAndCount({

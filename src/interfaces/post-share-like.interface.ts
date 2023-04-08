@@ -16,6 +16,7 @@ export interface Iattchment {
 export interface IqueryPost extends IqueryPagination {
   userId?: string;
   title?: string | any;
+  privateMode?: boolean;
 }
 
 export interface IlikePost {

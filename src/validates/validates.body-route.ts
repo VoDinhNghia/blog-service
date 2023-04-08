@@ -73,3 +73,21 @@ export const BodyFollow = [
     .isString()
     .withMessage('userFollowedId should be string'),
 ];
+
+export const BodyGroup = [
+  body('name')
+    .exists()
+    .withMessage('name is required')
+    .isString()
+    .withMessage('name should be string'),
+  body('description')
+    .exists()
+    .withMessage('description is required')
+    .isString()
+    .withMessage('description should be string'),
+  body('privateMode')
+    .exists()
+    .withMessage('privateMode is required')
+    .isBoolean()
+    .withMessage('privateMode should be true or false'),
+];

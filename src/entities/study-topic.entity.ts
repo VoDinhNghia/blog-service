@@ -26,7 +26,7 @@ export class StudyTopics extends EntityBasic {
   createById?: string;
 
   @IsString()
-  @Column({ select: false })
+  @Column({ select: false, nullable: true })
   groupId?: string;
 
   @ManyToOne(() => User, (user) => user.studyTopics)
