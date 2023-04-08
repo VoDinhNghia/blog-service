@@ -15,3 +15,5 @@ export const shareRelations = [
 ];
 
 export const followRelations = ['userFollow', 'userFollowed'];
+
+export const groupRelations = ['createdBy', 'members', 'topics'];

@@ -50,10 +50,15 @@ export class PostService {
       skip: limit && page ? Number(limit) * (Number(page) - 1) : null,
       take: limit ? Number(limit) : null,
       relations: postRelation,
+      order: {
+        createdAt: 'DESC',
+      },
       select: this.selectFields,
     });
-    const total = await this.postRepository.count();
-    return { results, total };
+    const total = await this.postRepository.findAndCount({
+      where: query,
+    });
+    return { results, total: total[1] ?? 0 };
   }
 
   async findById(id: string) {

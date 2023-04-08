@@ -69,4 +69,6 @@ export const groupMsg = {
   delete: 'Delete group success',
   getById: 'Get group by id success',
   getAll: 'Get all group success',
+  notFound: 'Group not found',
+  notPermission: 'Your are permission to delete or update this group',
 };

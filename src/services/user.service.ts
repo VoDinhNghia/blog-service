@@ -23,10 +23,15 @@ export class UserService {
       where: query,
       skip: limit && page ? Number(limit) * (Number(page) - 1) : null,
       take: limit ? Number(limit) : null,
+      order: {
+        createdAt: 'DESC',
+      },
       select: this.selectOption,
     });
-    const total = await this.userRepository.count();
-    return { results, total };
+    const total = await this.userRepository.findAndCount({
+      where: query,
+    });
+    return { results, total: total[1] ?? 0 };
   }
 
   async migrateData(res: Response, data = []): Promise<User[] | object> {
