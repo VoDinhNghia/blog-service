@@ -6,4 +6,10 @@ export const postRelation = [
   'likes.user',
 ];
 
-export const shareRelations = ['user', 'post', 'likes', 'likes.user'];
+export const shareRelations = [
+  'user',
+  'post',
+  'likes',
+  'likes.user',
+  'post.attachments',
+];

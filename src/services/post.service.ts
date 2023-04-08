@@ -2,7 +2,7 @@ import {
   IcreatePost,
   Iattchment,
   IqueryPost,
-} from '../interfaces/post.interface';
+} from '../interfaces/post-share-like.interface';
 import { Equal, Like } from 'typeorm';
 import { AppDataSource } from '../data-source';
 import { Posts } from '../entities/post.entity';

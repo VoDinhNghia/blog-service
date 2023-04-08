@@ -1,7 +1,7 @@
 import { Likes } from '../entities/like.entity';
 import { AppDataSource } from '../data-source';
 import { Response } from 'express';
-import { IlikePost } from '../interfaces/post.interface';
+import { IlikePost } from '../interfaces/post-share-like.interface';
 import { ElikeType } from '../constants/constant';
 import { Shares } from '../entities/share.entity';
 import { Posts } from '../entities/post.entity';

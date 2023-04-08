@@ -15,7 +15,4 @@ export const QueryPost = [
   query('userId').optional().isString().withMessage('userId should be string'),
 ];
 
-export const QuerySharePost = [
-  ...QueryPagination,
-  query('userId').optional().isString().withMessage('userId should be string'),
-];
+export const QuerySharePost = [...QueryPagination];
