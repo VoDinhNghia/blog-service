@@ -100,9 +100,14 @@ export class ShareService {
       skip: limit && page ? Number(limit) * (Number(page) - 1) : null,
       take: limit ? Number(limit) : null,
       relations: this.relationFields,
+      order: {
+        createdAt: 'DESC',
+      },
       select: this.selectFields,
     });
-    const total = await this.shareRepository.count();
-    return { results, total };
+    const total = await this.shareRepository.findAndCount({
+      where: query,
+    });
+    return { results, total: total[1] ?? 0 };
   }
 }
