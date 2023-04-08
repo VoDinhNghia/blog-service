@@ -1,4 +1,7 @@
-import { IsharePost } from '../interfaces/post.interface';
+import {
+  IqueryShare,
+  IsharePost,
+} from '../interfaces/post-share-like.interface';
 import { AppDataSource } from '../data-source';
 import { Shares } from '../entities/share.entity';
 import { Response } from 'express';
@@ -81,5 +84,25 @@ export class ShareService {
     await this.shareRepository.update(shareId, body);
     const result = await this.findShareById(res, shareId);
     return result;
+  }
+
+  async findAllShare(
+    queryDto: IqueryShare,
+    userId: string
+  ): Promise<{ results: Shares[]; total: number }> {
+    const { limit, page, privateMode } = queryDto;
+    const query: IqueryShare = { userId };
+    if (privateMode) {
+      query.privateMode = privateMode;
+    }
+    const results = await this.shareRepository.find({
+      where: query,
+      skip: limit && page ? Number(limit) * (Number(page) - 1) : null,
+      take: limit ? Number(limit) : null,
+      relations: this.relationFields,
+      select: this.selectFields,
+    });
+    const total = await this.shareRepository.count();
+    return { results, total };
   }
 }

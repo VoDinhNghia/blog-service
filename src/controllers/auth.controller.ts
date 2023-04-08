@@ -39,7 +39,6 @@ export default class AuthController {
         authMsg.login
       );
     } catch (error) {
-      console.log(error);
       new CommonException(res, 500, serverError);
     }
   };

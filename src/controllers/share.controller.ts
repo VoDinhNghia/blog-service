@@ -45,11 +45,13 @@ export default class ShareController {
     }
   };
 
-  static getAllShareOfUser = (req: Request, res: Response) => {
+  static getAllShareOfUser = async (req: Request, res: Response) => {
     try {
       const { query } = req;
+      const userId = req['user'].id;
+      const results = await this.service.findAllShare(query, userId);
       if (!res.headersSent) {
-        new ResponseController(res, query, shareMsg.getAllShare);
+        new ResponseController(res, results, shareMsg.getAllShare);
       }
     } catch {
       new CommonException(res, 500, serverError);
@@ -66,7 +68,6 @@ export default class ShareController {
         new ResponseController(res, result, shareMsg.getAllShare);
       }
     } catch (error) {
-      console.log(error);
       new CommonException(res, 500, serverError);
     }
   };

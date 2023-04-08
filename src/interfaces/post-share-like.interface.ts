@@ -30,3 +30,10 @@ export interface IsharePost {
   postId?: string;
   privateMode?: boolean;
 }
+
+export interface IqueryShare extends IqueryPagination {
+  userId?: string;
+  privateMode?: boolean;
+  fromDate?: Date;
+  toDate?: Date;
+}
