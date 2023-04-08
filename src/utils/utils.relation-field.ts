@@ -13,3 +13,5 @@ export const shareRelations = [
   'likes.user',
   'post.attachments',
 ];
+
+export const followRelations = ['userFollow', 'userFollowed'];

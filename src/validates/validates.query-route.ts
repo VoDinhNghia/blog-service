@@ -1,4 +1,5 @@
 import { query } from 'express-validator';
+import { EqueryFollowType } from '../constants/constant';
 export const QueryPagination = [
   query('limit').optional().isNumeric().withMessage('postId should be number'),
   query('page').optional().isNumeric().withMessage('page should be number'),
@@ -16,3 +17,12 @@ export const QueryPost = [
 ];
 
 export const QuerySharePost = [...QueryPagination];
+
+export const QueryFollow = [
+  ...QueryPagination,
+  query('type')
+    .exists()
+    .withMessage('type is required')
+    .isIn(Object.values(EqueryFollowType))
+    .withMessage(`type should be one of [${Object.values(EqueryFollowType)}]`),
+];

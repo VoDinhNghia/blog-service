@@ -25,3 +25,5 @@ export const selectPost = [
 ];
 
 export const selectSharePost = ['id', 'createdAt', 'privateMode', 'updatedAt'];
+
+export const selectFollow = ['id', 'createdAt'];

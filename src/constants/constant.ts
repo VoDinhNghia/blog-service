@@ -16,3 +16,8 @@ export enum ElikeType {
   POST = 'POST',
   SHARE = 'SHARE',
 }
+
+export enum EqueryFollowType {
+  FOLLOWING = 'FOLLOWING',
+  FOLLOWED = 'FOLLOWED',
+}
