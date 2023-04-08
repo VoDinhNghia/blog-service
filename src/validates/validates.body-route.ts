@@ -90,4 +90,9 @@ export const BodyGroup = [
     .withMessage('privateMode is required')
     .isBoolean()
     .withMessage('privateMode should be true or false'),
+  body('members')
+    .exists()
+    .withMessage('members is required')
+    .isArray()
+    .withMessage('members should be array'),
 ];
