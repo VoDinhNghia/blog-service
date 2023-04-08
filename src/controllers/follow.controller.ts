@@ -25,4 +25,18 @@ export default class FollowController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static getListFollow = async (req: Request, res: Response) => {
+    try {
+      const { query } = req;
+      const userId = req['user'].id;
+      const results = await this.service.getListFollowOfMe(query, userId);
+      if (!res.headersSent) {
+        new ResponseController(res, results, followMsg.getAllFollow);
+      }
+    } catch (error) {
+      console.log(error);
+      new CommonException(res, 500, serverError);
+    }
+  };
 }
