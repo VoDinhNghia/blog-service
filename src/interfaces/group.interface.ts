@@ -3,4 +3,10 @@ export interface Igroup {
   description?: string;
   privateMode?: boolean;
   createdById?: string;
+  members?: string[];
+}
+
+export interface Imember {
+  groupId?: string;
+  memberId?: string;
 }
