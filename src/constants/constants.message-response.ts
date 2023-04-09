@@ -76,11 +76,14 @@ export const groupMsg = {
 
 export const topicMsg = {
   create: 'Create topic success',
+  notFoud: 'Topic not found',
+  getById: 'Get topic by id success',
   notPermission: 'Your are permission to create or delete or update topic',
 };
 
 export const problemMsg = {
   create: 'Create problem success',
+  notFoud: 'Problem not found',
 };
 
 export const solutionMsg = {

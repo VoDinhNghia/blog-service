@@ -16,3 +16,15 @@ export interface IresultMember {
   id?: string;
   memberId?: string;
 }
+
+export interface Icreateproblem {
+  problem?: string;
+  topicId?: string;
+  createdById?: string;
+}
+
+export interface IcreateSolution {
+  problemId?: string;
+  createdById?: string;
+  solution?: string;
+}

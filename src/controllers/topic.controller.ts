@@ -19,4 +19,16 @@ export default class TopicController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static getTopicById = async (req: Request, res: Response) => {
+    try {
+      const topicId = req?.params?.id;
+      const result = await this.service.findTopicById(res, topicId);
+      if (!res.headersSent) {
+        new ResponseController(res, result, topicMsg.getById);
+      }
+    } catch (error) {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }

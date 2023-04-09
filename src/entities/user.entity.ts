@@ -105,12 +105,12 @@ export class User {
   })
   studyTopics?: StudyTopics[];
 
-  @OneToMany(() => StudyProblems, (problem) => problem.createBy, {
+  @OneToMany(() => StudyProblems, (problem) => problem.createdBy, {
     cascade: ['soft-remove', 'recover'],
   })
   studyProblems?: StudyProblems[];
 
-  @OneToMany(() => StudySolutions, (solution) => solution.createBy, {
+  @OneToMany(() => StudySolutions, (solution) => solution.createdBy, {
     cascade: ['soft-remove', 'recover'],
   })
   studySolutions?: StudyProblems[];
