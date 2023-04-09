@@ -9,6 +9,7 @@ export const whiteLists = [
   process.env.FRONTEND,
   process.env.LIBRARY_FRONTEND,
   process.env.MGT_STUDENT,
+  process.env.BLOG_FRONTEND,
 ];
 
 export const enableCors = (req, callback) => {
