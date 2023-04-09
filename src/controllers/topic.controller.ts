@@ -16,7 +16,6 @@ export default class TopicController {
         new ResponseController(res, result, topicMsg.create);
       }
     } catch (error) {
-      console.log(error);
       new CommonException(res, 500, serverError);
     }
   };
