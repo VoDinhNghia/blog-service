@@ -88,4 +88,8 @@ export const problemMsg = {
 
 export const solutionMsg = {
   create: 'Create solution success',
+  delete: 'Delete solution success',
+  update: 'Update solution success',
+  notFound: 'Solution not found',
+  notPermission: 'Your are permission to delete or update this solution',
 };

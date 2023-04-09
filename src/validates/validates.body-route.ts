@@ -160,3 +160,11 @@ export const BodyCreateSolution = [
     .isString()
     .withMessage('solution should be string'),
 ];
+
+export const BodyUpdateSolution = [
+  body('solution')
+    .exists()
+    .withMessage('solution is required')
+    .isString()
+    .withMessage('solution should be string'),
+];
