@@ -22,3 +22,10 @@ export const groupRelations = [
   'topics',
   'members.member',
 ];
+
+export const topicRelations = [
+  'createdBy',
+  'group',
+  'createBy',
+  'studyProblems',
+];

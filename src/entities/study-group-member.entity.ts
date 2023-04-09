@@ -7,11 +7,11 @@ import { StudyGroups } from './study-group.entity';
 @Entity('study_group_members')
 export class StudyGroupMembers extends EntityBasic {
   @IsString()
-  @Column({ select: false })
+  @Column()
   groupId?: string;
 
   @IsString()
-  @Column({ select: false })
+  @Column()
   memberId?: string;
 
   @ManyToOne(() => User, (user) => user.members)

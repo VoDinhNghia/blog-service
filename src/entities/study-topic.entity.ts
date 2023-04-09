@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { EntityBasic } from './base.entity';
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { User } from './user.entity';
 import { StudyProblems } from './study-problem.entity';
 import { StudyGroups } from './study-group.entity';
@@ -17,20 +17,16 @@ export class StudyTopics extends EntityBasic {
   @Column({ length: 2000 })
   description?: string;
 
-  @IsBoolean()
-  @Column({ default: false })
-  privateMode?: boolean;
+  @IsString()
+  @Column()
+  createdById?: string;
 
   @IsString()
-  @Column({ select: false })
-  createById?: string;
-
-  @IsString()
-  @Column({ select: false, nullable: true })
+  @Column()
   groupId?: string;
 
   @ManyToOne(() => User, (user) => user.studyTopics)
-  createBy?: User;
+  createdBy?: User;
 
   @ManyToOne(() => StudyGroups, (group) => group.topics)
   group?: StudyGroups;

@@ -8,14 +8,12 @@ import { Response } from 'express';
 import { Posts } from '../entities/post.entity';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { postMsg, shareMsg } from '../constants/constants.message-response';
-import { selectSharePost } from '../utils/utils.select-fields';
 import { shareRelations } from '../utils/utils.relation-field';
 import { Equal } from 'typeorm';
 
 export class ShareService {
   private shareRepository = AppDataSource.getRepository(Shares);
   private postRepository = AppDataSource.getRepository(Posts);
-  private selectFields: string[] | unknown = selectSharePost;
   private relationFields: string[] = shareRelations;
 
   async createShare(
@@ -45,7 +43,6 @@ export class ShareService {
     const result = await this.shareRepository.findOne({
       where: { id: Equal(id) },
       relations: this.relationFields,
-      select: this.selectFields,
     });
     if (!result) {
       return new CommonException(res, 404, shareMsg.notFound);
@@ -60,7 +57,6 @@ export class ShareService {
   ): Promise<void | object> {
     const result: IsharePost = await this.shareRepository.findOne({
       where: { id: Equal(id) },
-      select: ['userId'],
     });
     if (result.userId !== userId) {
       return new CommonException(res, 403, shareMsg.notPermission);
@@ -103,7 +99,6 @@ export class ShareService {
       order: {
         createdAt: 'DESC',
       },
-      select: this.selectFields,
     });
     const total = await this.shareRepository.findAndCount({
       where: query,

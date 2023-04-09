@@ -13,13 +13,11 @@ import { IfileUploadType } from '../interfaces/file-upload.interface';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { postMsg } from '../constants/constants.message-response';
 import { postRelation } from '../utils/utils.relation-field';
-import { selectPost } from '../utils/utils.select-fields';
 dotenv.config();
 
 export class PostService {
   private postRepository = AppDataSource.getRepository(Posts);
   private attachmentRepository = AppDataSource.getRepository(Attachments);
-  private selectFields: string[] | unknown = selectPost;
 
   async createPost(
     body: IcreatePost,
@@ -53,7 +51,6 @@ export class PostService {
       order: {
         createdAt: 'DESC',
       },
-      select: this.selectFields,
     });
     const total = await this.postRepository.findAndCount({
       where: query,
@@ -65,7 +62,6 @@ export class PostService {
     const result = await this.postRepository.findOne({
       where: { id: Equal(id) },
       relations: postRelation,
-      select: this.selectFields,
     });
     return result;
   }

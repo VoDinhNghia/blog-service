@@ -21,7 +21,7 @@ export class StudyGroups extends EntityBasic {
   privateMode?: boolean;
 
   @IsString()
-  @Column({ select: false })
+  @Column()
   createdById?: string;
 
   @ManyToOne(() => User, (user) => user.group)

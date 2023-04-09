@@ -10,15 +10,15 @@ import { Shares } from './share.entity';
 export class Likes extends EntityBasic {
   @IsString()
   @IsNotEmpty()
-  @Column({ select: false })
+  @Column()
   userId?: string;
 
   @IsString()
-  @Column({ nullable: true, select: false })
+  @Column({ nullable: true })
   postId?: string;
 
   @IsString()
-  @Column({ nullable: true, select: false })
+  @Column({ nullable: true })
   shareId?: string;
 
   @IsString()
