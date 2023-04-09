@@ -11,6 +11,10 @@ export class StudySolutions extends EntityBasic {
   problemId?: string;
 
   @IsString()
+  @Column({ length: 2000 })
+  solution?: string;
+
+  @IsString()
   @Column()
   createById?: string;
 

@@ -78,3 +78,11 @@ export const topicMsg = {
   create: 'Create topic success',
   notPermission: 'Your are permission to create or delete or update topic',
 };
+
+export const problemMsg = {
+  create: 'Create problem success',
+};
+
+export const solutionMsg = {
+  create: 'Create solution success',
+};

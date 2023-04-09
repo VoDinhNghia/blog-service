@@ -134,3 +134,29 @@ export const BodyCreateTopic = [
     .isString()
     .withMessage('groupId should be array'),
 ];
+
+export const BodyCreateProblem = [
+  body('problem')
+    .exists()
+    .withMessage('problem is required')
+    .isString()
+    .withMessage('problem should be string'),
+  body('topicId')
+    .exists()
+    .withMessage('topicId is required')
+    .isString()
+    .withMessage('topicId should be string'),
+];
+
+export const BodyCreateSolution = [
+  body('problemId')
+    .exists()
+    .withMessage('problemId is required')
+    .isString()
+    .withMessage('problemId should be string'),
+  body('solution')
+    .exists()
+    .withMessage('solution is required')
+    .isString()
+    .withMessage('solution should be string'),
+];
