@@ -3,12 +3,10 @@ import { followMsg } from '../constants/constants.message-response';
 import { AppDataSource } from '../data-source';
 import { Follows } from '../entities/follow.entity';
 import { EqueryFollowType } from '../constants/constant';
-import { selectFollow } from '../utils/utils.select-fields';
 import { followRelations } from '../utils/utils.relation-field';
 
 export class FollowService {
   private followRepository = AppDataSource.getRepository(Follows);
-  private selectFields: string[] | unknown = selectFollow;
 
   async createFollow(
     userId: string,
@@ -45,7 +43,6 @@ export class FollowService {
       order: {
         createdAt: 'DESC',
       },
-      select: this.selectFields,
     });
     const total = await this.followRepository.findAndCount({
       where: query,

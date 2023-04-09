@@ -12,11 +12,11 @@ export class StudyProblems extends EntityBasic {
   problem?: string;
 
   @IsString()
-  @Column({ select: false })
+  @Column()
   topicId?: string;
 
   @IsString()
-  @Column({ select: false })
+  @Column()
   createById?: string;
 
   @ManyToOne(() => User, (user) => user.studyProblems)

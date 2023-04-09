@@ -100,7 +100,7 @@ export class User {
   })
   comments?: Comments[];
 
-  @OneToMany(() => StudyTopics, (topic) => topic.createBy, {
+  @OneToMany(() => StudyTopics, (topic) => topic.createdBy, {
     cascade: ['soft-remove', 'recover'],
   })
   studyTopics?: StudyTopics[];

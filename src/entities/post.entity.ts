@@ -21,7 +21,7 @@ export class Posts extends EntityBasic {
 
   @IsString()
   @IsNotEmpty()
-  @Column({ nullable: false, select: false })
+  @Column({ nullable: false })
   userId?: string;
 
   @IsString()

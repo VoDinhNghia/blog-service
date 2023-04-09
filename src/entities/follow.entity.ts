@@ -7,12 +7,12 @@ import { User } from './user.entity';
 export class Follows extends EntityBasic {
   @IsString()
   @IsNotEmpty()
-  @Column({ select: false })
+  @Column()
   userFollowId?: string; // people who are following
 
   @IsString()
   @IsNotEmpty()
-  @Column({ select: false })
+  @Column()
   userFollowedId?: string; // the person being followed
 
   @ManyToOne(() => User, (user) => user.follow)

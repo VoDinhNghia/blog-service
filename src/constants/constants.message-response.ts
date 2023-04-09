@@ -73,3 +73,8 @@ export const groupMsg = {
   notPermission: 'Your are permission to delete or update this group',
   addMembers: 'Add more members success',
 };
+
+export const topicMsg = {
+  create: 'Create topic success',
+  notPermission: 'Your are permission to create or delete or update topic',
+};

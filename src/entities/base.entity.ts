@@ -12,7 +12,7 @@ export class EntityBasic {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'datetime', default: () => 'NOW()', select: false })
+  @Column({ type: 'datetime', default: () => 'NOW()' })
   createdAt: Date;
 
   @Column({ type: 'datetime', default: () => 'NOW()', select: false })

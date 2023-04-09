@@ -11,14 +11,11 @@ import { Response } from 'express';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { groupMsg } from '../constants/constants.message-response';
 import { Equal, Like } from 'typeorm';
-import { selectGroup } from '../utils/utils.select-fields';
 import { groupRelations } from '../utils/utils.relation-field';
 
 export class GroupService {
   private groupRepository = AppDataSource.getRepository(StudyGroups);
   private memberRepository = AppDataSource.getRepository(StudyGroupMembers);
-  private selectFields: string[] | unknown = selectGroup;
-  private selectUpdate: string[] | unknown = ['id', 'createdById'];
 
   async createGroup(body: Igroup, userId: string): Promise<StudyGroups> {
     const { name, description, privateMode, members = [] } = body;
@@ -50,7 +47,6 @@ export class GroupService {
       where: {
         id: groupId,
       },
-      select: this.selectUpdate,
     });
     if (!group) {
       return new CommonException(res, 404, groupMsg.notFound);
@@ -72,7 +68,6 @@ export class GroupService {
       where: {
         id: groupId,
       },
-      select: this.selectUpdate,
     });
     if (!group) {
       return new CommonException(res, 404, groupMsg.notFound);
@@ -86,7 +81,6 @@ export class GroupService {
   async addAndUpdateNewMembers(groupId: string, members = []): Promise<void> {
     const memberGroup = await this.memberRepository.find({
       where: { groupId: Equal(groupId) },
-      select: ['id', 'memberId', 'groupId'],
     });
     const newMemberDto = [];
     for (const member of members) {
@@ -112,7 +106,6 @@ export class GroupService {
         id: groupId,
       },
       relations: groupRelations,
-      select: this.selectFields,
     });
     if (!result) {
       return new CommonException(res, 404, groupMsg.notFound);
@@ -140,7 +133,6 @@ export class GroupService {
       order: {
         createdAt: 'DESC',
       },
-      select: this.selectFields,
     });
     const total = await this.groupRepository.findAndCount({
       where: query,

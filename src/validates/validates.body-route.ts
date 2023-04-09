@@ -116,3 +116,21 @@ export const BodyUpdateGroupMember = [
     .isArray()
     .withMessage('members should be array'),
 ];
+
+export const BodyCreateTopic = [
+  body('name')
+    .exists()
+    .withMessage('name is required')
+    .isString()
+    .withMessage('name should be string'),
+  body('description')
+    .exists()
+    .withMessage('description is required')
+    .isString()
+    .withMessage('description should be string'),
+  body('groupId')
+    .exists()
+    .withMessage('groupId is required')
+    .isString()
+    .withMessage('groupId should be array'),
+];

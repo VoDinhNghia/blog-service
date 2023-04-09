@@ -11,11 +11,11 @@ export class Comments extends EntityBasic {
   content?: string;
 
   @IsString()
-  @Column({ select: false })
+  @Column()
   postId?: string;
 
   @IsString()
-  @Column({ select: false })
+  @Column()
   userId?: string;
 
   @ManyToOne(() => Posts, (post) => post.comments)
