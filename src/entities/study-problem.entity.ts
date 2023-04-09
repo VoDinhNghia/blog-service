@@ -17,10 +17,10 @@ export class StudyProblems extends EntityBasic {
 
   @IsString()
   @Column()
-  createById?: string;
+  createdById?: string;
 
   @ManyToOne(() => User, (user) => user.studyProblems)
-  createBy?: User;
+  createdBy?: User;
 
   @ManyToOne(() => StudyTopics, (topic) => topic.studyProblems)
   topic?: StudyTopics;

@@ -10,12 +10,13 @@ import { ResponseController } from '../utils/utils.response';
 export default class SolutionController {
   static service = new SolutionService();
 
-  static createSolution = (req: Request, res: Response) => {
+  static createSolution = async (req: Request, res: Response) => {
     try {
       const { body } = req;
       const userId = req['user'].id;
+      const result = await this.service.createSolution(res, body, userId);
       if (!res.headersSent) {
-        new ResponseController(res, { body, userId }, solutionMsg.create);
+        new ResponseController(res, result, solutionMsg.create);
       }
     } catch (error) {
       new CommonException(res, 500, serverError);

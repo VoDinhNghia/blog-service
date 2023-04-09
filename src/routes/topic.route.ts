@@ -12,4 +12,6 @@ router.post(
   TopicController.createTopic
 );
 
+router.get('/:id', [VerifyToken], TopicController.getTopicById);
+
 export default router;
