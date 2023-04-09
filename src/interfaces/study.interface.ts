@@ -28,3 +28,12 @@ export interface IcreateSolution {
   createdById?: string;
   solution?: string;
 }
+
+export interface IresultSolution {
+  id?: string;
+  solution?: string;
+  problem?: {
+    createdById?: string;
+  };
+  createdById?: string;
+}
