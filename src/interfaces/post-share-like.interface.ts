@@ -38,3 +38,9 @@ export interface IqueryShare extends IqueryPagination {
   fromDate?: Date;
   toDate?: Date;
 }
+
+export interface IcreateComment {
+  content?: string;
+  postId?: string;
+  userId?: string;
+}

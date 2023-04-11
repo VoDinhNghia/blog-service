@@ -168,3 +168,16 @@ export const BodyUpdateSolution = [
     .isString()
     .withMessage('solution should be string'),
 ];
+
+export const BodyCreateComment = [
+  body('content')
+    .exists()
+    .withMessage('content is required')
+    .isString()
+    .withMessage('content should be string'),
+  body('postId')
+    .exists()
+    .withMessage('postId is required')
+    .isString()
+    .withMessage('postId should be string'),
+];

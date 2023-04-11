@@ -11,9 +11,6 @@ export const VerifyToken = (
   next: NextFunction
 ) => {
   const token = req.headers['authorization'];
-  console.log('token', token);
-  console.log('req.headers', req.headers);
-  console.log('req.header', req.header);
   try {
     const payload: IuserLogin | any = jwt.verify(
       token?.replace('Bearer ', ''),
@@ -28,7 +25,6 @@ export const VerifyToken = (
     req.user = payload;
     next();
   } catch (error) {
-    console.log('error', error);
     return new UnAuthorizedException(res);
   }
 };
