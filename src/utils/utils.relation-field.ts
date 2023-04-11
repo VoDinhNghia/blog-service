@@ -3,7 +3,10 @@ export const postRelation = [
   'user',
   'likes',
   'shares',
+  'comments',
   'likes.user',
+  'shares.user',
+  'comments.user',
 ];
 
 export const shareRelations = [

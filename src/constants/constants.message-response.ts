@@ -93,3 +93,11 @@ export const solutionMsg = {
   notFound: 'Solution not found',
   notPermission: 'Your are permission to delete or update this solution',
 };
+
+export const commentMsg = {
+  create: 'Create comment success',
+  delete: 'Delete comment success',
+  update: 'Update comment success',
+  notFound: 'Comment not found',
+  notPermission: 'Your are permission to delete or update this comment',
+};
