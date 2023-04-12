@@ -26,7 +26,7 @@ export class LikeService {
     let createDto = {};
     if (type === ElikeType.SHARE) {
       const shareInfo = await this.shareRepository.findOne({
-        where: { id: shareId, userId },
+        where: { id: shareId, deletedAt: null },
       });
       if (!shareInfo) {
         return new CommonException(res, 404, shareMsg.notFound);
@@ -34,7 +34,7 @@ export class LikeService {
       createDto = { shareId, type, userId };
     } else {
       const postInfo = await this.postRepository.findOne({
-        where: { id: postId, userId },
+        where: { id: postId, deletedAt: null },
       });
       if (!postInfo) {
         return new CommonException(res, 404, postMsg.notFound);

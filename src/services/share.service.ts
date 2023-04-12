@@ -23,7 +23,7 @@ export class ShareService {
   ): Promise<Shares | object> {
     const { postId, privateMode } = body;
     const post = await this.postRepository.findOne({
-      where: { id: postId, userId },
+      where: { id: postId, deletedAt: null },
     });
     if (!post) {
       return new CommonException(res, 404, postMsg.notFound);
