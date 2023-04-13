@@ -78,4 +78,17 @@ export default class PostController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static deleteImage = async (req: Request, res: Response) => {
+    try {
+      const userId = req['user'].id;
+      const id: string = req.params.id;
+      await this.service.deleteImage(res, id, userId);
+      if (!res.headersSent) {
+        new ResponseController(res, true, postMsg.deleteImage);
+      }
+    } catch {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }
