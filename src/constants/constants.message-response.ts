@@ -27,10 +27,13 @@ export const postMsg = {
   create: 'Create post success',
   update: 'Update post success',
   delete: 'Delete post success',
+  deleteImage: 'Delete image success',
   getById: 'Get post by id success',
   getAll: 'get all post success',
   notFound: 'Post not found',
+  notFoundImage: 'Image not found',
   notPermission: 'Your are permission to update or delete this post',
+  notPermissionImage: 'Your are permission to delete this image',
   validate: {
     fields: 'title, content, type must provided',
   },

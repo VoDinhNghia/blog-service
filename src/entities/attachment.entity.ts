@@ -16,6 +16,14 @@ export class Attachments extends EntityBasic {
   originalname?: string;
 
   @IsString()
+  @Column({ default: null })
+  filename?: string;
+
+  @IsString()
+  @Column({ default: null })
+  path?: string;
+
+  @IsString()
   @IsNotEmpty()
   @Column()
   postId?: string;

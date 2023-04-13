@@ -34,4 +34,6 @@ router.put(
 
 router.delete('/:id', [VerifyToken], PostController.deletePost);
 
+router.delete('/image/:id', [VerifyToken], PostController.deleteImage);
+
 export default router;

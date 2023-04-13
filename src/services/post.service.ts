@@ -13,6 +13,7 @@ import { IfileUploadType } from '../interfaces/file-upload.interface';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { postMsg } from '../constants/constants.message-response';
 import { postRelation } from '../utils/utils.relation-field';
+import { unlinkSync } from 'fs';
 dotenv.config();
 
 export class PostService {
@@ -96,12 +97,37 @@ export class PostService {
     await this.postRepository.softRemove(post);
   }
 
+  async deleteImage(
+    res: Response,
+    id: string,
+    userId: string
+  ): Promise<void | object> {
+    const image = await this.attachmentRepository.findOne({
+      where: { id: Equal(id) },
+    });
+    if (!image) {
+      return new CommonException(res, 404, postMsg.notFoundImage);
+    }
+    const post = await this.findById(image?.postId);
+    if (String(post.userId) !== String(userId)) {
+      return new CommonException(res, 403, postMsg.notPermissionImage);
+    }
+    await this.attachmentRepository.delete(id);
+    try {
+      unlinkSync(image?.path);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   attachmentDto(fileImages: IfileUploadType[], postId: string) {
     const dto: Iattchment[] = fileImages.map((item: IfileUploadType) => {
       return {
-        url: `${process.env.URL_IMAGE_UPLOAD}/${item.filename}`,
+        url: `${process.env.URL_IMAGE_UPLOAD}/${item?.filename}`,
         originalname: item?.originalname,
         postId,
+        filename: item?.filename,
+        path: item?.path,
       };
     });
     return dto;
