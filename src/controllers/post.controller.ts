@@ -59,7 +59,7 @@ export default class PostController {
         userId
       );
       if (!res.headersSent) {
-        new ResponseController(res, result, postMsg.getById);
+        new ResponseController(res, result, postMsg.update);
       }
     } catch {
       new CommonException(res, 500, serverError);
