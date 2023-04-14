@@ -20,11 +20,7 @@ router.get(
   UserController.getAllUsers
 );
 
-router.get(
-  '/:id',
-  [VerifyToken, CheckRoleAccess([EuserRole.ADMIN, EuserRole.SUPPER_ADMIN])],
-  UserController.getUserById
-);
+router.get('/:id', [VerifyToken], UserController.getUserById);
 
 router.post('/migrate', [validKeyAccess], UserController.migrateUser);
 
