@@ -3,7 +3,7 @@ import {
   Iattchment,
   IqueryPost,
 } from '../interfaces/post-share-like.interface';
-import { Equal, Like } from 'typeorm';
+import { Equal, In, Like } from 'typeorm';
 import { AppDataSource } from '../data-source';
 import { Posts } from '../entities/post.entity';
 import { Response } from 'express';
@@ -25,6 +25,8 @@ export class PostService {
     fileImages,
     userId: string
   ): Promise<Posts> {
+    const { privateMode = false } = body;
+    body.privateMode = String(privateMode) === 'true' ? true : false;
     const createPostDto = { ...body, userId };
     const post = await this.postRepository.save(createPostDto);
     const attachmentDto: Iattchment[] = this.attachmentDto(fileImages, post.id);
@@ -34,12 +36,16 @@ export class PostService {
   }
 
   async findAllPosts(
-    queryDto: IqueryPost
+    queryDto: IqueryPost,
+    userReq: string
   ): Promise<{ results: Posts[]; total: number }> {
     const { limit, page, userId, searchKey } = queryDto;
     const query: IqueryPost = { privateMode: false };
     if (userId) {
       query.userId = userId;
+      if (String(userId) === String(userReq)) {
+        query.privateMode = In([false, true]);
+      }
     }
     if (searchKey) {
       query.title = Like(`%${searchKey}%`);
@@ -74,9 +80,13 @@ export class PostService {
     fileImages,
     userId: string
   ): Promise<Posts | object> {
+    const { privateMode } = body;
     const post = await this.findById(postId);
     if (String(post.userId) !== String(userId)) {
       return new CommonException(res, 403, postMsg.notPermission);
+    }
+    if (privateMode) {
+      body.privateMode = String(privateMode) === 'true' ? true : false;
     }
     await this.postRepository.update(postId, body);
     const attachmentDto: Iattchment[] = this.attachmentDto(fileImages, postId);

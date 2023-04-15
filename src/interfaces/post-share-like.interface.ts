@@ -6,6 +6,7 @@ export interface IcreatePost {
   content?: string;
   type?: string;
   userId?: string;
+  privateMode?: boolean;
 }
 
 export interface Iattchment {
@@ -16,7 +17,7 @@ export interface Iattchment {
 export interface IqueryPost extends IqueryPagination {
   userId?: string;
   title?: string | any;
-  privateMode?: boolean;
+  privateMode?: boolean | any;
 }
 
 export interface IlikePost {
