@@ -25,6 +25,8 @@ export class PostService {
     fileImages,
     userId: string
   ): Promise<Posts> {
+    const { privateMode = false } = body;
+    body.privateMode = String(privateMode) === 'true' ? true : false;
     const createPostDto = { ...body, userId };
     const post = await this.postRepository.save(createPostDto);
     const attachmentDto: Iattchment[] = this.attachmentDto(fileImages, post.id);
