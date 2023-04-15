@@ -23,7 +23,8 @@ export default class PostController {
   static getAllPosts = async (req: Request, res: Response) => {
     try {
       const { query } = req;
-      const results = await this.service.findAllPosts(query);
+      const userId = req['user'].id;
+      const results = await this.service.findAllPosts(query, userId);
       if (!res.headersSent) {
         new ResponseController(res, results, postMsg.getAll);
       }
