@@ -22,4 +22,31 @@ export default class CommentController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static updateComment = async (req: Request, res: Response) => {
+    try {
+      const { body } = req;
+      const id = req.params.id;
+      const userId = req['user'].id;
+      await this.service.updateComment(res, id, body, userId);
+      if (!res.headersSent) {
+        new ResponseController(res, true, commentMsg.update);
+      }
+    } catch (error) {
+      new CommonException(res, 500, serverError);
+    }
+  };
+
+  static deleteComment = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      const userId = req['user'].id;
+      await this.service.deleteComment(res, id, userId);
+      if (!res.headersSent) {
+        new ResponseController(res, true, commentMsg.delete);
+      }
+    } catch (error) {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }

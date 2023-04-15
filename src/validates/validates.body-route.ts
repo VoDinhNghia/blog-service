@@ -181,3 +181,7 @@ export const BodyCreateComment = [
     .isString()
     .withMessage('postId should be string'),
 ];
+
+export const BodyUpdateComment = [
+  body('content').optional().isString().withMessage('content should be string'),
+];
