@@ -40,4 +40,6 @@ export default class UserController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  // api update avatar, get list user study common major (call BE)
 }

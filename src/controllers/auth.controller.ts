@@ -22,6 +22,7 @@ export default class AuthController {
       if (!user?.checkIfUnencryptedPasswordIsValid(password)) {
         return new CommonException(res, 401, authMsg.invalid);
       }
+      await userRepository.update(user.id, { statusLogin: true });
       const payload = {
         id: user.id,
         email: user.email,
