@@ -37,6 +37,7 @@ export class CronJobService {
           userId: user?._id,
         });
         if (checkUser) {
+          dto.avatar = checkUser.avatar;
           await userRepository.update(checkUser.id, {
             ...dto,
             updatedAt: new Date(),

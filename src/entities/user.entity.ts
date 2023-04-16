@@ -61,6 +61,9 @@ export class User {
   @Column({ nullable: true })
   avatar?: string;
 
+  @Column({ default: false })
+  statusLogin: boolean;
+
   @Column({ nullable: true, select: false })
   mobile?: string;
 
