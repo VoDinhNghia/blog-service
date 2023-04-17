@@ -31,6 +31,8 @@ router.put(
 
 router.delete('/:id', [VerifyToken], GroupController.deleteGroup);
 
+router.delete('/member/:id', [VerifyToken], GroupController.deleteMember);
+
 router.get(
   '/',
   [...QueryGroup, ResultValidate, VerifyToken],

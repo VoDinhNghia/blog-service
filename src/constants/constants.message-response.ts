@@ -32,8 +32,8 @@ export const postMsg = {
   getAll: 'get all post success',
   notFound: 'Post not found',
   notFoundImage: 'Image not found',
-  notPermission: 'Your are permission to update or delete this post',
-  notPermissionImage: 'Your are permission to delete this image',
+  notPermission: 'Your are not permission to update or delete this post',
+  notPermissionImage: 'Your are not permission to delete this image',
   validate: {
     fields: 'title, content, type must provided',
   },
@@ -52,7 +52,7 @@ export const shareMsg = {
   getAllShare: 'List share post of user',
   notFound: 'Share not found',
   existedSharePost: 'This share post existed already',
-  notPermission: 'Your are permission to delete or update this share',
+  notPermission: 'Your are not permission to delete or update this share',
 };
 
 export const qureryPagination = {
@@ -70,18 +70,21 @@ export const groupMsg = {
   create: 'Create group success',
   update: 'Update group success',
   delete: 'Delete group success',
+  deleteMember: 'Delete member success',
   getById: 'Get group by id success',
   getAll: 'Get all group success',
   notFound: 'Group not found',
-  notPermission: 'Your are permission to delete or update this group',
+  notPermission: 'Your are not permission to delete or update this group',
   addMembers: 'Add more members success',
+  notFoundMember: 'Member not found',
+  notPermissionMember: 'Your are not permission to delete member',
 };
 
 export const topicMsg = {
   create: 'Create topic success',
   notFoud: 'Topic not found',
   getById: 'Get topic by id success',
-  notPermission: 'Your are permission to create or delete or update topic',
+  notPermission: 'Your are not permission to create or delete or update topic',
 };
 
 export const problemMsg = {
@@ -94,7 +97,7 @@ export const solutionMsg = {
   delete: 'Delete solution success',
   update: 'Update solution success',
   notFound: 'Solution not found',
-  notPermission: 'Your are permission to delete or update this solution',
+  notPermission: 'Your are not permission to delete or update this solution',
 };
 
 export const commentMsg = {
@@ -102,5 +105,5 @@ export const commentMsg = {
   delete: 'Delete comment success',
   update: 'Update comment success',
   notFound: 'Comment not found',
-  notPermission: 'Your are permission to delete or update this comment',
+  notPermission: 'Your are not permission to delete or update this comment',
 };
