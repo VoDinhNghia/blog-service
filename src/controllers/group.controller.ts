@@ -80,4 +80,17 @@ export default class GroupController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static deleteMember = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      const userId = req['user'].id;
+      await this.service.deleteMember(res, id, userId);
+      if (!res.headersSent) {
+        new ResponseController(res, true, groupMsg.deleteMember);
+      }
+    } catch {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }
