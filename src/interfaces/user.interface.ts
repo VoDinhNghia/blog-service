@@ -34,6 +34,7 @@ export interface IuserMigrate {
 }
 
 export interface IqueryUser extends IqueryPagination {
+  id?: string | any;
   userId?: string;
   firstName?: string | any;
 }

@@ -6,16 +6,17 @@ import { Response } from 'express';
 import { IqueryUser, IuserMigrate } from '../interfaces/user.interface';
 import { selectUser } from '../utils/utils.select-fields';
 import { IqueryPagination } from '../interfaces/pagination.interface';
-import { Equal, Like } from 'typeorm';
+import { Equal, In, Like, Not } from 'typeorm';
 export class UserService {
   private selectOption: string[] | unknown = selectUser;
   private userRepository = AppDataSource.getRepository(User);
 
   async findAllUsers(
-    queryDto: IqueryPagination
+    queryDto: IqueryPagination,
+    userId: string
   ): Promise<{ results: User[]; total: number }> {
     const { limit, page, searchKey } = queryDto;
-    const query: IqueryUser = {};
+    const query: IqueryUser = { id: Not(In([userId])) };
     if (searchKey) {
       query.firstName = Like(`%${searchKey}%`);
     }
