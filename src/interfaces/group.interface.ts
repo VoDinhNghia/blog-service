@@ -24,4 +24,5 @@ export interface IqueryGroup extends IqueryPagination {
   name?: string | any;
   privateMode?: boolean | Array<boolean> | any;
   createdById?: string;
+  id?: string[] | any;
 }

@@ -141,20 +141,39 @@ export class GroupService {
   ): Promise<{ results: StudyGroups[]; total: number }> {
     const { limit, page, searchKey, createdById } = queryDto;
     const query: IqueryGroup = { privateMode: false };
+    let orGroup = null;
     if (createdById) {
+      const groupMember = await this.memberRepository.find({
+        where: {
+          memberId: Equal(createdById),
+        },
+      });
+      const groupIds = groupMember?.map((member) => {
+        return member?.groupId;
+      });
       query.createdById = createdById;
       if (String(userId) === String(createdById)) {
         query.privateMode = In([true, false]);
+        orGroup = {
+          privateMode: In([true, false]),
+          id: In(groupIds),
+        };
+      } else {
+        orGroup = {
+          privateMode: false,
+          id: In(groupIds),
+        };
       }
     }
     if (searchKey) {
       query.name = Like(`%${searchKey}%`);
     }
+    const queryWhere = orGroup ? [orGroup, query] : query;
     const results = await this.groupRepository.find({
-      where: query,
+      relations: groupRelations,
+      where: queryWhere,
       skip: limit && page ? Number(limit) * (Number(page) - 1) : null,
       take: limit ? Number(limit) : null,
-      relations: groupRelations,
       order: {
         createdAt: 'DESC',
       },

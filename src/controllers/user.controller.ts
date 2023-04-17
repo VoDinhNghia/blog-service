@@ -10,7 +10,8 @@ export default class UserController {
   static getAllUsers = async (req: Request, res: Response) => {
     try {
       const { query } = req;
-      const users = await this.service.findAllUsers(query);
+      const userId = req['user'].id;
+      const users = await this.service.findAllUsers(query, userId);
       new ResponseController(res, users, userMsg.getAll);
     } catch (error) {
       new CommonException(res, 500, serverError);
