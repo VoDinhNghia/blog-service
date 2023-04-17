@@ -34,7 +34,7 @@ router.delete('/:id', [VerifyToken], GroupController.deleteGroup);
 router.get(
   '/',
   [...QueryGroup, ResultValidate, VerifyToken],
-  GroupController.getAllGroupOfMe
+  GroupController.getAllGroups
 );
 
 router.get('/:id', [VerifyToken], GroupController.getGroupById);

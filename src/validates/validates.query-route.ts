@@ -29,8 +29,8 @@ export const QueryFollow = [
 
 export const QueryGroup = [
   ...QueryPagination,
-  query('privateMode')
+  query('createdById')
     .optional()
-    .isBoolean()
-    .withMessage('privateMode should be true or false'),
+    .isString()
+    .withMessage('createdById should be string'),
 ];

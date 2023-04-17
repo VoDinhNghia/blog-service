@@ -10,7 +10,7 @@ import { uniq } from 'lodash';
 import { Response } from 'express';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { groupMsg } from '../constants/constants.message-response';
-import { Equal, Like } from 'typeorm';
+import { Equal, In, Like } from 'typeorm';
 import { groupRelations } from '../utils/utils.relation-field';
 
 export class GroupService {
@@ -113,14 +113,17 @@ export class GroupService {
     return result;
   }
 
-  async findAllGroupOfMe(
+  async findAllGroups(
     queryDto: IqueryGroup,
     userId: string
   ): Promise<{ results: StudyGroups[]; total: number }> {
-    const { limit, page, privateMode, searchKey } = queryDto;
-    const query: IqueryGroup = { createdById: userId };
-    if (privateMode) {
-      query.privateMode = privateMode;
+    const { limit, page, searchKey, createdById } = queryDto;
+    const query: IqueryGroup = { privateMode: false };
+    if (createdById) {
+      query.createdById = createdById;
+      if (String(userId) === String(createdById)) {
+        query.privateMode = In([true, false]);
+      }
     }
     if (searchKey) {
       query.name = Like(`%${searchKey}%`);
