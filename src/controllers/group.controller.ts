@@ -70,11 +70,11 @@ export default class GroupController {
     }
   };
 
-  static getAllGroupOfMe = async (req: Request, res: Response) => {
+  static getAllGroups = async (req: Request, res: Response) => {
     try {
       const { query } = req;
       const userId = req['user'].id;
-      const results = await this.service.findAllGroupOfMe(query, userId);
+      const results = await this.service.findAllGroups(query, userId);
       new ResponseController(res, results, groupMsg.getAll);
     } catch {
       new CommonException(res, 500, serverError);

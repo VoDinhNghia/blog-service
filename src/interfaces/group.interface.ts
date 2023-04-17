@@ -22,6 +22,6 @@ export interface IupdateGroup {
 
 export interface IqueryGroup extends IqueryPagination {
   name?: string | any;
-  privateMode?: boolean;
+  privateMode?: boolean | Array<boolean> | any;
   createdById?: string;
 }
