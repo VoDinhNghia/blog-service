@@ -119,6 +119,23 @@ export class GroupService {
     await this.memberRepository.delete(id);
   }
 
+  async memberLeaveGroup(
+    res: Response,
+    groupId: string,
+    userId: string
+  ): Promise<void | object> {
+    const member = await this.memberRepository.findOne({
+      where: {
+        groupId: Equal(groupId),
+        memberId: userId,
+      },
+    });
+    if (!member) {
+      return new CommonException(res, 404, groupMsg.notFoundMember);
+    }
+    await this.memberRepository.delete(member?.id);
+  }
+
   async findGoupById(
     res: Response,
     groupId: string

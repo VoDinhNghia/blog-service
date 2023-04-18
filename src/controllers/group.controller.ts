@@ -93,4 +93,17 @@ export default class GroupController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static memberLeavegroup = async (req: Request, res: Response) => {
+    try {
+      const groupId = req.params.groupId;
+      const userId = req['user'].id;
+      await this.service.memberLeaveGroup(res, groupId, userId);
+      if (!res.headersSent) {
+        new ResponseController(res, true, groupMsg.leaveGroup);
+      }
+    } catch {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }
