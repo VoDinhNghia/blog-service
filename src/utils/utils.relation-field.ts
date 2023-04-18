@@ -26,4 +26,11 @@ export const groupRelations = [
   'members.member',
 ];
 
-export const topicRelations = ['group', 'createdBy', 'studyProblems'];
+export const topicRelations = [
+  'group',
+  'createdBy',
+  'studyProblems',
+  'studyProblems.createdBy',
+  'studyProblems.solutions',
+  'studyProblems.solutions.createdBy',
+];
