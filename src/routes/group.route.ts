@@ -33,6 +33,12 @@ router.delete('/:id', [VerifyToken], GroupController.deleteGroup);
 
 router.delete('/member/:id', [VerifyToken], GroupController.deleteMember);
 
+router.delete(
+  '/leave/:groupId',
+  [VerifyToken],
+  GroupController.memberLeavegroup
+);
+
 router.get(
   '/',
   [...QueryGroup, ResultValidate, VerifyToken],

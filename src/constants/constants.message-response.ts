@@ -78,6 +78,7 @@ export const groupMsg = {
   addMembers: 'Add more members success',
   notFoundMember: 'Member not found',
   notPermissionMember: 'Your are not permission to delete member',
+  leaveGroup: 'Leave group success',
 };
 
 export const topicMsg = {
