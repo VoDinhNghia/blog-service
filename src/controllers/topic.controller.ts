@@ -31,4 +31,31 @@ export default class TopicController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static updateTopic = async (req: Request, res: Response) => {
+    try {
+      const { body } = req;
+      const topicId = req?.params?.id;
+      const userId = req['user'].id;
+      await this.service.updateTopic(res, topicId, body, userId);
+      if (!res.headersSent) {
+        new ResponseController(res, true, topicMsg.update);
+      }
+    } catch (error) {
+      new CommonException(res, 500, serverError);
+    }
+  };
+
+  static deleteTopic = async (req: Request, res: Response) => {
+    try {
+      const topicId = req?.params?.id;
+      const userId = req['user'].id;
+      await this.service.deleteTopic(res, topicId, userId);
+      if (!res.headersSent) {
+        new ResponseController(res, true, topicMsg.delete);
+      }
+    } catch (error) {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }

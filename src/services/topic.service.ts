@@ -55,4 +55,42 @@ export class TopicService {
     }
     return result;
   }
+
+  async updateTopic(
+    res: Response,
+    id: string,
+    body: IcreateTopic,
+    userId: string
+  ): Promise<void | object> {
+    await this.checkTopicAndPermisson(res, id, userId);
+    await this.topicRepository.update(id, body);
+  }
+
+  async deleteTopic(
+    res: Response,
+    id: string,
+    userId: string
+  ): Promise<void | object> {
+    const result = await this.checkTopicAndPermisson(res, id, userId);
+    await this.topicRepository.softRemove(result);
+  }
+
+  async checkTopicAndPermisson(
+    res: Response,
+    id: string,
+    userId: string
+  ): Promise<StudyTopics | object> {
+    const topic = await this.topicRepository.findOne({
+      where: {
+        id: Equal(id),
+      },
+    });
+    if (!topic) {
+      return new CommonException(res, 404, topicMsg.notFoud);
+    }
+    if (String(topic?.createdById) !== String(userId)) {
+      return new CommonException(res, 403, topicMsg.notPermission);
+    }
+    return topic;
+  }
 }

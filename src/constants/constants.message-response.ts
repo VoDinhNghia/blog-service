@@ -84,6 +84,8 @@ export const groupMsg = {
 export const topicMsg = {
   create: 'Create topic success',
   notFoud: 'Topic not found',
+  update: 'Update topic success',
+  delete: 'Delete topic success',
   getById: 'Get topic by id success',
   notPermission: 'Your are not permission to create or delete or update topic',
 };
