@@ -135,6 +135,14 @@ export const BodyCreateTopic = [
     .withMessage('groupId should be array'),
 ];
 
+export const BodyUpdateTopic = [
+  body('name').optional().isString().withMessage('name should be string'),
+  body('description')
+    .optional()
+    .isString()
+    .withMessage('description should be string'),
+];
+
 export const BodyCreateProblem = [
   body('problem')
     .exists()
