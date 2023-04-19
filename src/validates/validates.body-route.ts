@@ -156,6 +156,10 @@ export const BodyCreateProblem = [
     .withMessage('topicId should be string'),
 ];
 
+export const BodyUpdateProblem = [
+  body('problem').optional().isString().withMessage('problem should be string'),
+];
+
 export const BodyCreateSolution = [
   body('problemId')
     .exists()

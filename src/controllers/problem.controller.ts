@@ -22,4 +22,31 @@ export default class ProblemController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static updateProblem = async (req: Request, res: Response) => {
+    try {
+      const { body } = req;
+      const userId = req['user'].id;
+      const id = req.params.id;
+      await this.service.updateProblem(res, id, body, userId);
+      if (!res.headersSent) {
+        new ResponseController(res, true, problemMsg.update);
+      }
+    } catch (error) {
+      new CommonException(res, 500, serverError);
+    }
+  };
+
+  static deleteProblem = async (req: Request, res: Response) => {
+    try {
+      const userId = req['user'].id;
+      const id = req.params.id;
+      await this.service.deleteProblem(res, id, userId);
+      if (!res.headersSent) {
+        new ResponseController(res, true, problemMsg.delete);
+      }
+    } catch (error) {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }

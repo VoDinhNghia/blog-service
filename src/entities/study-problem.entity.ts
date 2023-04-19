@@ -25,6 +25,8 @@ export class StudyProblems extends EntityBasic {
   @ManyToOne(() => StudyTopics, (topic) => topic.studyProblems)
   topic?: StudyTopics;
 
-  @OneToMany(() => StudySolutions, (solution) => solution.problem)
+  @OneToMany(() => StudySolutions, (solution) => solution.problem, {
+    onDelete: 'CASCADE',
+  })
   solutions?: StudySolutions[];
 }
