@@ -92,7 +92,11 @@ export const topicMsg = {
 
 export const problemMsg = {
   create: 'Create problem success',
+  update: 'Update problem success',
+  delete: 'Delete problem success',
   notFoud: 'Problem not found',
+  notPermission:
+    'Your are not permission to create or delete or update this problem',
 };
 
 export const solutionMsg = {

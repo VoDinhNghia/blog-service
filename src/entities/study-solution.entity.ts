@@ -21,6 +21,8 @@ export class StudySolutions extends EntityBasic {
   @ManyToOne(() => User, (user) => user.studySolutions)
   createdBy?: User;
 
-  @ManyToOne(() => StudyProblems, (problem) => problem.solutions)
+  @ManyToOne(() => StudyProblems, (problem) => problem.solutions, {
+    onDelete: 'CASCADE',
+  })
   problem?: StudyProblems;
 }
