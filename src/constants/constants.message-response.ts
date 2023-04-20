@@ -63,7 +63,10 @@ export const qureryPagination = {
 export const followMsg = {
   create: 'Follow success',
   delete: 'Cancle Follow success',
+  existed: 'You are following this user already',
   getAllFollow: 'Get all follow success',
+  notFound: 'Follow not found',
+  notPermission: 'Your are not permission remove this follow',
 };
 
 export const groupMsg = {

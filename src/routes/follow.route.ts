@@ -13,6 +13,8 @@ router.post(
   FollowController.createFollow
 );
 
+router.delete('/:id', [VerifyToken], FollowController.removeFollow);
+
 router.get(
   '/',
   [...QueryFollow, ResultValidate, VerifyToken],
