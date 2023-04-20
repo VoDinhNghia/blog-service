@@ -15,11 +15,25 @@ export default class FollowController {
       const { body } = req;
       const userId = req['user'].id;
       const result = await this.service.createFollow(
+        res,
         userId,
         body?.userFollowedId
       );
       if (!res.headersSent) {
         new ResponseController(res, result, followMsg.create);
+      }
+    } catch {
+      new CommonException(res, 500, serverError);
+    }
+  };
+
+  static removeFollow = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      const userId = req['user'].id;
+      await this.service.removeFollow(res, userId, id);
+      if (!res.headersSent) {
+        new ResponseController(res, true, followMsg.delete);
       }
     } catch {
       new CommonException(res, 500, serverError);
