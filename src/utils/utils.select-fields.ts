@@ -12,4 +12,5 @@ export const selectUser = [
   'isDeleted',
   'avatar',
   'mobile',
+  'statusLogin',
 ];

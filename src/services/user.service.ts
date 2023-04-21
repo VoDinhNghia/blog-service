@@ -17,11 +17,25 @@ export class UserService {
   ): Promise<{ results: User[]; total: number }> {
     const { limit, page, searchKey } = queryDto;
     const query: IqueryUser = { id: Not(In([userId])) };
+    let searchQuery = null;
     if (searchKey) {
-      query.firstName = Like(`%${searchKey}%`);
+      searchQuery = [
+        {
+          ...query,
+          firstName: Like(`%${searchKey}%`),
+        },
+        {
+          ...query,
+          lastName: Like(`%${searchKey}%`),
+        },
+        {
+          ...query,
+          middleName: Like(`%${searchKey}%`),
+        },
+      ];
     }
     const results = await this.userRepository.find({
-      where: query,
+      where: searchQuery ? searchQuery : query,
       skip: limit && page ? Number(limit) * (Number(page) - 1) : null,
       take: limit ? Number(limit) : null,
       order: {
