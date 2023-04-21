@@ -2,6 +2,7 @@ export const serverError = 'Server error';
 export const authMsg = {
   login: 'Login success',
   invalid: 'Email or password incorect',
+  logout: 'Logout success',
 };
 
 export const userMsg = {
