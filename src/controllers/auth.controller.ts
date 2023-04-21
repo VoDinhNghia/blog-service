@@ -43,4 +43,15 @@ export default class AuthController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static logout = async (req: Request, res: Response) => {
+    try {
+      const id = req['user'].id;
+      const userRepository = AppDataSource.getRepository(User);
+      await userRepository.update(id, { statusLogin: false });
+      new ResponseController(res, true, authMsg.logout);
+    } catch (error) {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }
