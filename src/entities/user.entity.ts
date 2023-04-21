@@ -11,6 +11,8 @@ import { StudyProblems } from './study-problem.entity';
 import { StudySolutions } from './study-solution.entity';
 import { StudyGroups } from './study-group.entity';
 import { StudyGroupMembers } from './study-group-member.entity';
+import { Conversations } from './conversation.entity';
+import { Messages } from './message.entity';
 
 @Entity('users')
 export class User {
@@ -127,6 +129,21 @@ export class User {
     cascade: ['soft-remove', 'recover'],
   })
   members?: StudyGroupMembers[];
+
+  @OneToMany(() => Conversations, (conve) => conve.createdBy, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  conversation?: Conversations;
+
+  @OneToMany(() => Messages, (mess) => mess.userSend, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  userSendMessage?: Messages[];
+
+  @OneToMany(() => Messages, (mess) => mess.userRevice, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  userReciveMessage?: Messages[];
 
   hashPassword() {
     this.password = cryptoPassWord(this.password);
