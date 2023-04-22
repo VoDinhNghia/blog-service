@@ -79,6 +79,7 @@ export const conversationMsg = {
 
 export const messageMsg = {
   create: 'Create new message success',
+  getAll: 'Get all message success',
 };
 
 export const groupMsg = {

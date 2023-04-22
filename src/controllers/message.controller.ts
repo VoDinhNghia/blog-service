@@ -22,4 +22,16 @@ export default class MessageController {
       new CommonException(res, 500, serverError);
     }
   };
+
+  static getAllMessage = async (req: Request, res: Response) => {
+    try {
+      const { query } = req;
+      const results = await this.service.getAllMessage(query);
+      if (!res.headersSent) {
+        new ResponseController(res, results, messageMsg.getAll);
+      }
+    } catch (error) {
+      new CommonException(res, 500, serverError);
+    }
+  };
 }

@@ -57,7 +57,6 @@ export class ConversationService {
       relations: {
         user: true,
         chatWith: true,
-        messages: true,
       },
     });
     return result;
