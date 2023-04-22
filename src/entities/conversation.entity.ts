@@ -9,7 +9,12 @@ export class Conversations extends EntityBasic {
   @IsString()
   @IsNotEmpty()
   @Column()
-  createdById?: string;
+  userId?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Column()
+  chatWithId?: string;
 
   @IsString()
   @Column({ default: null })
@@ -21,5 +26,8 @@ export class Conversations extends EntityBasic {
   messages?: Messages[];
 
   @ManyToOne(() => User, (user) => user.conversation)
-  createdBy?: User;
+  user?: User;
+
+  @ManyToOne(() => User, (user) => user.conversationChatWith)
+  chatWith?: User;
 }

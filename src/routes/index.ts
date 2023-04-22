@@ -11,6 +11,7 @@ import problem from './problem.router';
 import solution from './solution.route';
 import comment from './comment.route';
 import message from './message.route';
+import conversation from './conversation.route';
 
 const routes = Router();
 
@@ -26,5 +27,6 @@ routes.use('/api/problem', problem);
 routes.use('/api/solution', solution);
 routes.use('/api/comment', comment);
 routes.use('/api/message', message);
+routes.use('/api/conversation', conversation);
 
 export default routes;
