@@ -46,22 +46,20 @@ export class ConversationService {
     const result = await this.converRepository.findOne({
       where: [
         {
-          userId: Equal(userId),
-          chatWithId: Equal(chatWithId),
+          userId: userId,
+          chatWithId: chatWithId,
         },
         {
-          userId: Equal(chatWithId),
-          chatWithId: Equal(userId),
+          userId: chatWithId,
+          chatWithId: userId,
         },
       ],
       relations: {
         user: true,
         chatWith: true,
+        messages: true,
       },
     });
-    if (!result) {
-      return new CommonException(res, 404, conversationMsg.notFound);
-    }
     return result;
   }
 }

@@ -145,11 +145,6 @@ export class User {
   })
   userSendMessage?: Messages[];
 
-  @OneToMany(() => Messages, (mess) => mess.userRevice, {
-    cascade: ['soft-remove', 'recover'],
-  })
-  userReciveMessage?: Messages[];
-
   hashPassword() {
     this.password = cryptoPassWord(this.password);
   }

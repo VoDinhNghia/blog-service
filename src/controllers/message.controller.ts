@@ -10,14 +10,15 @@ import { ResponseController } from '../utils/utils.response';
 export default class MessageController {
   static service = new MessageService();
 
-  static createMessage = (req: Request, res: Response) => {
+  static createMessage = async (req: Request, res: Response) => {
     try {
+      const { body } = req;
       const userId = req['user'].id;
-      this.service.createMessage(userId);
+      await this.service.createMessage(body, userId);
       if (!res.headersSent) {
         new ResponseController(res, true, messageMsg.create);
       }
-    } catch {
+    } catch (error) {
       new CommonException(res, 500, serverError);
     }
   };

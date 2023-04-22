@@ -227,9 +227,4 @@ export const BodyMessage = [
     .withMessage('userReviceId is required')
     .isString()
     .withMessage('userReviceId should be string'),
-  body('userSendId')
-    .exists()
-    .withMessage('userSendId is required')
-    .isString()
-    .withMessage('userSendId should be string'),
 ];

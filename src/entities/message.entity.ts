@@ -1,13 +1,12 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne } from 'typeorm';
 import { EntityBasic } from './base.entity';
 import { Conversations } from './conversation.entity';
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsString } from 'class-validator';
 import { User } from './user.entity';
 
 @Entity('messages')
 export class Messages extends EntityBasic {
   @IsString()
-  @IsNotEmpty()
   @Column()
   conversationId?: string;
 
@@ -19,20 +18,13 @@ export class Messages extends EntityBasic {
   @Column()
   userSendId?: string;
 
-  @IsString()
-  @Column()
-  userReviceId?: string;
-
   @IsBoolean()
   @Column({ default: false })
   status?: boolean;
 
-  @OneToMany(() => Conversations, (conv) => conv.messages)
+  @ManyToOne(() => Conversations, (conv) => conv.messages)
   conversation?: Conversations;
 
   @ManyToOne(() => User, (user) => user.userSendMessage)
   userSend?: User;
-
-  @ManyToOne(() => User, (user) => user.userReciveMessage)
-  userRevice?: User;
 }
