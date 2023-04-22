@@ -70,6 +70,10 @@ export const followMsg = {
   notPermission: 'Your are not permission remove this follow',
 };
 
+export const messageMsg = {
+  create: 'Create new message success',
+};
+
 export const groupMsg = {
   create: 'Create group success',
   update: 'Update group success',

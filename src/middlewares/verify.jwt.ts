@@ -28,3 +28,18 @@ export const VerifyToken = (
     return new UnAuthorizedException(res);
   }
 };
+
+export const VerifyTokenSocket = (token: string) => {
+  try {
+    const payload: IuserLogin | any = jwt.verify(
+      token,
+      config.JWT_PRIVATE_KEY,
+      {
+        algorithms: ['HS512'],
+      }
+    );
+    return payload;
+  } catch (error) {
+    return null;
+  }
+};
