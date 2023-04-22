@@ -14,4 +14,5 @@ export interface IcreateMessage {
 
 export interface IqueryMessage extends IqueryPagination {
   conversationId?: string;
+  chatWithId?: string;
 }

@@ -212,11 +212,11 @@ export const BodyConversation = [
 ];
 
 export const BodyMessage = [
-  body('conversationId')
-    .exists()
-    .withMessage('conversationId is required')
-    .isString()
-    .withMessage('conversationId should be string'),
+  // body('conversationId')
+  //   .exists()
+  //   .withMessage('conversationId is required')
+  //   .isString()
+  //   .withMessage('conversationId should be string'),
   body('content')
     .exists()
     .withMessage('content is required')

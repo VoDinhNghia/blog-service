@@ -39,7 +39,6 @@ export class ConversationService {
   }
 
   async getOneConversation(
-    res: Response,
     chatWithId: string,
     userId: string
   ): Promise<Conversations | object> {
