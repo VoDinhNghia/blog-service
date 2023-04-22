@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { ConversationService } from '../services/conversation.service';
-import { CommonException } from 'src/exceptions/exceptions.common-error';
+import { CommonException } from '../exceptions/exceptions.common-error';
 import {
   conversationMsg,
   serverError,
-} from 'src/constants/constants.message-response';
-import { ResponseController } from 'src/utils/utils.response';
+} from '../constants/constants.message-response';
+import { ResponseController } from '../utils/utils.response';
 
 export default class ConversationController {
   static service = new ConversationService();
