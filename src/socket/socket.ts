@@ -2,7 +2,7 @@
 import { Server, Socket } from 'socket.io';
 
 const WEBSOCKET_CORS = {
-  origin: '*',
+  origin: 'http://localhost:8005',
   methods: ['GET', 'POST'],
 };
 
