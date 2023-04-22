@@ -70,6 +70,13 @@ export const followMsg = {
   notPermission: 'Your are not permission remove this follow',
 };
 
+export const conversationMsg = {
+  create: 'Create new conversation success',
+  notFound: 'Conversation not found',
+  existed: 'Conversation existed already',
+  getOne: 'Get Conversation success',
+};
+
 export const messageMsg = {
   create: 'Create new message success',
 };

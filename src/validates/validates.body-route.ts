@@ -197,3 +197,39 @@ export const BodyCreateComment = [
 export const BodyUpdateComment = [
   body('content').optional().isString().withMessage('content should be string'),
 ];
+
+export const BodyConversation = [
+  body('name')
+    .exists()
+    .withMessage('name is required')
+    .isString()
+    .withMessage('name should be string'),
+  body('chatWithId')
+    .exists()
+    .withMessage('chatWithId is required')
+    .isString()
+    .withMessage('chatWithId should be string'),
+];
+
+export const BodyMessage = [
+  body('conversationId')
+    .exists()
+    .withMessage('conversationId is required')
+    .isString()
+    .withMessage('conversationId should be string'),
+  body('content')
+    .exists()
+    .withMessage('content is required')
+    .isString()
+    .withMessage('content should be string'),
+  body('userReviceId')
+    .exists()
+    .withMessage('userReviceId is required')
+    .isString()
+    .withMessage('userReviceId should be string'),
+  body('userSendId')
+    .exists()
+    .withMessage('userSendId is required')
+    .isString()
+    .withMessage('userSendId should be string'),
+];

@@ -130,10 +130,15 @@ export class User {
   })
   members?: StudyGroupMembers[];
 
-  @OneToMany(() => Conversations, (conve) => conve.createdBy, {
+  @OneToMany(() => Conversations, (conve) => conve.user, {
     cascade: ['soft-remove', 'recover'],
   })
   conversation?: Conversations;
+
+  @OneToMany(() => Conversations, (conve) => conve.chatWith, {
+    cascade: ['soft-remove', 'recover'],
+  })
+  conversationChatWith?: Conversations;
 
   @OneToMany(() => Messages, (mess) => mess.userSend, {
     cascade: ['soft-remove', 'recover'],
