@@ -39,7 +39,6 @@ export class ConversationService {
   }
 
   async getOneConversation(
-    res: Response,
     chatWithId: string,
     userId: string
   ): Promise<Conversations | object> {
@@ -57,7 +56,6 @@ export class ConversationService {
       relations: {
         user: true,
         chatWith: true,
-        messages: true,
       },
     });
     return result;

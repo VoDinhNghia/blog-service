@@ -27,11 +27,7 @@ export default class ConversationController {
     try {
       const chatWithId = req.params.chatWithId;
       const userId = req['user'].id;
-      const result = await this.service.getOneConversation(
-        res,
-        chatWithId,
-        userId
-      );
+      const result = await this.service.getOneConversation(chatWithId, userId);
       if (!res.headersSent) {
         new ResponseController(res, result, conversationMsg.getOne);
       }

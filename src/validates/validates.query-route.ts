@@ -34,3 +34,20 @@ export const QueryGroup = [
     .isString()
     .withMessage('createdById should be string'),
 ];
+
+export const QueryMessage = [
+  ...QueryPagination,
+  query('conversationId')
+    .optional()
+    .isString()
+    .withMessage('conversationId should be string'),
+];
+
+export const QueryMessageByConver = [
+  ...QueryPagination,
+  query('chatWithId')
+    .exists()
+    .withMessage('chatWithId is required')
+    .isString()
+    .withMessage('chatWithId should be string'),
+];
