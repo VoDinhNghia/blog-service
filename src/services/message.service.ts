@@ -29,8 +29,8 @@ export class MessageService {
       const newConversation = await this.converRepository.save(converDto);
       messageDto.conversationId = newConversation?.id;
     }
-    const result = await this.messRepository.save(messageDto);
-    this.updateSockets(result);
+    await this.messRepository.save(messageDto);
+    this.updateSockets(messageDto);
   }
 
   async getAllMessage(queryDto: IqueryMessage): Promise<Messages[]> {
@@ -93,7 +93,7 @@ export class MessageService {
     return conversation;
   }
 
-  private updateSockets(message: Messages) {
+  private updateSockets(message: object) {
     const io = Websocket.getInstance();
     io.of('/message').emit('message_new', { data: message });
   }
