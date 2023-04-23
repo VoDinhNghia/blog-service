@@ -29,8 +29,8 @@ export class MessageService {
       const newConversation = await this.converRepository.save(converDto);
       messageDto.conversationId = newConversation?.id;
     }
-    await this.messRepository.save(messageDto);
-    this.updateSockets(messageDto);
+    const result = await this.messRepository.save(messageDto);
+    this.updateSockets(result);
   }
 
   async getAllMessage(queryDto: IqueryMessage): Promise<Messages[]> {
@@ -69,6 +69,9 @@ export class MessageService {
       relations: {
         userSend: true,
         conversation: true,
+      },
+      order: {
+        createdAt: 'asc',
       },
     });
     return results;
