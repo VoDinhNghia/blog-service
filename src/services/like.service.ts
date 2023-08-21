@@ -2,7 +2,7 @@ import { Likes } from '../entities/like.entity';
 import { AppDataSource } from '../data-source';
 import { Response } from 'express';
 import { IlikePost } from '../interfaces/post-share-like.interface';
-import { ElikeType } from '../constants/constant';
+import { ElikeAction, ElikeType } from '../constants/constant';
 import { Shares } from '../entities/share.entity';
 import { Posts } from '../entities/post.entity';
 import { CommonException } from '../exceptions/exceptions.common-error';
@@ -22,7 +22,7 @@ export class LikeService {
     body: IlikePost,
     userId: string
   ): Promise<Likes | object | string> {
-    const { type, postId, shareId } = body;
+    const { type, postId, shareId, action = ElikeAction.LIKE } = body;
     let createDto = {};
     if (type === ElikeType.SHARE) {
       const shareInfo = await this.shareRepository.findOne({
@@ -45,10 +45,14 @@ export class LikeService {
       where: createDto,
     });
     if (checkLike) {
-      await this.likeRepository.delete(checkLike.id);
+      if (checkLike?.action === action) {
+        await this.likeRepository.delete(checkLike.id);
+      } else {
+        await this.likeRepository.update(checkLike?.id, { action });
+      }
       return likeMsg.delete;
     }
-    const result = await this.likeRepository.save(createDto);
+    const result = await this.likeRepository.save({ ...createDto, action });
     return result;
   }
 }

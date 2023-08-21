@@ -18,6 +18,11 @@ export const BodyLike = [
   body('type')
     .isIn(Object.values(ElikeType))
     .withMessage(`type should be one of [${Object.values(ElikeType)}]`),
+  body('action')
+    .exists()
+    .withMessage('Action is required')
+    .isString()
+    .withMessage('action should be string'),
   body('postId').optional().isString().withMessage('postId should be string'),
   body('shareId').optional().isString().withMessage('shareId should be string'),
 ];

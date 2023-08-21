@@ -17,6 +17,12 @@ export enum ElikeType {
   SHARE = 'SHARE',
 }
 
+export enum ElikeAction {
+  LIKE = 'LIKE',
+  HEART = 'HEART',
+  LOVE = 'LOVE',
+}
+
 export enum EqueryFollowType {
   FOLLOWING = 'FOLLOWING',
   FOLLOWED = 'FOLLOWED',
