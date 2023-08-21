@@ -25,6 +25,7 @@ export interface IlikePost {
   postId?: string;
   shareId?: string;
   type?: string;
+  action?: string;
 }
 
 export interface IsharePost {

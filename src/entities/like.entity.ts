@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { EntityBasic } from './base.entity';
 import { IsNotEmpty, IsString } from 'class-validator';
-import { ElikeType } from '../constants/constant';
+import { ElikeType, ElikeAction } from '../constants/constant';
 import { User } from './user.entity';
 import { Posts } from './post.entity';
 import { Shares } from './share.entity';
@@ -25,6 +25,11 @@ export class Likes extends EntityBasic {
   @IsNotEmpty()
   @Column({ default: ElikeType.POST })
   type?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @Column({ default: ElikeAction.LIKE })
+  action?: string;
 
   @ManyToOne(() => User, (user) => user.likes)
   user?: User;
