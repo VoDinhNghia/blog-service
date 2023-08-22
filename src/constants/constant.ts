@@ -31,3 +31,7 @@ export enum EqueryFollowType {
 export const requestInfo = {
   USER: 'user',
 };
+
+export const socketMsg = {
+  MESSAGE_NEW: 'message_new',
+};

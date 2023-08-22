@@ -65,4 +65,24 @@ export class ConversationService {
     });
     return result;
   }
+
+  async findAllConversationByUser(userId: string): Promise<Conversations[]> {
+    const conversations = await this.converRepository.find({
+      where: [
+        {
+          userId: Equal(userId),
+        },
+        {
+          chatWithId: Equal(userId),
+        },
+      ],
+      relations: {
+        messages: true,
+      },
+    });
+    const results = await conversations.filter(
+      (con) => con?.messages?.filter((mes) => !mes?.status).length > 0
+    );
+    return results;
+  }
 }

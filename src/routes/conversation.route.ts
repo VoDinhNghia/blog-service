@@ -18,4 +18,10 @@ router.get(
   ConversationController.getOneConversation
 );
 
+router.get(
+  '/list-by-user',
+  [VerifyToken],
+  ConversationController.findAllConversationByUser
+);
+
 export default router;

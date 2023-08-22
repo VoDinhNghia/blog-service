@@ -52,4 +52,18 @@ export default class MessageController {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
   };
+
+  static updateStatusMessage = async (req: Request, res: Response) => {
+    try {
+      const conversationId = req.params.id;
+      const userId = req[requestInfo.USER].id;
+      const result = await this.service.updateStatusMessage(
+        conversationId,
+        userId
+      );
+      new ResponseController(res, result, messageMsg.update);
+    } catch (error) {
+      new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
+    }
+  };
 }
