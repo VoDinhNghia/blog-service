@@ -1,10 +1,7 @@
 import { Router } from 'express';
 import { VerifyToken } from '../middlewares/verify.jwt';
 import MessageController from '../controllers/message.controller';
-import {
-  BodyMessage,
-  BodyUpdateStatusMessage,
-} from '../validates/validates.body-route';
+import { BodyMessage } from '../validates/validates.body-route';
 import { ResultValidate } from '../validates/validates.result-valid';
 import {
   QueryMessage,
@@ -31,8 +28,8 @@ router.get(
 );
 
 router.put(
-  '/update-status:id',
-  [...BodyUpdateStatusMessage, ResultValidate, VerifyToken],
+  '/update-status/:id',
+  [VerifyToken],
   MessageController.updateStatusMessage
 );
 

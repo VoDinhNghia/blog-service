@@ -78,6 +78,8 @@ export class ConversationService {
       ],
       relations: {
         messages: true,
+        user: true,
+        chatWith: true,
       },
     });
     const results = await conversations.filter(
