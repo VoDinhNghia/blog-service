@@ -3,6 +3,8 @@ import { serverError, userMsg } from '../constants/constants.message-response';
 import { ResponseController } from '../utils/utils.response';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { UserService } from '../services/user.service';
+import { requestInfo } from '../constants/constant';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export default class UserController {
   static service = new UserService();
@@ -10,11 +12,11 @@ export default class UserController {
   static getAllUsers = async (req: Request, res: Response) => {
     try {
       const { query } = req;
-      const userId = req['user'].id;
+      const userId = req[requestInfo.USER].id;
       const users = await this.service.findAllUsers(query, userId);
       new ResponseController(res, users, userMsg.getAll);
     } catch (error) {
-      new CommonException(res, 500, serverError);
+      new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
   };
 
@@ -26,7 +28,7 @@ export default class UserController {
         new ResponseController(res, user, userMsg.getById);
       }
     } catch (error) {
-      new CommonException(res, 500, serverError);
+      new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
   };
 
@@ -38,7 +40,7 @@ export default class UserController {
         new ResponseController(res, result, userMsg.syncData.success);
       }
     } catch {
-      new CommonException(res, 500, serverError);
+      new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
   };
 

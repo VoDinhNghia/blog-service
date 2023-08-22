@@ -12,6 +12,7 @@ import { CommonException } from '../exceptions/exceptions.common-error';
 import { groupMsg } from '../constants/constants.message-response';
 import { Equal, In, Like } from 'typeorm';
 import { groupRelations } from '../utils/utils.relation-field';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export class GroupService {
   private groupRepository = AppDataSource.getRepository(StudyGroups);
@@ -49,10 +50,18 @@ export class GroupService {
       },
     });
     if (!group) {
-      return new CommonException(res, 404, groupMsg.notFound);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        groupMsg.notFound
+      );
     }
     if (group.createdById !== userId) {
-      return new CommonException(res, 403, groupMsg.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        groupMsg.notPermission
+      );
     }
     await this.groupRepository.update(groupId, body);
     const result = await this.findGoupById(res, groupId);
@@ -70,10 +79,18 @@ export class GroupService {
       },
     });
     if (!group) {
-      return new CommonException(res, 404, groupMsg.notFound);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        groupMsg.notFound
+      );
     }
     if (group.createdById !== userId) {
-      return new CommonException(res, 403, groupMsg.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        groupMsg.notPermission
+      );
     }
     await this.groupRepository.softRemove(group);
   }
@@ -111,10 +128,18 @@ export class GroupService {
       },
     });
     if (!member) {
-      return new CommonException(res, 404, groupMsg.notFoundMember);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        groupMsg.notFoundMember
+      );
     }
     if (String(userId) !== String(member?.group?.createdById)) {
-      return new CommonException(res, 403, groupMsg.notPermissionMember);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        groupMsg.notPermissionMember
+      );
     }
     await this.memberRepository.delete(id);
   }
@@ -131,7 +156,11 @@ export class GroupService {
       },
     });
     if (!member) {
-      return new CommonException(res, 404, groupMsg.notFoundMember);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        groupMsg.notFoundMember
+      );
     }
     await this.memberRepository.delete(member?.id);
   }
@@ -147,7 +176,11 @@ export class GroupService {
       relations: groupRelations,
     });
     if (!result) {
-      return new CommonException(res, 404, groupMsg.notFound);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        groupMsg.notFound
+      );
     }
     return result;
   }

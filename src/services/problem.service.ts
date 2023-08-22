@@ -6,6 +6,7 @@ import { CommonException } from '../exceptions/exceptions.common-error';
 import { problemMsg, topicMsg } from '../constants/constants.message-response';
 import { Response } from 'express';
 import { Equal } from 'typeorm';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export class ProblemService {
   private problemRepository = AppDataSource.getRepository(StudyProblems);
@@ -23,7 +24,11 @@ export class ProblemService {
       },
     });
     if (!topic) {
-      return new CommonException(res, 404, topicMsg.notFoud);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        topicMsg.notFoud
+      );
     }
     const problemDto = {
       ...body,
@@ -66,7 +71,11 @@ export class ProblemService {
       },
     });
     if (!problem) {
-      return new CommonException(res, 404, problemMsg.notFoud);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        problemMsg.notFoud
+      );
     }
     if (
       String(problem?.createdById) === String(userId) ||
@@ -74,7 +83,11 @@ export class ProblemService {
     ) {
       return problem;
     } else {
-      return new CommonException(res, 403, problemMsg.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        problemMsg.notPermission
+      );
     }
   }
 }

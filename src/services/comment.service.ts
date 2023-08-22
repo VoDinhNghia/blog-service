@@ -6,6 +6,7 @@ import { Posts } from '../entities/post.entity';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { commentMsg, postMsg } from '../constants/constants.message-response';
 import { Equal } from 'typeorm';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export class CommentService {
   private commentRepository = AppDataSource.getRepository(Comments);
@@ -24,7 +25,11 @@ export class CommentService {
       },
     });
     if (!post) {
-      return new CommonException(res, 404, postMsg.notFound);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        postMsg.notFound
+      );
     }
     const commentDto = {
       ...body,
@@ -46,10 +51,18 @@ export class CommentService {
       },
     });
     if (!comment) {
-      return new CommonException(res, 404, commentMsg.notFound);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        commentMsg.notFound
+      );
     }
     if (String(userId) !== String(comment.userId)) {
-      return new CommonException(res, 403, commentMsg.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        commentMsg.notPermission
+      );
     }
     await this.commentRepository.update(id, body);
   }
@@ -68,7 +81,11 @@ export class CommentService {
       },
     });
     if (!comment) {
-      return new CommonException(res, 404, commentMsg.notFound);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        commentMsg.notFound
+      );
     }
     if (
       String(userId) === String(comment.userId) ||
@@ -76,7 +93,11 @@ export class CommentService {
     ) {
       await this.commentRepository.delete(id);
     } else {
-      return new CommonException(res, 403, commentMsg.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        commentMsg.notPermission
+      );
     }
   }
 }

@@ -27,3 +27,7 @@ export enum EqueryFollowType {
   FOLLOWING = 'FOLLOWING',
   FOLLOWED = 'FOLLOWED',
 }
+
+export const requestInfo = {
+  USER: 'user',
+};

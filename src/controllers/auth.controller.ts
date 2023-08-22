@@ -8,6 +8,8 @@ import { ResponseController } from '../utils/utils.response';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { selectUser } from '../utils/utils.select-fields';
 import { Equal } from 'typeorm';
+import { requestInfo } from '../constants/constant';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export default class AuthController {
   static selectFields: string[] | unknown = [...selectUser, 'password'];
@@ -20,7 +22,11 @@ export default class AuthController {
         select: this.selectFields,
       });
       if (!user?.checkIfUnencryptedPasswordIsValid(password)) {
-        return new CommonException(res, 401, authMsg.invalid);
+        return new CommonException(
+          res,
+          httpStatusCode.UN_AUTHORIZED,
+          authMsg.invalid
+        );
       }
       await userRepository.update(user.id, { statusLogin: true });
       const payload = {
@@ -40,18 +46,18 @@ export default class AuthController {
         authMsg.login
       );
     } catch (error) {
-      new CommonException(res, 500, serverError);
+      new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
   };
 
   static logout = async (req: Request, res: Response) => {
     try {
-      const id = req['user'].id;
+      const id = req[requestInfo.USER].id;
       const userRepository = AppDataSource.getRepository(User);
       await userRepository.update(id, { statusLogin: false });
       new ResponseController(res, true, authMsg.logout);
     } catch (error) {
-      new CommonException(res, 500, serverError);
+      new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
   };
 }

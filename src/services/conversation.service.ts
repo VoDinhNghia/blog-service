@@ -5,6 +5,7 @@ import { Response } from 'express';
 import { Equal } from 'typeorm';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { conversationMsg } from '../constants/constants.message-response';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export class ConversationService {
   private converRepository = AppDataSource.getRepository(Conversations);
@@ -28,7 +29,11 @@ export class ConversationService {
       ],
     });
     if (checkExisted) {
-      return new CommonException(res, 409, conversationMsg.existed);
+      return new CommonException(
+        res,
+        httpStatusCode.CONFLICT,
+        conversationMsg.existed
+      );
     }
     const conversationDto = {
       ...body,

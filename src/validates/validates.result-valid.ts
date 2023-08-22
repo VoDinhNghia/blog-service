@@ -1,5 +1,6 @@
 import { validationResult } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export const ResultValidate = (
   req: Request,
@@ -9,7 +10,7 @@ export const ResultValidate = (
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({
+      return res.status(httpStatusCode.SERVER_INTERVEL).json({
         success: false,
         errors: errors.array(),
       });
