@@ -10,6 +10,7 @@ import { CommonException } from '../exceptions/exceptions.common-error';
 import { postMsg, shareMsg } from '../constants/constants.message-response';
 import { shareRelations } from '../utils/utils.relation-field';
 import { Equal } from 'typeorm';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export class ShareService {
   private shareRepository = AppDataSource.getRepository(Shares);
@@ -26,13 +27,21 @@ export class ShareService {
       where: { id: postId, deletedAt: null },
     });
     if (!post) {
-      return new CommonException(res, 404, postMsg.notFound);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        postMsg.notFound
+      );
     }
     const share = await this.shareRepository.findOne({
       where: { postId, userId },
     });
     if (share) {
-      return new CommonException(res, 409, shareMsg.existedSharePost);
+      return new CommonException(
+        res,
+        httpStatusCode.CONFLICT,
+        shareMsg.existedSharePost
+      );
     }
     const shareDto = { postId, userId, privateMode };
     const result = await this.shareRepository.save(shareDto);
@@ -45,7 +54,11 @@ export class ShareService {
       relations: this.relationFields,
     });
     if (!result) {
-      return new CommonException(res, 404, shareMsg.notFound);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        shareMsg.notFound
+      );
     }
     return result;
   }

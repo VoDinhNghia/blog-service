@@ -6,6 +6,8 @@ import {
   serverError,
 } from '../constants/constants.message-response';
 import { ResponseController } from '../utils/utils.response';
+import { requestInfo } from '../constants/constant';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export default class MessageController {
   static service = new MessageService();
@@ -13,13 +15,13 @@ export default class MessageController {
   static createMessage = async (req: Request, res: Response) => {
     try {
       const { body } = req;
-      const userId = req['user'].id;
+      const userId = req[requestInfo.USER].id;
       await this.service.createMessage(body, userId);
       if (!res.headersSent) {
         new ResponseController(res, true, messageMsg.create);
       }
     } catch (error) {
-      new CommonException(res, 500, serverError);
+      new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
   };
 
@@ -31,14 +33,14 @@ export default class MessageController {
         new ResponseController(res, results, messageMsg.getAll);
       }
     } catch (error) {
-      new CommonException(res, 500, serverError);
+      new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
   };
 
   static getAllMessageByConver = async (req: Request, res: Response) => {
     try {
       const { query } = req;
-      const userId = req['user'].id;
+      const userId = req[requestInfo.USER].id;
       const results = await this.service.getMessageByConversation(
         query,
         userId
@@ -47,7 +49,7 @@ export default class MessageController {
         new ResponseController(res, results, messageMsg.getAll);
       }
     } catch (error) {
-      new CommonException(res, 500, serverError);
+      new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
   };
 }

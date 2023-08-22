@@ -11,6 +11,7 @@ import { CommonException } from '../exceptions/exceptions.common-error';
 import { topicMsg } from '../constants/constants.message-response';
 import { Equal } from 'typeorm';
 import { topicRelations } from '../utils/utils.relation-field';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export class TopicService {
   private topicRepository = AppDataSource.getRepository(StudyTopics);
@@ -37,7 +38,11 @@ export class TopicService {
       const result = await this.topicRepository.save(topicDto);
       return result;
     }
-    return new CommonException(res, 403, topicMsg.notPermission);
+    return new CommonException(
+      res,
+      httpStatusCode.FORBIDEN,
+      topicMsg.notPermission
+    );
   }
 
   async findTopicById(
@@ -51,7 +56,11 @@ export class TopicService {
       relations: topicRelations,
     });
     if (!result) {
-      return new CommonException(res, 404, topicMsg.notFoud);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        topicMsg.notFoud
+      );
     }
     return result;
   }
@@ -86,10 +95,18 @@ export class TopicService {
       },
     });
     if (!topic) {
-      return new CommonException(res, 404, topicMsg.notFoud);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        topicMsg.notFoud
+      );
     }
     if (String(topic?.createdById) !== String(userId)) {
-      return new CommonException(res, 403, topicMsg.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        topicMsg.notPermission
+      );
     }
     return topic;
   }

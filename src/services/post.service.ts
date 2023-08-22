@@ -15,6 +15,7 @@ import { postMsg } from '../constants/constants.message-response';
 import { postRelation } from '../utils/utils.relation-field';
 import { unlinkSync } from 'fs';
 dotenv.config();
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export class PostService {
   private postRepository = AppDataSource.getRepository(Posts);
@@ -83,7 +84,11 @@ export class PostService {
     const { privateMode } = body;
     const post = await this.findById(postId);
     if (String(post.userId) !== String(userId)) {
-      return new CommonException(res, 403, postMsg.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        postMsg.notPermission
+      );
     }
     if (privateMode) {
       body.privateMode = String(privateMode) === 'true' ? true : false;
@@ -102,7 +107,11 @@ export class PostService {
   ): Promise<void | object> {
     const post = await this.findById(id);
     if (String(post.userId) !== String(userId)) {
-      return new CommonException(res, 403, postMsg.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        postMsg.notPermission
+      );
     }
     await this.postRepository.softRemove(post);
   }
@@ -116,11 +125,19 @@ export class PostService {
       where: { id: Equal(id) },
     });
     if (!image) {
-      return new CommonException(res, 404, postMsg.notFoundImage);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        postMsg.notFoundImage
+      );
     }
     const post = await this.findById(image?.postId);
     if (String(post.userId) !== String(userId)) {
-      return new CommonException(res, 403, postMsg.notPermissionImage);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        postMsg.notPermissionImage
+      );
     }
     await this.attachmentRepository.delete(id);
     try {

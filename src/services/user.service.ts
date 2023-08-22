@@ -7,6 +7,7 @@ import { IqueryUser, IuserMigrate } from '../interfaces/user.interface';
 import { selectUser } from '../utils/utils.select-fields';
 import { IqueryPagination } from '../interfaces/pagination.interface';
 import { Equal, In, Like, Not } from 'typeorm';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 export class UserService {
   private selectOption: string[] | unknown = selectUser;
   private userRepository = AppDataSource.getRepository(User);
@@ -52,7 +53,11 @@ export class UserService {
   async migrateData(res: Response, data = []): Promise<User[] | object> {
     const checkDataInTable = await this.userRepository.find();
     if (checkDataInTable.length > 0) {
-      return new CommonException(res, 403, userMsg.syncData.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        userMsg.syncData.notPermission
+      );
     }
     const userDto = data.map((user: IuserMigrate) => {
       const dto = {
@@ -82,7 +87,11 @@ export class UserService {
       select: this.selectOption,
     });
     if (!user) {
-      return new CommonException(res, 404, userMsg.notFound);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        userMsg.notFound
+      );
     }
     return user;
   }

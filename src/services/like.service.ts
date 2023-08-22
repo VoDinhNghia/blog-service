@@ -11,6 +11,7 @@ import {
   postMsg,
   shareMsg,
 } from '../constants/constants.message-response';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export class LikeService {
   private likeRepository = AppDataSource.getRepository(Likes);
@@ -29,7 +30,11 @@ export class LikeService {
         where: { id: shareId, deletedAt: null },
       });
       if (!shareInfo) {
-        return new CommonException(res, 404, shareMsg.notFound);
+        return new CommonException(
+          res,
+          httpStatusCode.NOT_FOUND,
+          shareMsg.notFound
+        );
       }
       createDto = { shareId, type, userId };
     } else {
@@ -37,7 +42,11 @@ export class LikeService {
         where: { id: postId, deletedAt: null },
       });
       if (!postInfo) {
-        return new CommonException(res, 404, postMsg.notFound);
+        return new CommonException(
+          res,
+          httpStatusCode.NOT_FOUND,
+          postMsg.notFound
+        );
       }
       createDto = { postId, type, userId };
     }

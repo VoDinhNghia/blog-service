@@ -12,6 +12,7 @@ import {
 } from '../constants/constants.message-response';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { Equal } from 'typeorm';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export class SolutionService {
   private solutionRepository = AppDataSource.getRepository(StudySolutions);
@@ -29,7 +30,11 @@ export class SolutionService {
       },
     });
     if (!topic) {
-      return new CommonException(res, 404, problemMsg.notFoud);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        problemMsg.notFoud
+      );
     }
     const solutionDto = {
       ...body,
@@ -49,7 +54,11 @@ export class SolutionService {
       result.problem.createdById !== userId ||
       result.createdById !== userId
     ) {
-      return new CommonException(res, 403, solutionMsg.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        solutionMsg.notPermission
+      );
     }
     await this.solutionRepository.delete(id);
   }
@@ -62,7 +71,11 @@ export class SolutionService {
   ): Promise<void | object> {
     const result: IresultSolution = await this.findSolutionById(res, id);
     if (result.createdById !== userId) {
-      return new CommonException(res, 403, solutionMsg.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        solutionMsg.notPermission
+      );
     }
     await this.solutionRepository.update(id, { solution });
   }
@@ -79,7 +92,11 @@ export class SolutionService {
       relations: ['problem'],
     });
     if (!solution) {
-      return new CommonException(res, 404, solutionMsg.notFound);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        solutionMsg.notFound
+      );
     }
     return solution;
   }

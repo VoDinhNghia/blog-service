@@ -7,6 +7,7 @@ import { followRelations } from '../utils/utils.relation-field';
 import { CommonException } from '../exceptions/exceptions.common-error';
 import { Response } from 'express';
 import { Equal } from 'typeorm';
+import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export class FollowService {
   private followRepository = AppDataSource.getRepository(Follows);
@@ -24,7 +25,11 @@ export class FollowService {
       where: followDto,
     });
     if (follow) {
-      return new CommonException(res, 409, followMsg.existed);
+      return new CommonException(
+        res,
+        httpStatusCode.CONFLICT,
+        followMsg.existed
+      );
     }
     const result = await this.followRepository.save(followDto);
     return result;
@@ -41,10 +46,18 @@ export class FollowService {
       },
     });
     if (!follow) {
-      return new CommonException(res, 404, followMsg.notFound);
+      return new CommonException(
+        res,
+        httpStatusCode.NOT_FOUND,
+        followMsg.notFound
+      );
     }
     if (String(follow?.userFollowId) !== String(userId)) {
-      return new CommonException(res, 403, followMsg.notPermission);
+      return new CommonException(
+        res,
+        httpStatusCode.FORBIDEN,
+        followMsg.notPermission
+      );
     }
     await this.followRepository.delete(id);
   }
