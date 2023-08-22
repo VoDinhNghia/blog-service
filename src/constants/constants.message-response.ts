@@ -75,11 +75,13 @@ export const conversationMsg = {
   notFound: 'Conversation not found',
   existed: 'Conversation existed already',
   getOne: 'Get Conversation success',
+  getConversationByUser: 'Get list conversation by user success',
 };
 
 export const messageMsg = {
   create: 'Create new message success',
   getAll: 'Get all message success',
+  update: 'Update message success',
 };
 
 export const groupMsg = {

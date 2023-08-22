@@ -37,4 +37,18 @@ export default class ConversationController {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
   };
+
+  static findAllConversationByUser = async (req: Request, res: Response) => {
+    try {
+      const userId = req[requestInfo.USER].id;
+      const results = await this.service.findAllConversationByUser(userId);
+      new ResponseController(
+        res,
+        results,
+        conversationMsg.getConversationByUser
+      );
+    } catch (error) {
+      new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
+    }
+  };
 }

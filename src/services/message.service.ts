@@ -6,7 +6,8 @@ import {
   IcreateMessage,
   IqueryMessage,
 } from '../interfaces/conversation.interface';
-import { Equal } from 'typeorm';
+import { Equal, In, Not } from 'typeorm';
+import { socketMsg } from '../constants/constant';
 
 export class MessageService {
   private messRepository = AppDataSource.getRepository(Messages);
@@ -96,8 +97,31 @@ export class MessageService {
     return conversation;
   }
 
+  async updateStatusMessage(
+    conversationId: string,
+    userId: string
+  ): Promise<boolean> {
+    const listMessage = await this.messRepository.find({
+      where: {
+        conversationId: Equal(conversationId),
+        userSendId: Not(userId),
+      },
+    });
+    await this.messRepository.update(
+      {
+        id: In(
+          listMessage?.map((msg) => {
+            return msg?.id;
+          })
+        ),
+      },
+      { status: true }
+    );
+    return true;
+  }
+
   private updateSockets(message: object) {
     const io = Websocket.getInstance();
-    io.of('/message').emit('message_new', { data: message });
+    io.of('/message').emit(socketMsg.MESSAGE_NEW, { data: message });
   }
 }

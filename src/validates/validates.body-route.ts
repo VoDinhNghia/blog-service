@@ -233,3 +233,11 @@ export const BodyMessage = [
     .isString()
     .withMessage('userReviceId should be string'),
 ];
+
+export const BodyUpdateStatusMessage = [
+  body('conversationId')
+    .exists()
+    .withMessage('conversationId is required')
+    .isString()
+    .withMessage('conversation should be string'),
+];
