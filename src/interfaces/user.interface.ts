@@ -12,7 +12,10 @@ export interface IuserLogin {
 export interface IcreateUser {
   email?: string;
   password?: string;
-  role?: string;
+  firstName?: string;
+  lastName?: string;
+  middleName?: string;
+  mobile?: string;
 }
 
 export interface IuserMigrate {

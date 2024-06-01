@@ -5,7 +5,7 @@ import { serverError } from '../constants/constants.message-response';
 import { requestInfo } from '../constants/constant';
 import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
-export const CheckRoleAccess = (roles: Array<string>) => {
+export const VerifyRoleAccess = (roles: Array<string>) => {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       const user = req[requestInfo.USER];

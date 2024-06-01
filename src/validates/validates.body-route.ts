@@ -217,11 +217,6 @@ export const BodyConversation = [
 ];
 
 export const BodyMessage = [
-  // body('conversationId')
-  //   .exists()
-  //   .withMessage('conversationId is required')
-  //   .isString()
-  //   .withMessage('conversationId should be string'),
   body('content')
     .exists()
     .withMessage('content is required')
@@ -232,4 +227,17 @@ export const BodyMessage = [
     .withMessage('userReviceId is required')
     .isString()
     .withMessage('userReviceId should be string'),
+];
+
+export const BodyCreateUser = [
+  body('email')
+    .exists()
+    .withMessage('email is required')
+    .isEmail()
+    .withMessage('incorrect fortmat'),
+  body('password').exists().withMessage('password is required'),
+  body('firstName').exists().withMessage('firtName is required'),
+  body('lastName').exists().withMessage('lastName is required'),
+  body('middleName').exists().withMessage('middleName is required'),
+  body('mobile').exists().withMessage('mobile is required'),
 ];

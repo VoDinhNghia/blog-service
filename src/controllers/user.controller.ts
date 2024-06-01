@@ -9,6 +9,16 @@ import { httpStatusCode } from '../constants/constants.httpStatusCode';
 export default class UserController {
   static service = new UserService();
 
+  static createNewUser = async (req: Request, res: Response) => {
+    try {
+      const body = req.body || {};
+      const result = await this.service.createNewUser(res, body);
+      new ResponseController(res, result, userMsg.create);
+    } catch (error) {
+      new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
+    }
+  };
+
   static getAllUsers = async (req: Request, res: Response) => {
     try {
       const { query } = req;

@@ -3,11 +3,16 @@ import { AppDataSource } from '../data-source';
 import { User } from '../entities/user.entity';
 import { userMsg } from '../constants/constants.message-response';
 import { Response } from 'express';
-import { IqueryUser, IuserMigrate } from '../interfaces/user.interface';
+import {
+  IcreateUser,
+  IqueryUser,
+  IuserMigrate,
+} from '../interfaces/user.interface';
 import { selectUser } from '../utils/utils.select-fields';
 import { IqueryPagination } from '../interfaces/pagination.interface';
 import { Equal, In, Like, Not } from 'typeorm';
 import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { generateCode, randomUuid } from '../utils/util';
 export class UserService {
   private selectOption: string[] | unknown = selectUser;
   private userRepository = AppDataSource.getRepository(User);
@@ -61,19 +66,11 @@ export class UserService {
     }
     const userDto = data.map((user: IuserMigrate) => {
       const dto = {
-        email: user?.email,
-        firstName: user?.profile?.firstName,
-        lastName: user?.profile?.lastName,
-        middleName: user?.profile?.middleName,
+        ...user?.profile,
+        ...user,
         userId: user?._id,
-        code: user?.profile?.code,
         profileId: user?.profile?._id,
         password: user?.passWord,
-        isDeleted: user?.isDeleted,
-        avatar: user?.profile?.avatar,
-        status: user?.status,
-        role: user?.role,
-        mobile: user?.profile?.mobile,
       };
       return dto;
     });
@@ -94,5 +91,36 @@ export class UserService {
       );
     }
     return user;
+  }
+
+  async createNewUser(
+    res: Response,
+    userDto: IcreateUser
+  ): Promise<User | object> {
+    const isEmailExisted = await this.checkEmailExisted(userDto?.email);
+    if (isEmailExisted) {
+      return new CommonException(
+        res,
+        httpStatusCode.CONFLICT,
+        userMsg.existedEmail
+      );
+    }
+    const dto = {
+      ...userDto,
+      userId: randomUuid(),
+      profileId: randomUuid(),
+      code: generateCode(4),
+    };
+    const result = await this.userRepository.save(dto);
+    return result;
+  }
+
+  async checkEmailExisted(email: string): Promise<boolean> {
+    const result = await this.userRepository.findOne({
+      where: {
+        email,
+      },
+    });
+    return result ? true : false;
   }
 }
