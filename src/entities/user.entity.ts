@@ -13,6 +13,7 @@ import { StudyGroups } from './study-group.entity';
 import { StudyGroupMembers } from './study-group-member.entity';
 import { Conversations } from './conversation.entity';
 import { Messages } from './message.entity';
+import { EuserRole, EuserStatus } from '../constants/constant';
 
 @Entity('users')
 export class User {
@@ -30,11 +31,11 @@ export class User {
   @Length(4, 100)
   password: string;
 
-  @Column({ select: false }) // when want to response this field then add this field into select in find or findOne ...
+  @Column({ select: false, default: EuserRole.STUDENT }) // when want to response this field then add this field into select in find or findOne ...
   @IsNotEmpty()
   role: string;
 
-  @Column({ select: false })
+  @Column({ select: false, default: EuserStatus.ACTIVE })
   @IsNotEmpty()
   @IsString()
   status: string;
@@ -62,6 +63,9 @@ export class User {
 
   @Column({ nullable: true })
   avatar?: string;
+
+  @Column({ nullable: true })
+  address?: string;
 
   @Column({ default: false })
   statusLogin: boolean;

@@ -6,8 +6,8 @@ import * as cors from 'cors';
 import routes from './routes';
 import helmet from 'helmet';
 import * as dotenv from 'dotenv';
-import * as cron from 'node-cron';
-import { CronJobService } from './utils/utils.cronjob.sync-user';
+// import * as cron from 'node-cron';
+// import { CronJobService } from './utils/utils.cronjob.sync-user';
 import { options } from './configs/configs.cors.white-list';
 import { limitRequestConfig } from './configs/configs.rate-limit-request';
 import Websocket from './socket/socket';
@@ -26,9 +26,9 @@ AppDataSource.initialize()
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(limitRequestConfig);
     app.use('/', routes);
-    cron.schedule('0 0 4,12,18,23 * * *', () => {
-      void new CronJobService().syncUserFromBackend();
-    });
+    // cron.schedule('0 0 4,12,18,23 * * *', () => {
+    //   void new CronJobService().syncUserFromBackend();
+    // });
     const port = process.env.PORT;
     const httpServer = app.listen(port, () => {
       console.log(`Server started on port ${port}`);

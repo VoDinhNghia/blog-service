@@ -8,6 +8,11 @@ export enum EuserRole {
   STAFF = 'STAFF',
 }
 
+export enum EuserStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+}
+
 export const keyAccessBackend = 'blog-service-access-backend_@mgt-student';
 
 export const formatDateType = 'yyyy-mm-dd';
@@ -35,3 +40,5 @@ export const requestInfo = {
 export const socketMsg = {
   MESSAGE_NEW: 'message_new',
 };
+
+export const keyAccessHeaderHttp = 'key-access-secret';
