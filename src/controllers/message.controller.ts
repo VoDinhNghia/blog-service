@@ -8,6 +8,7 @@ import {
 import { ResponseController } from '../utils/utils.response';
 import { requestInfo } from '../constants/constant';
 import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { HandleResponseError } from '../utils/util.handle-response';
 
 export default class MessageController {
   static service = new MessageService();
@@ -17,9 +18,7 @@ export default class MessageController {
       const { body } = req;
       const userId = req[requestInfo.USER].id;
       await this.service.createMessage(body, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, messageMsg.create);
-      }
+      HandleResponseError(res, true, messageMsg.create);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -29,9 +28,7 @@ export default class MessageController {
     try {
       const { query } = req;
       const results = await this.service.getAllMessage(query);
-      if (!res.headersSent) {
-        new ResponseController(res, results, messageMsg.getAll);
-      }
+      HandleResponseError(res, results, messageMsg.getAll);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -45,9 +42,7 @@ export default class MessageController {
         query,
         userId
       );
-      if (!res.headersSent) {
-        new ResponseController(res, results, messageMsg.getAll);
-      }
+      HandleResponseError(res, results, messageMsg.getAll);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }

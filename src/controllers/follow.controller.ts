@@ -4,10 +4,10 @@ import {
   serverError,
   followMsg,
 } from '../constants/constants.message-response';
-import { ResponseController } from '../utils/utils.response';
 import { FollowService } from '../services/follow.service';
 import { requestInfo } from '../constants/constant';
 import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { HandleResponseError } from '../utils/util.handle-response';
 
 export default class FollowController {
   static service = new FollowService();
@@ -21,9 +21,7 @@ export default class FollowController {
         userId,
         body?.userFollowedId
       );
-      if (!res.headersSent) {
-        new ResponseController(res, result, followMsg.create);
-      }
+      HandleResponseError(res, result, followMsg.create);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -34,9 +32,7 @@ export default class FollowController {
       const id = req.params.id;
       const userId = req[requestInfo.USER].id;
       await this.service.removeFollow(res, userId, id);
-      if (!res.headersSent) {
-        new ResponseController(res, true, followMsg.delete);
-      }
+      HandleResponseError(res, true, followMsg.delete);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -47,9 +43,7 @@ export default class FollowController {
       const { query } = req;
       const userId = req[requestInfo.USER].id;
       const results = await this.service.getListFollowOfMe(query, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, results, followMsg.getAllFollow);
-      }
+      HandleResponseError(res, results, followMsg.getAllFollow);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }

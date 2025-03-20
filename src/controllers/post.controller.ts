@@ -5,6 +5,7 @@ import { postMsg, serverError } from '../constants/constants.message-response';
 import { ResponseController } from '../utils/utils.response';
 import { requestInfo } from '../constants/constant';
 import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { HandleResponseError } from '../utils/util.handle-response';
 
 export default class PostController {
   static service = new PostService();
@@ -14,9 +15,7 @@ export default class PostController {
       const { body, files } = req;
       const userId = req[requestInfo.USER].id;
       const result = await this.service.createPost(body, files, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, result, postMsg.create);
-      }
+      HandleResponseError(res, result, postMsg.create);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -27,9 +26,7 @@ export default class PostController {
       const { query } = req;
       const userId = req[requestInfo.USER].id;
       const results = await this.service.findAllPosts(query, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, results, postMsg.getAll);
-      }
+      HandleResponseError(res, results, postMsg.getAll);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -61,9 +58,7 @@ export default class PostController {
         files,
         userId
       );
-      if (!res.headersSent) {
-        new ResponseController(res, result, postMsg.update);
-      }
+      HandleResponseError(res, result, postMsg.update);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -74,9 +69,7 @@ export default class PostController {
       const userId = req[requestInfo.USER].id;
       const id: string = req.params.id;
       await this.service.deletePost(res, id, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, postMsg.delete);
-      }
+      HandleResponseError(res, true, postMsg.delete);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -87,9 +80,7 @@ export default class PostController {
       const userId = req[requestInfo.USER].id;
       const id: string = req.params.id;
       await this.service.deleteImage(res, id, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, postMsg.deleteImage);
-      }
+      HandleResponseError(res, true, postMsg.deleteImage);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }

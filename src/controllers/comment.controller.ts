@@ -5,9 +5,9 @@ import {
   commentMsg,
   serverError,
 } from '../constants/constants.message-response';
-import { ResponseController } from '../utils/utils.response';
 import { requestInfo } from '../constants/constant';
 import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { HandleResponseError } from '../utils/util.handle-response';
 
 export default class CommentController {
   static service = new CommentService();
@@ -17,9 +17,7 @@ export default class CommentController {
       const { body } = req;
       const userId = req[requestInfo.USER].id;
       const result = await this.service.createComment(res, body, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, result, commentMsg.create);
-      }
+      HandleResponseError(res, result, commentMsg.create);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -31,9 +29,7 @@ export default class CommentController {
       const id = req.params.id;
       const userId = req[requestInfo.USER].id;
       await this.service.updateComment(res, id, body, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, commentMsg.update);
-      }
+      HandleResponseError(res, true, commentMsg.update);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -44,9 +40,7 @@ export default class CommentController {
       const id = req.params.id;
       const userId = req[requestInfo.USER].id;
       await this.service.deleteComment(res, id, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, commentMsg.delete);
-      }
+      HandleResponseError(res, true, commentMsg.delete);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }

@@ -5,9 +5,9 @@ import {
   problemMsg,
   serverError,
 } from '../constants/constants.message-response';
-import { ResponseController } from '../utils/utils.response';
 import { requestInfo } from '../constants/constant';
 import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { HandleResponseError } from '../utils/util.handle-response';
 
 export default class ProblemController {
   static service = new ProblemService();
@@ -17,9 +17,7 @@ export default class ProblemController {
       const { body } = req;
       const userId = req[requestInfo.USER].id;
       const result = await this.service.createProblem(res, body, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, result, problemMsg.create);
-      }
+      HandleResponseError(res, result, problemMsg.create);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -31,9 +29,7 @@ export default class ProblemController {
       const userId = req[requestInfo.USER].id;
       const id = req.params.id;
       await this.service.updateProblem(res, id, body, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, problemMsg.update);
-      }
+      HandleResponseError(res, true, problemMsg.update);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -44,9 +40,7 @@ export default class ProblemController {
       const userId = req[requestInfo.USER].id;
       const id = req.params.id;
       await this.service.deleteProblem(res, id, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, problemMsg.delete);
-      }
+      HandleResponseError(res, true, problemMsg.delete);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
