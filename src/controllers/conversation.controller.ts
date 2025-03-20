@@ -8,6 +8,7 @@ import {
 import { ResponseController } from '../utils/utils.response';
 import { requestInfo } from '../constants/constant';
 import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { HandleResponseError } from '../utils/util.handle-response';
 
 export default class ConversationController {
   static service = new ConversationService();
@@ -17,9 +18,7 @@ export default class ConversationController {
       const { body } = req;
       const userId = req[requestInfo.USER].id;
       const result = await this.service.createConversation(res, body, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, result, conversationMsg.create);
-      }
+      HandleResponseError(res, result, conversationMsg.create);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -30,9 +29,7 @@ export default class ConversationController {
       const chatWithId = req.params.chatWithId;
       const userId = req[requestInfo.USER].id;
       const result = await this.service.getOneConversation(chatWithId, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, result, conversationMsg.getOne);
-      }
+      HandleResponseError(res, result, conversationMsg.getOne);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }

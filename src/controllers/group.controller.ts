@@ -5,6 +5,7 @@ import { ResponseController } from '../utils/utils.response';
 import { GroupService } from '../services/group.service';
 import { requestInfo } from '../constants/constant';
 import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { HandleResponseError } from '../utils/util.handle-response';
 
 export default class GroupController {
   static service = new GroupService();
@@ -26,9 +27,7 @@ export default class GroupController {
       const groupId = req.params.id;
       const userId = req[requestInfo.USER].id;
       const result = await this.service.updateGroup(res, groupId, body, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, result, groupMsg.update);
-      }
+      HandleResponseError(res, result, groupMsg.update);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -39,9 +38,7 @@ export default class GroupController {
       const { members = [] } = req.body;
       const groupId = req.params.groupId;
       await this.service.addAndUpdateNewMembers(groupId, members);
-      if (!res.headersSent) {
-        new ResponseController(res, true, groupMsg.addMembers);
-      }
+      HandleResponseError(res, true, groupMsg.addMembers);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -52,9 +49,7 @@ export default class GroupController {
       const groupId = req.params.id;
       const userId = req[requestInfo.USER].id;
       await this.service.deleteGroup(res, groupId, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, groupMsg.delete);
-      }
+      HandleResponseError(res, true, groupMsg.delete);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -64,9 +59,7 @@ export default class GroupController {
     try {
       const groupId = req.params.id;
       const result = await this.service.findGoupById(res, groupId);
-      if (!res.headersSent) {
-        new ResponseController(res, result, groupMsg.getById);
-      }
+      HandleResponseError(res, result, groupMsg.getById);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -88,9 +81,7 @@ export default class GroupController {
       const id = req.params.id;
       const userId = req[requestInfo.USER].id;
       await this.service.deleteMember(res, id, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, groupMsg.deleteMember);
-      }
+      HandleResponseError(res, true, groupMsg.deleteMember);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -101,9 +92,7 @@ export default class GroupController {
       const groupId = req.params.groupId;
       const userId = req[requestInfo.USER].id;
       await this.service.memberLeaveGroup(res, groupId, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, groupMsg.leaveGroup);
-      }
+      HandleResponseError(res, true, groupMsg.leaveGroup);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }

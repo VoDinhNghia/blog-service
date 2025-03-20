@@ -5,9 +5,9 @@ import {
   serverError,
   solutionMsg,
 } from '../constants/constants.message-response';
-import { ResponseController } from '../utils/utils.response';
 import { requestInfo } from '../constants/constant';
 import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { HandleResponseError } from '../utils/util.handle-response';
 
 export default class SolutionController {
   static service = new SolutionService();
@@ -17,9 +17,7 @@ export default class SolutionController {
       const { body } = req;
       const userId = req[requestInfo.USER].id;
       const result = await this.service.createSolution(res, body, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, result, solutionMsg.create);
-      }
+      HandleResponseError(res, result, solutionMsg.create);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -30,9 +28,7 @@ export default class SolutionController {
       const id = req.params.id;
       const userId = req[requestInfo.USER].id;
       await this.service.deleteSolution(res, id, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, solutionMsg.delete);
-      }
+      HandleResponseError(res, true, solutionMsg.delete);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -46,9 +42,7 @@ export default class SolutionController {
       const id = req.params.id;
       const userId = req[requestInfo.USER].id;
       await this.service.updateSolution(res, id, solution, userId);
-      if (!res.headersSent) {
-        new ResponseController(res, true, solutionMsg.update);
-      }
+      HandleResponseError(res, true, solutionMsg.update);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }

@@ -5,6 +5,7 @@ import { CommonException } from '../exceptions/exceptions.common-error';
 import { UserService } from '../services/user.service';
 import { requestInfo } from '../constants/constant';
 import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { HandleResponseError } from '../utils/util.handle-response';
 
 export default class UserController {
   static service = new UserService();
@@ -34,9 +35,7 @@ export default class UserController {
     try {
       const id: string = req.params.id;
       const user = await this.service.findUserById(res, id);
-      if (!res.headersSent) {
-        new ResponseController(res, user, userMsg.getById);
-      }
+      HandleResponseError(res, user, userMsg.getById);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -46,9 +45,7 @@ export default class UserController {
     try {
       const data = req.body || [];
       const result = await this.service.migrateData(res, data);
-      if (!res.headersSent) {
-        new ResponseController(res, result, userMsg.syncData.success);
-      }
+      HandleResponseError(res, result, userMsg.syncData.success);
     } catch {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
