@@ -1,36 +1,11 @@
 import { IcreateComment } from '../interfaces/post-share-like.interface';
 import { AppDataSource } from '../data-source';
 import { Comments } from '../entities/comment.entity';
-import { Response } from 'express';
-import { Posts } from '../entities/post.entity';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { commentMsg, postMsg } from '../constants/constants.message-response';
-import { Equal } from 'typeorm';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
 
 export class CommentService {
   private commentRepository = AppDataSource.getRepository(Comments);
-  private postRepository = AppDataSource.getRepository(Posts);
 
-  async createComment(
-    res: Response,
-    body: IcreateComment,
-    userId: string
-  ): Promise<Comments | object> {
-    const { postId } = body;
-    const post = await this.postRepository.findOne({
-      where: {
-        id: postId,
-        deletedAt: null,
-      },
-    });
-    if (!post) {
-      return new CommonException(
-        res,
-        httpStatusCode.NOT_FOUND,
-        postMsg.notFound
-      );
-    }
+  async createComment(body: IcreateComment, userId: string): Promise<Comments> {
     const commentDto = {
       ...body,
       userId,
@@ -39,65 +14,22 @@ export class CommentService {
     return result;
   }
 
-  async updateComment(
-    res: Response,
-    id: string,
-    body: IcreateComment,
-    userId: string
-  ): Promise<void | object> {
-    const comment = await this.commentRepository.findOne({
-      where: {
-        id: Equal(id),
-      },
-    });
-    if (!comment) {
-      return new CommonException(
-        res,
-        httpStatusCode.NOT_FOUND,
-        commentMsg.notFound
-      );
-    }
-    if (String(userId) !== String(comment.userId)) {
-      return new CommonException(
-        res,
-        httpStatusCode.FORBIDEN,
-        commentMsg.notPermission
-      );
-    }
+  async updateComment(id: string, body: IcreateComment): Promise<void> {
     await this.commentRepository.update(id, body);
   }
 
-  async deleteComment(
-    res: Response,
-    id: string,
-    userId: string
-  ): Promise<void | object> {
+  async deleteComment(id: string): Promise<void> {
+    await this.commentRepository.delete(id);
+  }
+
+  async findOneComment(
+    conWhere: object,
+    relationObj = null
+  ): Promise<Comments> {
     const comment = await this.commentRepository.findOne({
-      where: {
-        id: Equal(id),
-      },
-      relations: {
-        post: true,
-      },
+      where: conWhere,
+      relations: relationObj,
     });
-    if (!comment) {
-      return new CommonException(
-        res,
-        httpStatusCode.NOT_FOUND,
-        commentMsg.notFound
-      );
-    }
-    if (
-      String(userId) === String(comment.userId) ||
-      String(userId) === String(comment.post?.userId)
-    ) {
-      await this.commentRepository.delete(id);
-    } else {
-      return new CommonException(
-        res,
-        httpStatusCode.FORBIDEN,
-        commentMsg.notPermission
-      );
-    }
+    return comment;
   }
 }

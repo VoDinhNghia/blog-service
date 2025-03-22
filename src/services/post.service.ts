@@ -159,4 +159,15 @@ export class PostService {
     });
     return dto;
   }
+
+  async findOnePost(
+    condWhere: object,
+    relationObj = null
+  ): Promise<Posts | object> {
+    const post = await this.postRepository.findOne({
+      where: condWhere,
+      relations: relationObj,
+    });
+    return post;
+  }
 }
