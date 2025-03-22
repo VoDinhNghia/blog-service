@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { VerifyToken } from '../middlewares/verify.jwt';
 import UserController from '../controllers/user.controller';
-import { validKeyAccess } from '../validates/validates.user';
-import { ResultValidate } from '../validates/validates.result-valid';
-import { QueryUser } from '../validates/validates.query-route';
-import { BodyCreateUser } from '../validates/validates.body-route';
+import { validKeyAccess } from '../validates/user.validate';
+import { ResultValidate } from '../validates/result-valid.validate';
+import { QueryUser } from '../validates/query-route.validate';
+import { BodyCreateUser } from '../validates/body-route.validate';
 import { VerifyRoleAccess } from '../middlewares/verify.role-access-api';
 import { EuserRole } from '../constants/constant';
 

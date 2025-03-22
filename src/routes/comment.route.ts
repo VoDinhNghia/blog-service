@@ -3,8 +3,8 @@ import { VerifyToken } from '../middlewares/verify.jwt';
 import {
   BodyCreateComment,
   BodyUpdateComment,
-} from '../validates/validates.body-route';
-import { ResultValidate } from '../validates/validates.result-valid';
+} from '../validates/body-route.validate';
+import { ResultValidate } from '../validates/result-valid.validate';
 import CommentController from '../controllers/comment.controller';
 
 const router = Router();

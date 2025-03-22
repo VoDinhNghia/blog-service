@@ -1,11 +1,11 @@
-import { CommonException } from '../exceptions/exceptions.common-error';
+import { CommonException } from '../exceptions/common-error.exception';
 import { PostService } from '../services/post.service';
 import { Response, Request } from 'express';
-import { postMsg, serverError } from '../constants/constants.message-response';
-import { ResponseController } from '../utils/utils.response';
+import { postMsg, serverError } from '../constants/message-response.constant';
+import { ResponseController } from '../utils/response.util';
 import { requestInfo } from '../constants/constant';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
-import { HandleResponseError } from '../utils/util.handle-response';
+import { httpStatusCode } from '../constants/http-status-code.constant';
+import { HandleResponseError } from '../utils/handle-response.util';
 
 export default class PostController {
   static service = new PostService();

@@ -10,12 +10,12 @@ import { Response } from 'express';
 import { Attachments } from '../entities/attachment.entity';
 import * as dotenv from 'dotenv';
 import { IfileUploadType } from '../interfaces/file-upload.interface';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { postMsg } from '../constants/constants.message-response';
-import { postRelation } from '../utils/utils.relation-field';
+import { CommonException } from '../exceptions/common-error.exception';
+import { postMsg } from '../constants/message-response.constant';
+import { postRelation } from '../utils/relation-field.util';
 import { unlinkSync } from 'fs';
 dotenv.config();
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export class PostService {
   private postRepository = AppDataSource.getRepository(Posts);

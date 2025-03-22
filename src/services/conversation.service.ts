@@ -3,9 +3,9 @@ import { AppDataSource } from '../data-source';
 import { Conversations } from '../entities/conversation.entity';
 import { Response } from 'express';
 import { Equal } from 'typeorm';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { conversationMsg } from '../constants/constants.message-response';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { CommonException } from '../exceptions/common-error.exception';
+import { conversationMsg } from '../constants/message-response.constant';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export class ConversationService {
   private converRepository = AppDataSource.getRepository(Conversations);

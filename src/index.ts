@@ -8,10 +8,10 @@ import helmet from 'helmet';
 import * as dotenv from 'dotenv';
 // import * as cron from 'node-cron';
 // import { CronJobService } from './utils/utils.cronjob.sync-user';
-import { options } from './configs/configs.cors.white-list';
-import { limitRequestConfig } from './configs/configs.rate-limit-request';
+import { options } from './configs/cors.white-list.config';
+import { limitRequestConfig } from './configs/rate-limit-request.config';
 import Websocket from './socket/socket';
-import MessageSocket from './socket/socket.message';
+import MessageSocket from './socket/message.socket';
 dotenv.config();
 
 AppDataSource.initialize()

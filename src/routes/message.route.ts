@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { VerifyToken } from '../middlewares/verify.jwt';
 import MessageController from '../controllers/message.controller';
-import { BodyMessage } from '../validates/validates.body-route';
-import { ResultValidate } from '../validates/validates.result-valid';
+import { BodyMessage } from '../validates/body-route.validate';
+import { ResultValidate } from '../validates/result-valid.validate';
 import {
   QueryMessage,
   QueryMessageByConver,
-} from '../validates/validates.query-route';
+} from '../validates/query-route.validate';
 
 const router = Router();
 router.post(

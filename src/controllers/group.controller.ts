@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { groupMsg, serverError } from '../constants/constants.message-response';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { ResponseController } from '../utils/utils.response';
+import { groupMsg, serverError } from '../constants/message-response.constant';
+import { CommonException } from '../exceptions/common-error.exception';
+import { ResponseController } from '../utils/response.util';
 import { GroupService } from '../services/group.service';
 import { requestInfo } from '../constants/constant';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
-import { HandleResponseError } from '../utils/util.handle-response';
+import { httpStatusCode } from '../constants/http-status-code.constant';
+import { HandleResponseError } from '../utils/handle-response.util';
 
 export default class GroupController {
   static service = new GroupService();

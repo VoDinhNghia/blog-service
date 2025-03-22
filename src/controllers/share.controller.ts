@@ -1,10 +1,10 @@
 import { Response, Request } from 'express';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { serverError, shareMsg } from '../constants/constants.message-response';
+import { CommonException } from '../exceptions/common-error.exception';
+import { serverError, shareMsg } from '../constants/message-response.constant';
 import { ShareService } from '../services/share.service';
 import { requestInfo } from '../constants/constant';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
-import { HandleResponseError } from '../utils/util.handle-response';
+import { httpStatusCode } from '../constants/http-status-code.constant';
+import { HandleResponseError } from '../utils/handle-response.util';
 
 export default class ShareController {
   static service = new ShareService();

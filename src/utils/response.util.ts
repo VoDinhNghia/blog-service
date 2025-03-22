@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 export class ResponseController {
   constructor(
     res: Response,

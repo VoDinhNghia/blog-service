@@ -7,11 +7,11 @@ import {
   IresultMember,
 } from '../interfaces/study.interface';
 import { GroupService } from './group.service';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { topicMsg } from '../constants/constants.message-response';
+import { CommonException } from '../exceptions/common-error.exception';
+import { topicMsg } from '../constants/message-response.constant';
 import { Equal } from 'typeorm';
-import { topicRelations } from '../utils/utils.relation-field';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { topicRelations } from '../utils/relation-field.util';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export class TopicService {
   private topicRepository = AppDataSource.getRepository(StudyTopics);

@@ -1,16 +1,16 @@
-import { CommonException } from '../exceptions/exceptions.common-error';
+import { CommonException } from '../exceptions/common-error.exception';
 import { CommentService } from '../services/comment.service';
 import { Response, Request } from 'express';
 import {
   commentMsg,
   postMsg,
   serverError,
-} from '../constants/constants.message-response';
+} from '../constants/message-response.constant';
 import { requestInfo } from '../constants/constant';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 import { PostService } from '../services/post.service';
 import { Equal } from 'typeorm';
-import { ResponseController } from '../utils/utils.response';
+import { ResponseController } from '../utils/response.util';
 
 export default class CommentController {
   static service = new CommentService();

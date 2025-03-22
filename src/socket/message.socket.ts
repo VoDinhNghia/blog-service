@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import SocketInterface from './socket.interface';
+import SocketInterface from './interface.socket';
 // import { VerifyTokenSocket } from '../middlewares/verify.jwt';
 
 class MessageSocket implements SocketInterface {
