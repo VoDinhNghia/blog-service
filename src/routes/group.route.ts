@@ -4,10 +4,10 @@ import {
   BodyGroup,
   BodyUpdateGroup,
   BodyUpdateGroupMember,
-} from '../validates/validates.body-route';
-import { ResultValidate } from '../validates/validates.result-valid';
+} from '../validates/body-route.validate';
+import { ResultValidate } from '../validates/result-valid.validate';
 import GroupController from '../controllers/group.controller';
-import { QueryGroup } from '../validates/validates.query-route';
+import { QueryGroup } from '../validates/query-route.validate';
 
 const router = Router();
 

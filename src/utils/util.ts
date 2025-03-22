@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { GetCurrentDate } from './utils.get.current-date';
+import { GetCurrentDate } from './get.current-date.util';
 
 export const randomUuid = () => {
   return randomUUID();

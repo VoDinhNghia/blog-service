@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { VerifyToken } from '../middlewares/verify.jwt';
 import LikeController from '../controllers/like.controller';
-import { BodyLike } from '../validates/validates.body-route';
-import { ResultValidate } from '../validates/validates.result-valid';
+import { BodyLike } from '../validates/body-route.validate';
+import { ResultValidate } from '../validates/result-valid.validate';
 
 const router = Router();
 

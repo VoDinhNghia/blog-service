@@ -2,7 +2,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { config } from '../configs/config';
-import { UnAuthorizedException } from '../exceptions/exceptions.unauthorized';
+import { UnAuthorizedException } from '../exceptions/unauthorized.exception';
 import { IuserLogin } from '../interfaces/user.interface';
 
 export const VerifyToken = (

@@ -3,13 +3,13 @@ import * as jwt from 'jsonwebtoken';
 import { User } from '../entities/user.entity';
 import { config, expireToken } from '../configs/config';
 import { AppDataSource } from '../data-source';
-import { authMsg, serverError } from '../constants/constants.message-response';
-import { ResponseController } from '../utils/utils.response';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { selectUser } from '../utils/utils.select-fields';
+import { authMsg, serverError } from '../constants/message-response.constant';
+import { ResponseController } from '../utils/response.util';
+import { CommonException } from '../exceptions/common-error.exception';
+import { selectUser } from '../utils/select-fields.util';
 import { Equal } from 'typeorm';
 import { requestInfo } from '../constants/constant';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export default class AuthController {
   static selectFields: string[] | unknown = [...selectUser, 'password'];

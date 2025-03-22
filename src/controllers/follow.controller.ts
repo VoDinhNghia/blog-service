@@ -1,13 +1,13 @@
 import { Response, Request } from 'express';
-import { CommonException } from '../exceptions/exceptions.common-error';
+import { CommonException } from '../exceptions/common-error.exception';
 import {
   serverError,
   followMsg,
-} from '../constants/constants.message-response';
+} from '../constants/message-response.constant';
 import { FollowService } from '../services/follow.service';
 import { requestInfo } from '../constants/constant';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
-import { HandleResponseError } from '../utils/util.handle-response';
+import { httpStatusCode } from '../constants/http-status-code.constant';
+import { HandleResponseError } from '../utils/handle-response.util';
 
 export default class FollowController {
   static service = new FollowService();

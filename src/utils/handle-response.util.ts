@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Response } from 'express';
-import { ResponseController } from './utils.response';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { serverError } from '../constants/constants.message-response';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { ResponseController } from './response.util';
+import { CommonException } from '../exceptions/common-error.exception';
+import { serverError } from '../constants/message-response.constant';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export const HandleResponseError = (
   res: Response,

@@ -2,9 +2,9 @@ import { Router } from 'express';
 import PostController from '../controllers/post.controller';
 import { VerifyToken } from '../middlewares/verify.jwt';
 import { uploadImage } from '../controllers/upload.controller';
-import { ResultValidate } from '../validates/validates.result-valid';
-import { BodyPost } from '../validates/validates.body-route';
-import { QueryPost } from '../validates/validates.query-route';
+import { ResultValidate } from '../validates/result-valid.validate';
+import { BodyPost } from '../validates/body-route.validate';
+import { QueryPost } from '../validates/query-route.validate';
 
 const router = Router();
 

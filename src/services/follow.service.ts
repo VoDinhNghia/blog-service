@@ -1,13 +1,13 @@
 import { IqueryFollow } from '../interfaces/follow.interface';
-import { followMsg } from '../constants/constants.message-response';
+import { followMsg } from '../constants/message-response.constant';
 import { AppDataSource } from '../data-source';
 import { Follows } from '../entities/follow.entity';
 import { EqueryFollowType } from '../constants/constant';
-import { followRelations } from '../utils/utils.relation-field';
-import { CommonException } from '../exceptions/exceptions.common-error';
+import { followRelations } from '../utils/relation-field.util';
+import { CommonException } from '../exceptions/common-error.exception';
 import { Response } from 'express';
 import { Equal } from 'typeorm';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export class FollowService {
   private followRepository = AppDataSource.getRepository(Follows);

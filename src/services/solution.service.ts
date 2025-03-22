@@ -9,10 +9,10 @@ import { StudyProblems } from '../entities/study-problem.entity';
 import {
   problemMsg,
   solutionMsg,
-} from '../constants/constants.message-response';
-import { CommonException } from '../exceptions/exceptions.common-error';
+} from '../constants/message-response.constant';
+import { CommonException } from '../exceptions/common-error.exception';
 import { Equal } from 'typeorm';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export class SolutionService {
   private solutionRepository = AppDataSource.getRepository(StudySolutions);

@@ -2,11 +2,11 @@ import { Icreateproblem } from '../interfaces/study.interface';
 import { AppDataSource } from '../data-source';
 import { StudyProblems } from '../entities/study-problem.entity';
 import { StudyTopics } from '../entities/study-topic.entity';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { problemMsg, topicMsg } from '../constants/constants.message-response';
+import { CommonException } from '../exceptions/common-error.exception';
+import { problemMsg, topicMsg } from '../constants/message-response.constant';
 import { Response } from 'express';
 import { Equal } from 'typeorm';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export class ProblemService {
   private problemRepository = AppDataSource.getRepository(StudyProblems);

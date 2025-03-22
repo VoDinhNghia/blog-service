@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { userMsg } from '../constants/constants.message-response';
+import { CommonException } from '../exceptions/common-error.exception';
+import { userMsg } from '../constants/message-response.constant';
 import { keyAccessBackend, keyAccessHeaderHttp } from '../constants/constant';
 
 export const validKeyAccess = (

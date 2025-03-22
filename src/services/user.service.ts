@@ -1,17 +1,17 @@
-import { CommonException } from '../exceptions/exceptions.common-error';
+import { CommonException } from '../exceptions/common-error.exception';
 import { AppDataSource } from '../data-source';
 import { User } from '../entities/user.entity';
-import { userMsg } from '../constants/constants.message-response';
+import { userMsg } from '../constants/message-response.constant';
 import { Response } from 'express';
 import {
   IcreateUser,
   IqueryUser,
   IuserMigrate,
 } from '../interfaces/user.interface';
-import { selectUser } from '../utils/utils.select-fields';
+import { selectUser } from '../utils/select-fields.util';
 import { IqueryPagination } from '../interfaces/pagination.interface';
 import { Equal, In, Like, Not } from 'typeorm';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 import { generateCode, randomUuid } from '../utils/util';
 export class UserService {
   private selectOption: string[] | unknown = selectUser;

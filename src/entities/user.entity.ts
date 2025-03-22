@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Length, IsNotEmpty, IsString, IsEmail } from 'class-validator';
-import { cryptoPassWord } from '../constants/constants.cryto';
+import { cryptoPassWord } from '../constants/cryto.constant';
 import { Posts } from './post.entity';
 import { Likes } from './like.entity';
 import { Shares } from './share.entity';

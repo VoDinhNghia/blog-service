@@ -6,11 +6,11 @@ import { AppDataSource } from '../data-source';
 import { Shares } from '../entities/share.entity';
 import { Response } from 'express';
 import { Posts } from '../entities/post.entity';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { postMsg, shareMsg } from '../constants/constants.message-response';
-import { shareRelations } from '../utils/utils.relation-field';
+import { CommonException } from '../exceptions/common-error.exception';
+import { postMsg, shareMsg } from '../constants/message-response.constant';
+import { shareRelations } from '../utils/relation-field.util';
 import { Equal } from 'typeorm';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export class ShareService {
   private shareRepository = AppDataSource.getRepository(Shares);

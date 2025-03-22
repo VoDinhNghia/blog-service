@@ -5,13 +5,13 @@ import { IlikePost } from '../interfaces/post-share-like.interface';
 import { ElikeAction, ElikeType } from '../constants/constant';
 import { Shares } from '../entities/share.entity';
 import { Posts } from '../entities/post.entity';
-import { CommonException } from '../exceptions/exceptions.common-error';
+import { CommonException } from '../exceptions/common-error.exception';
 import {
   likeMsg,
   postMsg,
   shareMsg,
-} from '../constants/constants.message-response';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+} from '../constants/message-response.constant';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export class LikeService {
   private likeRepository = AppDataSource.getRepository(Likes);

@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { UnAuthorizedException } from '../exceptions/exceptions.unauthorized';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { serverError } from '../constants/constants.message-response';
+import { UnAuthorizedException } from '../exceptions/unauthorized.exception';
+import { CommonException } from '../exceptions/common-error.exception';
+import { serverError } from '../constants/message-response.constant';
 import { requestInfo } from '../constants/constant';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export const VerifyRoleAccess = (roles: Array<string>) => {
   return (req: Request, res: Response, next: NextFunction) => {

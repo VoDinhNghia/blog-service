@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import { keyAccessBackend } from '../constants/constant';
-import { Http } from './utils.http-request';
+import { Http } from './http-request.util';
 import { IuserMigrate } from '../interfaces/user.interface';
 import { AppDataSource } from '../data-source';
 import { User } from '../entities/user.entity';

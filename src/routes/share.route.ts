@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { VerifyToken } from '../middlewares/verify.jwt';
 import ShareController from '../controllers/share.controller';
-import { BodyShare, BodyUpdateShare } from '../validates/validates.body-route';
-import { ResultValidate } from '../validates/validates.result-valid';
-import { QuerySharePost } from '../validates/validates.query-route';
+import { BodyShare, BodyUpdateShare } from '../validates/body-route.validate';
+import { ResultValidate } from '../validates/result-valid.validate';
+import { QuerySharePost } from '../validates/query-route.validate';
 
 const router = Router();
 

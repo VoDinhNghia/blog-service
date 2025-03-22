@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import { VerifyToken } from '../middlewares/verify.jwt';
-import { ResultValidate } from '../validates/validates.result-valid';
+import { ResultValidate } from '../validates/result-valid.validate';
 import {
   BodyCreateSolution,
   BodyUpdateSolution,
-} from '../validates/validates.body-route';
+} from '../validates/body-route.validate';
 import SolutionController from '../controllers/solution.controller';
 
 const router = Router();

@@ -8,11 +8,11 @@ import {
 } from '../interfaces/group.interface';
 import { uniq } from 'lodash';
 import { Response } from 'express';
-import { CommonException } from '../exceptions/exceptions.common-error';
-import { groupMsg } from '../constants/constants.message-response';
+import { CommonException } from '../exceptions/common-error.exception';
+import { groupMsg } from '../constants/message-response.constant';
 import { Equal, In, Like } from 'typeorm';
-import { groupRelations } from '../utils/utils.relation-field';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
+import { groupRelations } from '../utils/relation-field.util';
+import { httpStatusCode } from '../constants/http-status-code.constant';
 
 export class GroupService {
   private groupRepository = AppDataSource.getRepository(StudyGroups);

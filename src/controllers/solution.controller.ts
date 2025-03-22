@@ -1,13 +1,13 @@
 import { SolutionService } from '../services/solution.service';
 import { Response, Request } from 'express';
-import { CommonException } from '../exceptions/exceptions.common-error';
+import { CommonException } from '../exceptions/common-error.exception';
 import {
   serverError,
   solutionMsg,
-} from '../constants/constants.message-response';
+} from '../constants/message-response.constant';
 import { requestInfo } from '../constants/constant';
-import { httpStatusCode } from '../constants/constants.httpStatusCode';
-import { HandleResponseError } from '../utils/util.handle-response';
+import { httpStatusCode } from '../constants/http-status-code.constant';
+import { HandleResponseError } from '../utils/handle-response.util';
 
 export default class SolutionController {
   static service = new SolutionService();
