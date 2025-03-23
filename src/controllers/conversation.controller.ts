@@ -8,7 +8,6 @@ import {
 import { ResponseController } from '../utils/response.util';
 import { requestInfo } from '../constants/constant';
 import { httpStatusCode } from '../constants/http-status-code.constant';
-import { HandleResponseError } from '../utils/handle-response.util';
 
 export default class ConversationController {
   static service = new ConversationService();
@@ -17,8 +16,20 @@ export default class ConversationController {
     try {
       const { body } = req;
       const userId = req[requestInfo.USER].id;
-      const result = await this.service.createConversation(res, body, userId);
-      HandleResponseError(res, result, conversationMsg.create);
+      const checkExistedConver = await this.service.findOneConver(
+        userId,
+        body?.chatWithId,
+        false
+      );
+      if (checkExistedConver) {
+        return new CommonException(
+          res,
+          httpStatusCode.CONFLICT,
+          conversationMsg.existed
+        );
+      }
+      const result = await this.service.createConversation(body, userId);
+      return new ResponseController(res, result, conversationMsg.create);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }
@@ -29,7 +40,7 @@ export default class ConversationController {
       const chatWithId = req.params.chatWithId;
       const userId = req[requestInfo.USER].id;
       const result = await this.service.getOneConversation(chatWithId, userId);
-      HandleResponseError(res, result, conversationMsg.getOne);
+      return new ResponseController(res, result, conversationMsg.getOne);
     } catch (error) {
       new CommonException(res, httpStatusCode.SERVER_INTERVEL, serverError);
     }

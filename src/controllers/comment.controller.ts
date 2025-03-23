@@ -73,8 +73,8 @@ export default class CommentController {
         );
       }
       if (
-        String(userId) != String(comment.userId) ||
-        String(userId) != String(comment.post?.userId)
+        String(userId) !== String(comment.userId) ||
+        String(userId) !== String(comment.post?.userId)
       ) {
         return new CommonException(
           res,
